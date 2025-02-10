@@ -73,5 +73,5 @@ body {
 
 /* setting height for slider */
 .sliderHeight{
-  height: calc(100vh - 127px) !important;
+  height: calc(100vh - 125px) !important;
 }
