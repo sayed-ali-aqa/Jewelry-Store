@@ -70,3 +70,8 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* setting height for slider */
+.sliderHeight{
+  height: calc(100vh - 127px) !important;
+}
