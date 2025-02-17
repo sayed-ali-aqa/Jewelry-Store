@@ -16,15 +16,15 @@ export function Navbar() {
 
   return (
     <div className='border-b md:border-none'>
-      <div className='bg-accent px-4 md:px-6 py-1 flex items-center justify-start md:justify-around'>
+      <div className='bg-black px-4 py-1 flex items-center justify-between'>
         <div className='flex items-center gap-6 w-full md:w-fit justify-between'>
           <div className='flex items-center gap-1'>
             <Gem size={16} className='text-primary' />
-            <p className='text-sm font-semibold'>#1 Free Global Shipping</p>
+            <p className='text-sm font-semibold text-white'>#1 Free Global Shipping</p>
           </div>
 
           <Select>
-            <SelectTrigger className="w-[95px] border-none shadow-none outline-none focus:ring-0 font-semibold">
+            <SelectTrigger className="w-[95px] border-none shadow-none text-white outline-none focus:ring-0 font-semibold">
               <SelectValue placeholder="English" />
             </SelectTrigger>
             <SelectContent>
@@ -37,15 +37,15 @@ export function Navbar() {
 
         <div className='hidden md:flex items-center gap-12 justify-between'>
           <div className='flex items-center gap-4'>
-            <Link href="/faqs" className='transition-all duration-300 hover:text-primary text-sm font-semibold'>Faqs</Link>
-            <Link href="/shipping" className='transition-all duration-300 hover:text-primary text-sm font-semibold'>Shipping</Link>
+            <Link href="/faqs" className='text-white transition-all duration-300 hover:text-primary text-sm font-semibold'>Faqs</Link>
+            <Link href="/shipping" className='text-white transition-all duration-300 hover:text-primary text-sm font-semibold'>Shipping</Link>
           </div>
 
           <div className='flex items-center gap-3'>
-            <Link href="https://facebook.com" className='transition-all duration-300 hover:text-primary'><Facebook size={16} /></Link>
-            <Link href="https://instagram.com" className='transition-all duration-300 hover:text-primary'><Instagram size={16} /></Link>
-            <Link href="https://twitter.com" className='transition-all duration-300 hover:text-primary'><Twitter size={16} /></Link>
-            <Link href="https://youtube.com" className='transition-all duration-300 hover:text-primary'><Youtube size={16} /></Link>
+            <Link href="https://facebook.com" className='text-white transition-all duration-300 hover:text-primary'><Facebook size={16} /></Link>
+            <Link href="https://instagram.com" className='text-white transition-all duration-300 hover:text-primary'><Instagram size={16} /></Link>
+            <Link href="https://twitter.com" className='text-white transition-all duration-300 hover:text-primary'><Twitter size={16} /></Link>
+            <Link href="https://youtube.com" className='text-white transition-all duration-300 hover:text-primary'><Youtube size={16} /></Link>
           </div>
         </div>
       </div>
