@@ -19,7 +19,7 @@ const Footer = () => {
         <div className='col-span-12 lg:col-span-5 w-full flex flex-col gap-10'>
           <div className='flex flex-col max-w-[400px]'>
             <div className='w-fit flex flex-col items-center'>
-              <img src="./images/logo/logo.png" height={60} width={60} alt="Logo" />
+              <img src="/images/logo/logo.png" height={60} width={60} alt="Logo" />
               <h2 className='font-semibold text-primary text-xl'>Gem Jewelery Store</h2>
             </div>
 
@@ -89,10 +89,10 @@ const Footer = () => {
         </div>
 
         <div className='flex gap-2 items-center max-h-[40px]'>
-          <img src="./images/cards/paypal.svg" height={20} className='max-h-[32px]' alt="" />
-          <img src="./images/cards/visa.svg" height={20} className='max-h-[32px]' alt="" />
-          <img src="./images/cards/mastercard.svg" height={20} className='max-h-[32px]' alt="" />
-          <img src="./images/cards/amex.svg" height={20} className='max-h-[32px]' alt="" />
+          <img src="/images/cards/paypal.svg" height={20} className='max-h-[32px]' alt="" />
+          <img src="/images/cards/visa.svg" height={20} className='max-h-[32px]' alt="" />
+          <img src="/images/cards/mastercard.svg" height={20} className='max-h-[32px]' alt="" />
+          <img src="/images/cards/amex.svg" height={20} className='max-h-[32px]' alt="" />
         </div>
       </div>
     </div>

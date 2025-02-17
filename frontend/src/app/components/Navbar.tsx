@@ -52,7 +52,7 @@ export function Navbar() {
 
       <div className='flex gap-6 p-4 border:none md:border-b justify-between md:justify-around items-center'>
         <div className='flex h-[50px]'>
-          <img src="./images/logo/logo.png" height="50" alt="Logo" />
+          <img src="/images/logo/logo.png" height="50" alt="Logo" />
         </div>
 
         <div className='hidden md:flex items-center gap-6'>

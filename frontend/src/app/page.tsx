@@ -1,5 +1,6 @@
 import Slider from "@/components/Slider";
 import HomeBanner from '@/components/HomeBanner'
+import CategoryBanner from '@/components/CategoryBanner'
 
 export default function Home() {
   return (
@@ -7,6 +8,8 @@ export default function Home() {
       <Slider />
 
       <HomeBanner />
+
+      <CategoryBanner />
     </div>
   );
 }

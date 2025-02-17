@@ -15,7 +15,7 @@ export default function Slider() {
     const router = useRouter()
 
     const plugin = React.useRef(
-        Autoplay({ delay: 10000, stopOnInteraction: true })
+        Autoplay({ delay: 2000, stopOnInteraction: true })
     )
 
     return (
@@ -26,21 +26,9 @@ export default function Slider() {
             onMouseLeave={plugin.current.reset}
         >
             <CarouselContent>
-                <CarouselItem key={1}>
+            <CarouselItem key={1}>
                     <div className="w-full h-full relative">
-                        <img src={`./images/slider/01.jpg`} className="w-full sliderHeight object-cover object-[70%_30%] md:object-center" alt="Discover Timeless Elegance" />
-
-                        <div className="p-4 absolute top-1/2 translate-none -translate-y-1/2 left-0 md:left-[10%] max-w-[600px]">
-                            <h2 className="text-4xl md:text-6xl font-bold mb-6">Discover Timeless Elegance</h2>
-                            <p className="text-slate-600 text-lg mb-8"> Elevate your style with our exquisite collection of handcrafted jewelry. Each piece is designed to shine with sophistication and grace.</p>
-                            <Button size="lg" onClick={() => router.push('/products')}>Shop Now</Button>
-                        </div>
-                    </div>
-                </CarouselItem>
-
-                <CarouselItem key={2}>
-                    <div className="w-full h-full relative">
-                        <img src={`./images/slider/02.jpg`} className="w-full sliderHeight object-cover object-center" alt="Luxury That Defines You" />
+                        <img src={`/images/slider/02.jpg`} className="w-full sliderHeight object-cover object-center" alt="Luxury That Defines You" />
 
                         <div className="w-full p-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[800px] flex flex-col items-center">
                             <h2 className="text-6xl md:text-7xl font-bold mb-6 text-center text-primary leading-[80px]">Luxury That Defines You</h2>
@@ -50,9 +38,21 @@ export default function Slider() {
                     </div>
                 </CarouselItem>
 
+                <CarouselItem key={2}>
+                    <div className="w-full h-full relative">
+                        <img src={`/images/slider/01.jpg`} className="w-full sliderHeight object-cover object-[70%_30%] md:object-center" alt="Discover Timeless Elegance" />
+
+                        <div className="p-4 absolute top-1/2 translate-none -translate-y-1/2 left-0 md:left-[10%] max-w-[600px]">
+                            <h2 className="text-4xl md:text-6xl font-bold mb-6">Discover Timeless Elegance</h2>
+                            <p className="text-slate-600 text-lg mb-8"> Elevate your style with our exquisite collection of handcrafted jewelry. Each piece is designed to shine with sophistication and grace.</p>
+                            <Button size="lg" onClick={() => router.push('/products')}>Shop Now</Button>
+                        </div>
+                    </div>
+                </CarouselItem>
+
                 <CarouselItem key={3}>
                     <div className="w-full h-full relative">
-                        <img src={`./images/slider/03.jpg`} className="w-full sliderHeight object-cover object-[70%_30%] md:object-center" alt="Celebrate love and milestones with jewelry that tells a story." />
+                        <img src={`/images/slider/03.jpg`} className="w-full sliderHeight object-cover object-[70%_30%] md:object-center" alt="Celebrate love and milestones with jewelry that tells a story." />
 
                         <div className="p-4 absolute top-1/2 -translate-y-1/2 left-0 md:left-[10%] max-w-[600px] flex flex-col md:block">
                             <span className="block text-lg uppercase text-center md:text-left">The perfect way to say “<span className="text-primary font-bold">I love you.</span>”</span>
