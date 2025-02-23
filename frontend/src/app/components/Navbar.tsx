@@ -15,7 +15,7 @@ export function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false)
 
   return (
-    <div className='border-b md:border-none'>
+    <div className='border-b md:border-none sticky top-0 z-50'>
       <div className='bg-black px-4 py-1 flex items-center justify-between'>
         <div className='flex items-center gap-6 w-full md:w-fit justify-between'>
           <div className='flex items-center gap-1'>
@@ -50,7 +50,7 @@ export function Navbar() {
         </div>
       </div>
 
-      <div className='flex gap-6 p-4 border:none md:border-b justify-between md:justify-around items-center'>
+      <div className='bg-white flex gap-6 p-4 border:none md:border-b justify-between md:justify-around items-center'>
         <div className='flex h-[50px]'>
           <img src="/images/logo/logo.png" height="50" alt="Logo" />
         </div>
@@ -95,7 +95,7 @@ export function Navbar() {
       </div>
 
       {/* Mobile Navs */}
-      <div className={`${toggleMenu ? 'max-h-screen' : 'max-h-0'} overflow-hidden transition-all duration-500 flex flex-col items-center gap-6`}>
+      <div className={`${toggleMenu ? 'max-h-screen' : 'max-h-0'} bg-white overflow-hidden transition-all duration-500 flex flex-col items-center gap-6`}>
         <Link href="/" className='py-3 transition-all duration-300 hover:text-primary'>Home</Link>
         <div className="relative group">
           <button className="py-3 transition-all duration-300 hover:text-primary">Shop</button>

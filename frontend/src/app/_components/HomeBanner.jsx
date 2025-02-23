@@ -1,3 +1,4 @@
+"use server"
 import React from 'react'
 import { RefreshCcw, Shield, Truck } from 'lucide-react'
 

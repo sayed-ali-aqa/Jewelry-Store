@@ -5,7 +5,7 @@ import { MoveRight } from 'lucide-react'
 const CategoryBanner = () => {
     return (
         <div className='px-4 py-14 max-w-[1600px] mx-auto'>
-            <h2 className='mb-8 text-4xl font-semibold'>Shop by categories</h2>
+            <h2 className='mb-8 text-4xl font-semibold'>Shop by Category</h2>
 
             <div className='grid gap-4 sm:gap-6 grid-cols-12 justify-between'>
                 <div className='col-span-12 sm:col-span-6 lg:col-span-3 h-[300px] w-full bg-[url("/images/covers/earings.jpg")] bg-cover bg-center relative'>

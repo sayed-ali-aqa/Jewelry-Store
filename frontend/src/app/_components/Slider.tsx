@@ -62,8 +62,8 @@ export default function Slider() {
                     </div>
                 </CarouselItem>
             </CarouselContent>
-            <CarouselPrevious className="hidden md:block bg-white shadow-sm top-[50%] left-0 h-12 w-12 hover:text-primary hover:bg-white" />
-            <CarouselNext className="hidden md:block bg-white shadow-sm top-[50%] -right-[1px] h-12 w-12 hover:text-primary hover:bg-white" />
+            <CarouselPrevious className="hidden md:flex bg-white shadow-sm justify-center top-[50%] left-0 h-12 w-12 hover:text-primary hover:bg-white" />
+            <CarouselNext className="hidden md:flex bg-white shadow-sm justify-center top-[50%] -right-[1px] h-12 w-12 hover:text-primary hover:bg-white" />
         </Carousel>
     )
 }

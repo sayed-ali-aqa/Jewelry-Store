@@ -1,15 +1,18 @@
-import Slider from "@/components/Slider";
-import HomeBanner from '@/components/HomeBanner'
-import CategoryBanner from '@/components/CategoryBanner'
+import Slider from "./_components/Slider";
+import HomeBanner from './_components/HomeBanner'
+import CategoryBanner from './_components/CategoryBanner'
+import TopProducts from './_components/TopProducts'
 
 export default function Home() {
   return (
-    <div className="">
+    <div>
       <Slider />
 
       <HomeBanner />
 
       <CategoryBanner />
+
+      <TopProducts />
     </div>
   );
 }
