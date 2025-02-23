@@ -75,3 +75,12 @@ body {
 .sliderHeight{
   height: calc(100vh - 125px) !important;
 }
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
