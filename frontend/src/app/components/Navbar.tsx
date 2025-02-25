@@ -10,6 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import Image from 'next/image'
+const Logo = '/images/logo/logo.png'
 
 export function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false)
@@ -52,7 +54,7 @@ export function Navbar() {
 
       <div className='bg-white flex gap-6 p-4 border:none md:border-b justify-between md:justify-around items-center'>
         <div className='flex h-[50px]'>
-          <img src="/images/logo/logo.png" height="50" alt="Logo" />
+          <Image src={Logo} height="50" alt="Logo" width={50} />
         </div>
 
         <div className='hidden md:flex items-center gap-6'>

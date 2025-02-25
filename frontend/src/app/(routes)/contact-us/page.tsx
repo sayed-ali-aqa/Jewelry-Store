@@ -13,10 +13,10 @@ const page = () => {
                 <div className='flex flex-col gap-2 py-2'>
                     <div className='flex items-center gap-4 mb-4'>
                         <Phone size={22} className='text-primary' />
-                        <h2 className='text-xl font-semibold'>Call Us</h2>
+                        <h2 className='text-2xl font-semibold'>Call Us</h2>
                     </div>
 
-                    <p className='text-slate-500'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt, explicabo?</p>
+                    <p className='text-slate-500 text-lg'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt, explicabo?</p>
                     <a href="tel:073843743" className='transition-all duration-300 hover:text-primary font-semibold'>073 843 7433</a>
                 </div>
 
@@ -25,10 +25,10 @@ const page = () => {
                 <div className='flex flex-col gap-2 py-2'>
                     <div className='flex items-center gap-4 mb-4'>
                         <Mail size={22} className='text-primary' />
-                        <h2 className='text-xl font-semibold'>Write Us</h2>
+                        <h2 className='text-2xl font-semibold'>Write Us</h2>
                     </div>
 
-                    <p className='text-slate-500'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt, explicabo?</p>
+                    <p className='text-slate-500 text-lg'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt, explicabo?</p>
                     <a href="mailto:example@gmail.com" className='transition-all duration-300 hover:text-primary font-semibold'>example@gmail.com</a>
                 </div>
 
@@ -37,10 +37,10 @@ const page = () => {
                 <div className='flex flex-col gap-2 py-2'>
                     <div className='flex items-center gap-4 mb-4'>
                         <MapPin size={22} className='text-primary' />
-                        <h2 className='text-xl font-semibold'>Find Us</h2>
+                        <h2 className='text-2xl font-semibold'>Find Us</h2>
                     </div>
 
-                    <p className='text-slate-500'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt, explicabo?</p>
+                    <p className='text-slate-500 text-lg'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt, explicabo?</p>
                     <a href="https:maps.google.com" className='transition-all duration-300 hover:text-primary font-semibold'>12 S Main St, Yardley, PA 19067, USA</a>
                 </div>
             </section>

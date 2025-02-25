@@ -4,6 +4,8 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Button } from './ui/button'
+import Image from 'next/image'
+const Logo = '/images/logo/logo.png'
 
 const Footer = () => {
   const [currentYear, setCurrentYear] = useState(2025);
@@ -19,11 +21,11 @@ const Footer = () => {
         <div className='col-span-12 lg:col-span-5 w-full flex flex-col gap-10'>
           <div className='flex flex-col max-w-[400px]'>
             <div className='w-fit flex flex-col items-center'>
-              <img src="/images/logo/logo.png" height={60} width={60} alt="Logo" />
-              <h2 className='font-semibold text-primary text-xl'>Gem Jewelery Store</h2>
+              <Image src={Logo} height={60} width={60} alt="Logo" />
+              <h2 className='font-semibold text-primary text-2xl'>Gem Jewelery Store</h2>
             </div>
 
-            <p className='text-white mt-1 font-light'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, nostrum a. Architecto earum aut inventore quaerat deserunt nisi distinctio reiciendis!</p>
+            <p className='text-white mt-1 font-light text-lg'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, nostrum a. Architecto earum aut inventore quaerat deserunt nisi distinctio reiciendis!</p>
           </div>
 
           <div className='w-full max-w-[350px]'>
