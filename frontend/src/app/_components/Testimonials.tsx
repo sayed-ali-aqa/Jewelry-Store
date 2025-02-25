@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/carousel"
 import { ReviewCard } from "./ReviewCard"
 
-export function Reviews() {
+export function Testimonials() {
     const [api, setApi] = React.useState<CarouselApi>()
     const [current, setCurrent] = React.useState(0)
     const [count, setCount] = React.useState(0)
@@ -43,8 +43,8 @@ export function Reviews() {
                             <ReviewCard key={index} />
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious className="hidden md:flex bg-white -left-4 border-none shadow-sm h-10 w-10 hover:bg-white hover:text-primary"/>
-                    <CarouselNext className="hidden md:flex bg-white -right-4 border-none shadow-sm h-10 w-10 hover:bg-white hover:text-primary"/>
+                    <CarouselPrevious className="hidden md:flex bg-white -left-4 border-none shadow-sm h-10 w-10 hover:bg-white hover:text-golden"/>
+                    <CarouselNext className="hidden md:flex bg-white -right-4 border-none shadow-sm h-10 w-10 hover:bg-white hover:text-golden"/>
                 </Carousel>
                 <div className="py-2 text-center text-md text-muted-foreground">
                     Review {current} of {count}

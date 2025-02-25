@@ -24,6 +24,10 @@ export default {
   				DEFAULT: '#A68958',
   				foreground: 'hsl(var(--primary-foreground))'
   			},
+			golden: {
+				DEFAULT: '#f7c32e',
+				foreground: 'hsl(var(--golden-foreground))'
+			},
   			secondary: {
   				DEFAULT: 'hsl(var(--secondary))',
   				foreground: 'hsl(var(--secondary-foreground))'
