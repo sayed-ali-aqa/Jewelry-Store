@@ -7,7 +7,7 @@ import Link from 'next/link'
 const page = () => {
     return (
         <>
-            <h1 className='text-4xl font-bold text-center mb-12'>Sign In</h1>
+            <h1 className='text-3xl font-bold text-center mb-12'>Sign In</h1>
 
             <form action="">
                 <div className='flex flex-col gap-6'>

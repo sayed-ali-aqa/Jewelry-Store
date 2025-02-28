@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 500 500" width="500" height="500" preserveAspectRatio="xMidYMid meet"
+    style="width: 100%; height: 100%; transform: translate3d(0px, 0px, 0px); content-visibility: visible;"
+    id="Circle Loader">
+    <defs>
+        <clipPath id="__lottie_element_9257">
+            <rect width="500" height="500" x="0" y="0" />
+        </clipPath>
+    </defs>
+    <g clip-path="url(#__lottie_element_9257)">
+        <g
+            transform="matrix(0.27989134192466736,-0.9600316882133484,0.9600316882133484,0.27989134192466736,245.72044372558594,253.96047973632812)"
+            opacity="1" style="display: block;">
+            <g opacity="1" transform="matrix(1.271630048751831,0,0,1.271630048751831,5,3)">
+                <path stroke-linecap="round" stroke-linejoin="miter" fill-opacity="0"
+                    stroke-miterlimit="4" stroke="#A68958" stroke-opacity="1"
+                    stroke-width="24"
+                    d=" M0,-129 C71.19509887695312,-129 129,-71.19509887695312 129,0 C129,71.19509887695312 71.19509887695312,129 0,129 C-71.19509887695312,129 -129,71.19509887695312 -129,0 C-129,-12.604000091552734 -127.18800354003906,-24.788000106811523 -123.81199645996094,-36.305999755859375" />
+            </g>
+        </g>
+    </g>
+</svg>

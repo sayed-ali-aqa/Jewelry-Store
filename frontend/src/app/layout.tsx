@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from "@/components/ui/sonner"
 import { Lato } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={lato.className}>
         <Navbar />
         {children}
+        <Toaster position="top-center" richColors />
         <Footer />
       </body>
     </html>
