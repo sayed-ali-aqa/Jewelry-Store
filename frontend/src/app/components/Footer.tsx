@@ -25,7 +25,7 @@ const Footer = () => {
               <h2 className='font-semibold text-primary text-2xl'>Gem Jewelery Store</h2>
             </div>
 
-            <p className='text-white mt-1 font-light text-lg'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, nostrum a. Architecto earum aut inventore quaerat deserunt nisi distinctio reiciendis!</p>
+            <p className='text-white mt-1 font-light'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, nostrum a. Architecto earum aut inventore quaerat deserunt nisi distinctio reiciendis!</p>
           </div>
 
           <div className='w-full max-w-[350px]'>

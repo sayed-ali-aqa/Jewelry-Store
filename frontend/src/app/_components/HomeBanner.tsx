@@ -14,7 +14,7 @@ const HomeBanner = () => {
                 </div>
                 <div className='flex flex-col gap-2 justify-center'>
                     <h3 className='text-white font-medium text-lg uppercase'>Free Shipping Worldwide</h3>
-                    <p className='text-slate-200 font-medium'>Enjoy free shipping on all orders over $200.00.</p>
+                    <p className='text-slate-200'>Enjoy free shipping on all orders over $200.00.</p>
                 </div>
             </div>
 
@@ -27,7 +27,7 @@ const HomeBanner = () => {
                 </div>
                 <div className='flex flex-col gap-2 justify-center'>
                     <h3 className='text-white font-medium text-lg uppercase'>30-Day Easy Returns</h3>
-                    <p className='text-slate-200 font-medium'>Shop with confidence. Hassle-free returns within 30 days.</p>
+                    <p className='text-slate-200'>Shop with confidence. Hassle-free returns within 30 days.</p>
                 </div>
             </div>
 
@@ -40,7 +40,7 @@ const HomeBanner = () => {
                 </div>
                 <div className='flex flex-col gap-2 justify-center'>
                     <h3 className='text-white font-medium text-lg uppercase'>100% Secure Payment</h3>
-                    <p className='text-slate-200 font-medium'>Your payments are safe and encrypted for complete security.</p>
+                    <p className='text-slate-200'>Your payments are safe and encrypted for complete security.</p>
                 </div>
             </div>
         </div>

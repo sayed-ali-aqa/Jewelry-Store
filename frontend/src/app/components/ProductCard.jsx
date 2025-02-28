@@ -18,11 +18,11 @@ const ProductCard = () => {
             />
 
             <div className='bg-white absolute bottom-3 left-3 right-3 p-4 flex flex-col gap-1'>
-                <h3 className='text-lg transition-all duration-300 group-hover:text-primary'>Queen Brcelets Diamond Seed</h3>
+                <h3 className='transition-all duration-300 group-hover:text-primary'>Queen Brcelets Diamond Seed</h3>
 
                 <div className='flex gap-2'>
-                    <span className='line-through text-slate-400 font-semibold text-lg'>$1200.00</span>
-                    <span className='text-primary font-bold text-lg'>$1120.00</span>
+                    <span className='line-through text-slate-400 font-semibold'>$1200.00</span>
+                    <span className='text-primary font-bold'>$1120.00</span>
                 </div>
             </div>
         </Link>

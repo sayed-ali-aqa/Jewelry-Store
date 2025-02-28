@@ -20,9 +20,9 @@ export function ReviewCard() {
                     </div>
 
                     <div className="flex flex-col gap-2 items-center md:items-start">
-                        <p className="text-slate-500 text-lg text-center md:text-left">I had an amazing experience shopping! The jewelry pieces are absolutely stunning, and the quality exceeded my expectations. The website is easy to navigate, and the checkout process was seamless.</p>
+                        <p className="text-slate-500 text-center md:text-left">I had an amazing experience shopping! The jewelry pieces are absolutely stunning, and the quality exceeded my expectations. The website is easy to navigate, and the checkout process was seamless.</p>
 
-                        <div className="flex gap-1 text-orange-300">
+                        <div className="flex gap-1 text-golden">
                             <Star size={20} />
                             <Star size={20} />
                             <Star size={20} />
