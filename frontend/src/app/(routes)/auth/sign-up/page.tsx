@@ -9,7 +9,7 @@ import { signUpForm } from '@utils/api/auth';
 import { AuthProps } from '@types/auth';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SignUpSchema } from '@utils/validations/authValidation';
+import { AuthSchema } from '@utils/validations/authValidation';
 
 const Page = () => {
     const {
@@ -17,7 +17,7 @@ const Page = () => {
         handleSubmit,
         formState: { errors, isSubmitting },
     } = useForm<AuthProps>({
-        resolver: zodResolver(SignUpSchema),  // Use Zod resolver for validation
+        resolver: zodResolver(AuthSchema),  // Use Zod resolver for validation
     });
 
     const onSubmit = async (data: AuthProps) => {

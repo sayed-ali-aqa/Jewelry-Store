@@ -1,50 +1,80 @@
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import React from 'react'
-import { Label } from "@/components/ui/label"
-import Link from 'next/link'
+"use client";
 
-const page = () => {
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import React from 'react';
+import { Label } from "@/components/ui/label";
+import Link from 'next/link';
+import { signInForm } from '@utils/api/auth';
+import { AuthProps } from '@types/auth';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AuthSchema } from '@utils/validations/authValidation';
+
+const Page = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+    } = useForm<AuthProps>({
+        resolver: zodResolver(AuthSchema),  // Use Zod resolver for validation
+    });
+
+    const onSubmit = async (data: AuthProps) => {
+        await signInForm(data);  // Call the signup API with validated data
+    };
+
     return (
         <>
-            <h1 className='text-3xl font-bold text-center mb-12'>Sign In</h1>
+            <h1 className="text-3xl font-bold text-center mb-12">Sign In</h1>
 
-            <form action="">
-                <div className='flex flex-col gap-6'>
-                    <div className='flex flex-col gap-1'>
-                        <Label htmlFor="email">Email <span className='text-destructive'>*</span></Label>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="flex flex-col gap-6">
+                    {/* Email Input */}
+                    <div className="flex flex-col gap-1">
+                        <Label htmlFor="email">Email <span className="text-destructive">*</span></Label>
                         <Input
                             type="email"
-                            placeholder='Email'
-                            className='h-12'
+                            placeholder="Email"
+                            className={`h-12 ${errors.email ? "border-2 border-destructive focus-visible:ring-0" : ""}`}
+                            {...register("email")}
                         />
+                        {errors.email && <span className="text-destructive text-sm">{errors.email?.message}</span>}
                     </div>
 
-                    <div className='flex flex-col gap-1'>
-                        <Label htmlFor="password">Password <span className='text-destructive'>*</span></Label>
+                    {/* Password Input */}
+                    <div className="flex flex-col gap-1">
+                        <Label htmlFor="password">Password <span className="text-destructive">*</span></Label>
                         <Input
                             type="password"
-                            placeholder='Password *'
-                            className='h-12'
+                            placeholder="Password"
+                            className={`h-12 ${errors.password ? "border-2 border-destructive focus-visible:ring-0" : ""}`}
+                            {...register("password")}
                         />
+                        {errors.password && <span className="text-destructive text-sm">{errors.password?.message}</span>}
                     </div>
 
-                    <div className='-mt-2 flex justify-between items-center'>
-                        <span className='text-sm flex gap-1'>
-                            Don't have an account?
-                            <Link href='/auth/sign-up' className='transition-all duration-300 underline hover:text-primary'>Create one here</Link>
-                        </span>
+                    <span className='text-sm flex gap-1 -mt-2'>
+                        Already have an account?
+                        <Link href='/auth/sign-in' className='transition-all duration-300 underline hover:text-primary'>
+                            Sign in here
+                        </Link>
+                    </span>
 
-                        <span className='text-sm'>
-                            <Link href='/auth/forgot-password' className='transition-all duration-300 hover:text-primary'>Forgot Password?</Link>
-                        </span>
-                    </div>
+                    <Button type="submit" variant="dark" className="w-fit h-12 font-semibold" size="lg" disabled={isSubmitting}>
+                        {
+                            isSubmitting ? (
+                                <img src="/images/icons/loader.svg" width={36} height={36} alt="Loader Icon" />
+                            ) : (
+                                "Sign In"
+                            )
+                        }
 
-                    <Button variant="dark" className='w-fit py-6 font-semibold' size="lg">Sign In</Button>
+                    </Button>
                 </div>
             </form>
         </>
-    )
-}
+    );
+};
 
-export default page
+export default Page;
