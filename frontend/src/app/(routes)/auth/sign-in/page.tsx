@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import React from 'react';
 import { Label } from "@/components/ui/label";
 import Link from 'next/link';
-import { signInForm } from '@utils/api/auth';
+import { signInForm } from '@utils/actions/auth';
 import { AuthProps } from '@types/auth';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

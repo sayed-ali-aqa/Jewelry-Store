@@ -2,8 +2,9 @@ import axios from 'axios';
 import { toast } from "sonner"
 import { AuthProps } from '@/types/auth';
 import { AuthSchema } from '../validations/authValidation';
+import { setTokenCookie } from '../../lib/authCookie';
 
-const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/local`
+const baseUrl = `${process.env.NEXT_SERVER_URL}/api/auth/local`
 
 export const signUpForm = async ({ email, password }: AuthProps): Promise<void> => {
     try {
@@ -16,7 +17,7 @@ export const signUpForm = async ({ email, password }: AuthProps): Promise<void> 
             password,
         })
 
-        if(response.status === 200){
+        if (response.status === 200) {
             toast.success("Signed up successfully!");
         }
     } catch (error: any) {
@@ -26,20 +27,18 @@ export const signUpForm = async ({ email, password }: AuthProps): Promise<void> 
 
 export const signInForm = async ({ email, password }: AuthProps): Promise<void> => {
     try {
-        // validate with Zod
-        AuthSchema.parse({ email, password })
+        AuthSchema.parse({ email, password });
 
-        const response = await axios.post(baseUrl, {
-            identifier: email,
-            password,
-        })
+        const response = await axios.post("/api/auth/signin", { email, password });
 
-        if(response.status === 200){
+        if (response.status === 200) {
             toast.success("Signed in successfully!");
         }
     } catch (error: any) {
-        console.log(error);
-        
-        toast.error("Failed to sign in")
+        if (error.status === 401) {
+            toast.error("Invalid email or password");
+        } else {
+            toast.error("Failed to sign in");
+        }
     }
-}
+};
