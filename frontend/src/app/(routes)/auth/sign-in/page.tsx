@@ -55,16 +55,16 @@ const Page = () => {
                     </div>
 
                     <span className='text-sm flex gap-1 -mt-2'>
-                        Already have an account?
-                        <Link href='/auth/sign-in' className='transition-all duration-300 underline hover:text-primary'>
-                            Sign in here
+                        Don't have an account?
+                        <Link href='/auth/sign-up' className='transition-all duration-300 underline hover:text-primary'>
+                            Create one here
                         </Link>
                     </span>
 
                     <Button type="submit" variant="dark" className="w-fit h-12 font-semibold" size="lg" disabled={isSubmitting}>
                         {
                             isSubmitting ? (
-                                <img src="/images/icons/loader.svg" width={36} height={36} alt="Loader Icon" />
+                                <img src="/images/icons/loader.svg" width={32} height={32} alt="Loader Icon" />
                             ) : (
                                 "Sign In"
                             )

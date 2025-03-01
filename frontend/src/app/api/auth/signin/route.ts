@@ -25,7 +25,7 @@ export async function POST(req: Request) {
         }
     } catch (error) {
         return new NextResponse(
-            JSON.stringify({ message: "Invalid credentials", error }),
+            JSON.stringify({ message: "Invalid email or password", error }),
             { status: 401 }
         );
     }

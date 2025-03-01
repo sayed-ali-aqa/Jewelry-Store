@@ -2,26 +2,23 @@ import axios from 'axios';
 import { toast } from "sonner"
 import { AuthProps } from '@/types/auth';
 import { AuthSchema } from '../validations/authValidation';
-import { setTokenCookie } from '../../lib/authCookie';
-
-const baseUrl = `${process.env.NEXT_SERVER_URL}/api/auth/local`
 
 export const signUpForm = async ({ email, password }: AuthProps): Promise<void> => {
     try {
         // validate with Zod
         AuthSchema.parse({ email, password })
 
-        const response = await axios.post(`${baseUrl}/register`, {
-            username: email, // Strapi requires username, but we use email instead
-            email,
-            password,
-        })
+        const response = await axios.post("/api/auth/signup", { email, password });
 
-        if (response.status === 200) {
+        if (response.status === 201) {
             toast.success("Signed up successfully!");
         }
-    } catch (error: any) {
-        toast.error("Failed to sign up")
+    } catch (error: any) {        
+        if (error.status === 400) {
+            toast.error(error.response.data.message);
+        } else {
+            toast.error("Failed to sign up");
+        }
     }
 }
 
@@ -35,8 +32,10 @@ export const signInForm = async ({ email, password }: AuthProps): Promise<void> 
             toast.success("Signed in successfully!");
         }
     } catch (error: any) {
+        console.log("error, 12", error);
+
         if (error.status === 401) {
-            toast.error("Invalid email or password");
+            toast.error(error.response.data.message);
         } else {
             toast.error("Failed to sign in");
         }
