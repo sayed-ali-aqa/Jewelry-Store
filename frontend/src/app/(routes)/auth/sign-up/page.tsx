@@ -10,8 +10,14 @@ import { AuthProps } from '@types/auth';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AuthSchema } from '@utils/validations/authValidation';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../../../store/slices/authSlice';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
+    const dispatch = useDispatch();
+    const router = useRouter()
+
     const {
         register,
         handleSubmit,
@@ -21,7 +27,15 @@ const Page = () => {
     });
 
     const onSubmit = async (data: AuthProps) => {
-        await signUpForm(data);  // Call the signup API with validated data
+        const response = await signUpForm(data);  // Call the signup API with validated data
+
+        if (response.user && response.status === 201) {
+            dispatch(setUser(response.user));
+
+            setTimeout(() => {
+                router.push("/about-us")
+            }, 1000)
+        }
     };
 
     return (

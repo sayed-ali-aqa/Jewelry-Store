@@ -10,8 +10,14 @@ import { AuthProps } from '@types/auth';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AuthSchema } from '@utils/validations/authValidation';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../../../store/slices/authSlice';
+import { useRouter } from 'next/navigation'
 
 const Page = () => {
+    const dispatch = useDispatch();
+    const router = useRouter()
+
     const {
         register,
         handleSubmit,
@@ -21,7 +27,15 @@ const Page = () => {
     });
 
     const onSubmit = async (data: AuthProps) => {
-        await signInForm(data);  // Call the signup API with validated data
+        const response = await signInForm(data);  // Call the signup API with validated data
+
+        if (response.user && response.status === 200) {
+            dispatch(setUser(response.user));
+
+            setTimeout(() => {
+                router.push("/about-us")
+            }, 1000)
+        }
     };
 
     return (
@@ -39,7 +53,8 @@ const Page = () => {
                             className={`h-12 ${errors.email ? "border-2 border-destructive focus-visible:ring-0" : ""}`}
                             {...register("email")}
                         />
-                        {errors.email && <span className="text-destructive text-sm">{errors.email?.message}</span>}
+
+                        {errors.email && <span role="alert" aria-live="assertive" className="text-destructive text-sm">{errors.email?.message}</span>}
                     </div>
 
                     {/* Password Input */}
@@ -51,7 +66,8 @@ const Page = () => {
                             className={`h-12 ${errors.password ? "border-2 border-destructive focus-visible:ring-0" : ""}`}
                             {...register("password")}
                         />
-                        {errors.password && <span className="text-destructive text-sm">{errors.password?.message}</span>}
+
+                        {errors.password && <span role="alert" aria-live="assertive" className="text-destructive text-sm">{errors.password?.message}</span>}
                     </div>
 
                     <span className='text-sm flex gap-1 -mt-2'>
@@ -62,15 +78,9 @@ const Page = () => {
                     </span>
 
                     <Button type="submit" variant="dark" className="w-fit h-12 font-semibold" size="lg" disabled={isSubmitting}>
-                        {
-                            isSubmitting ? (
-                                <img src="/images/icons/loader.svg" width={32} height={32} alt="Loader Icon" />
-                            ) : (
-                                "Sign In"
-                            )
-                        }
-
+                        {isSubmitting ? <div className="spinner" /> : "Sign In"}
                     </Button>
+
                 </div>
             </form>
         </>

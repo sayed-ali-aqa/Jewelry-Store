@@ -16,8 +16,13 @@ export async function POST(req: Request) {
 
         if (response.status === 200 || response.status === 201) {
             const res = new NextResponse(
-                JSON.stringify({ message: "Signed up successfully" }),
-                { status: 201 }
+                JSON.stringify({
+                    message: "Signed up successfully",
+                    user: response.data.user,
+                }),
+                {
+                    status: 201,
+                }
             );
 
             setTokenCookie(res, response.data.jwt);

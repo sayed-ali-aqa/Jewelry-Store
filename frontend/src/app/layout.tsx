@@ -3,7 +3,8 @@ import { Toaster } from "@/components/ui/sonner"
 import { Lato } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar"; // Fixed import path
+import Navbar from "@/components/Navbar";
+import { Providers } from "./providers";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -25,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={lato.className}>
         <Navbar />
-        {children}
+        <Providers>{children}</Providers>
         <Toaster position="top-center" richColors />
         <Footer />
       </body>
