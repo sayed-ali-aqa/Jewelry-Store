@@ -11,10 +11,16 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import Image from 'next/image'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store/store'
 const Logo = '/images/logo/logo.png'
 
 export function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false)
+
+  const { user, isAuthenticated } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   return (
     <div className='border-b md:border-none sticky top-0 z-50'>
@@ -76,7 +82,9 @@ export function Navbar() {
 
         <div className='flex items-center gap-6'>
           <div className='flex items-center gap-1'>
-            <Link href="/account/personal-info" className='transition-all duration-300 p-2 hover:text-primary'><User size={20} /></Link>
+
+            <Link href={isAuthenticated ? "/user/orders" : "/auth/sign-in"} className='transition-all duration-300 p-2 hover:text-primary'><User size={20} /></Link>
+
             <Link href="/account/whislist" className='transition-all duration-300 p-2 hover:text-primary'><Heart size={20} /></Link>
             <div className='transition-all duration-300 p-2 hover:text-primary cursor-pointer relative'>
               <ShoppingBag size={20} />
