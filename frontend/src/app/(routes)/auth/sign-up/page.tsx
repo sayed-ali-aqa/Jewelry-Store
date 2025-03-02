@@ -6,7 +6,7 @@ import React from 'react';
 import { Label } from "@/components/ui/label";
 import Link from 'next/link';
 import { signUpForm } from '@utils/actions/auth';
-import { AuthProps } from '@types/auth';
+import { AuthProps } from '@types/allTypes';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AuthSchema } from '@utils/validations/authValidation';

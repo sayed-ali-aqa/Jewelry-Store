@@ -11,16 +11,12 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import Image from 'next/image'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../store/store'
+// import { useSelector } from 'react-redux'
+// import { RootState } from '../../store/store'
 const Logo = '/images/logo/logo.png'
 
 export function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false)
-
-  const { user, isAuthenticated } = useSelector(
-    (state: RootState) => state.auth
-  );
 
   return (
     <div className='border-b md:border-none sticky top-0 z-50'>
@@ -60,7 +56,10 @@ export function Navbar() {
 
       <div className='bg-white flex gap-6 p-4 border:none md:border-b justify-between md:justify-around items-center'>
         <div className='flex h-[50px]'>
-          <Image src={Logo} height="50" alt="Logo" width={50} />
+          <Link href="/">
+            <Image src={Logo} height="50" alt="Logo" width={50} />
+          </Link>
+
         </div>
 
         <div className='hidden md:flex items-center gap-6'>
@@ -82,10 +81,9 @@ export function Navbar() {
 
         <div className='flex items-center gap-6'>
           <div className='flex items-center gap-1'>
-
-            <Link href={isAuthenticated ? "/user/orders" : "/auth/sign-in"} className='transition-all duration-300 p-2 hover:text-primary'><User size={20} /></Link>
-
+            <Link href="/account/personal-info" className='transition-all duration-300 p-2 hover:text-primary'><User size={20} /></Link>
             <Link href="/account/whislist" className='transition-all duration-300 p-2 hover:text-primary'><Heart size={20} /></Link>
+            
             <div className='transition-all duration-300 p-2 hover:text-primary cursor-pointer relative'>
               <ShoppingBag size={20} />
               <span className='absolute -top-1 right-0 bg-primary text-white text-xs font-semibold w-[22px] h-[22px] rounded-full text-center leading-[22px]'>2</span>
