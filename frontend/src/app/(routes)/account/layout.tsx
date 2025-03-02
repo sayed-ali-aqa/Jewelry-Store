@@ -2,21 +2,19 @@
 
 import { LayoutProps } from "@types/allTypes";
 import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
+// import { useSelector } from "react-redux";
+// import { RootState } from "../../../store/store";
 import Link from "next/link";
 import { ChevronRight, Heart, Package, User, LogOut } from "lucide-react";
 import { usePathname } from 'next/navigation'
 import { accountNavLinks } from "../../../../datalist";
 
 const AuthLayout: React.FC<LayoutProps> = ({ children }) => {
-    const { user } = useSelector(
-        (state: RootState) => state.auth
-    );
+    // const { user } = useSelector(
+    //     (state: RootState) => state.auth
+    // );
 
     const pathName = usePathname()
-
-    console.log(pathName);
 
     const iconMap: Record<string, React.ComponentType<{ size: number }>> = {
         Package: Package,
@@ -27,7 +25,7 @@ const AuthLayout: React.FC<LayoutProps> = ({ children }) => {
     return (
         <div className="bg-slate-50 w-full min-h-[85vh] flex gap-6 p-[5%]">
             <div className="bg-white min-w-[350px] p-6">
-                <h2 className="uppercase text-slate-500 text-xl">Welcome,  {user?.name || "Dear User"}</h2>
+                <h2 className="uppercase text-slate-500 text-xl">User Account</h2>
 
                 <ul className="mt-4">
                     {accountNavLinks.map((item, index) => (
