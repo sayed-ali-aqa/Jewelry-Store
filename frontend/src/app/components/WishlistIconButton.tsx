@@ -3,7 +3,7 @@ import React from 'react'
 import { Heart } from 'lucide-react'
 
 const WishlistIconButton = () => {
-    const handleAddToWishlist = (e) => {
+    const handleAddToWishlist = (e: any) => {
         e.stopPropagation()
         e.preventDefault()
         alert("Hi")

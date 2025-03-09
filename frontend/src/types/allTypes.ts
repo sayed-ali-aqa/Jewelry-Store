@@ -30,3 +30,7 @@ export interface ProductImagesProps {
     alt: string,
     labelText?: string
 }
+
+export interface ProductCardProps {
+    className?: string,
+}

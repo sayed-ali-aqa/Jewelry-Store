@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Heart, ShoppingBag, Star, StarHalf } from 'lucide-react'
 import React from 'react'
 import ProductImages from './_components/ProductImages'
+import ProductCard from '@/components/ProductCard'
 
 const page = () => {
     return (
@@ -60,6 +61,24 @@ const page = () => {
                         <Button size="lg" className='text-lg px-5 py-6'><ShoppingBag /> Add to Cart</Button>
                         <Button variant="outline" size="lg" className='text-lg px-5 py-6'><Heart /> Add to Wishlist</Button>
                     </div>
+                </div>
+            </div>
+
+            <div className='mt-10'>
+                <h2 className='font-semibold text-2xl mb-3'>Descritption</h2>
+                <p className='text-slate-500'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione, distinctio! Modi magni fuga laudantium commodi id deserunt, ipsam similique libero doloremque qui incidunt quisquam necessitatibus quo neque dolorem corporis provident. Lorem ipsum dolor sit amet consectetur adipisicing elit. At pariatur maxime modi consectetur assumenda quis libero eius fugit eum. Et quibusdam maiores quod facere sint. Sed, ut repudiandae. Doloremque, odit? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque esse velit dicta vel rerum. Dignissimos, saepe quasi cupiditate eos minus vero alias et autem maiores odio earum tempore. Dignissimos, eligendi.</p>
+            </div>
+
+            <div className='px-4 py-10'>
+                <h2 className='text-2xl font-semibold text-center mb-6'>You Might Also Like</h2>
+
+                <div className='flex justify-center gap-4 flex-wrap'>
+                    <ProductCard className="max-w-[300px] min-w-[200px]" />
+                    <ProductCard className="max-w-[300px] min-w-[200px]" />
+                    <ProductCard className="max-w-[300px] min-w-[200px]" />
+                    <ProductCard className="max-w-[300px] min-w-[200px]" />
+                    <ProductCard className="max-w-[300px] min-w-[200px]" />
+                    <ProductCard className="max-w-[300px] min-w-[200px]" />
                 </div>
             </div>
         </div>
