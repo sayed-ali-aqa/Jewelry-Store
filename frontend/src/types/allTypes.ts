@@ -14,3 +14,19 @@ export interface AuthStateProps {
 export interface LayoutProps {
     children: ReactNode;
 }
+
+export interface ProductsProps {
+    current: string,
+    visitedLinks: { title: string, link: string }[]
+}
+
+export interface ProductLableProps {
+    label: string,
+    className?: string
+}
+
+export interface ProductImagesProps {
+    images: string[],
+    alt: string,
+    labelText?: string
+}

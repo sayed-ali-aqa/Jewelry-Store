@@ -2,17 +2,18 @@
 import React from 'react'
 import WishlistIconButton from '@/components/WishlistIconButton'
 import Link from 'next/link'
+import ProductLabel from './ProductLabel'
 
 const ProductCard = () => {
     return (
         <Link href='/hello' className='relative w-full max-w-[400px] min-w-[240px] h-auto group'>
             <div className='flex justify-between absolute top-4 w-full items-center'>
-                <span className='bg-black text-sm px-2 py-1 text-slate-200 font-semibold uppercase z-100'>10% Off</span>
+                <ProductLabel label='10% off' />
 
                 <WishlistIconButton />
             </div>
 
-            <img    
+            <img
                 src="/images/products/01.jpg"
                 alt="product -1"
             />
