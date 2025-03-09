@@ -7,7 +7,7 @@ import { ProductCardProps } from '@types/allTypes'
 
 const ProductCard: React.FC<ProductCardProps> = ({ className }) => {
     return (
-        <Link href='/hello' className={`relative w-full max-w-[400px] min-w-[240px] h-auto group ${className}`}>
+        <Link href='/hello' className={`relative w-full min-w-[250px] h-auto group ${className}`}>
             <div className='flex justify-between absolute top-4 w-full items-center'>
                 <ProductLabel label='10% off' />
 

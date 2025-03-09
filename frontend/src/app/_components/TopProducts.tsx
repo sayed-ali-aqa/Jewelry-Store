@@ -7,12 +7,12 @@ const TopProducts = () => {
             <h2 className='text-4xl font-semibold text-center'>Top Products</h2>
 
             <div className='flex justify-center gap-6 flex-wrap'>
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
+                <ProductCard className='max-w-[400px]' />
+                <ProductCard className='max-w-[400px]' />
+                <ProductCard className='max-w-[400px]' />
+                <ProductCard className='max-w-[400px]' />
+                <ProductCard className='max-w-[400px]' />
+                <ProductCard className='max-w-[400px]' />
             </div>
         </section>
     )
