@@ -7,7 +7,7 @@ import ProductCard from '@/components/ProductCard'
 
 const page = () => {
     return (
-        <div className='p-4 w-full max-w-6xl mx-auto'>
+        <div className='p-4 w-full max-w-7xl mx-auto'>
             <BreadCrumb
                 current="King Ring X2 Pro"
                 visitedLinks={[{ title: "Home", link: "/" }, { title: "Products", link: "/products" }]}
@@ -63,6 +63,7 @@ const page = () => {
                 <h2 className='text-2xl font-semibold text-center mb-6'>You Might Also Like</h2>
 
                 <div className='flex gap-4 flex-wrap justify-center'>
+                    <ProductCard className="max-w-[300px]" />
                     <ProductCard className="max-w-[300px]" />
                     <ProductCard className="max-w-[300px]" />
                     <ProductCard className="max-w-[300px]" />
