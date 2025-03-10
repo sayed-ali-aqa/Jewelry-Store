@@ -77,7 +77,7 @@ const page = () => {
                         <div>
                             <Textarea
                                 rows={8}
-                                placeholder='Your Name *'
+                                placeholder='Message *'
                             />
                         </div>
 
