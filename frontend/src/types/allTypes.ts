@@ -33,6 +33,7 @@ export interface ProductImagesProps {
 
 export interface ProductCardProps {
     className?: string,
+    product: Product;
 }
 
 // Because every products request has {data [...]}
@@ -57,4 +58,5 @@ export interface Product {
     updatedAt: string;
     publishedAt: string;
     alt: string;
+    images: {url: string}[];
 };

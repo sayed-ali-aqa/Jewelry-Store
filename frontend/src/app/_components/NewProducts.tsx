@@ -10,7 +10,7 @@ const TopProducts = ({ products }: { products: Product[] }) => {
             <div className='flex justify-center gap-6 flex-wrap'>
                 {products.length > 0 ? (
                     products.map((product: Product) => (
-                        <ProductCard key={product.id} className='max-w-[400px]' />
+                        <ProductCard key={product.id} product={product} className='max-w-[400px]' />
                     ))
                 ) : (
                     <p className="text-gray-500">No products available</p>

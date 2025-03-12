@@ -2,13 +2,13 @@
 import React from 'react'
 import { Heart } from 'lucide-react'
 
-const WishlistIconButton = () => {
+const WishlistIconButton = ({ id }: { id: number }) => {
     const handleAddToWishlist = (e: any) => {
         e.stopPropagation()
         e.preventDefault()
-        alert("Hi")
+        alert(id)
     }
-    
+
     return (
         <span
             role='button'

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { setTokenCookie } from "../../../../lib/authCookie";
 
 export async function POST(req: Request) {
-    const baseUrl = `${process.env.SERVER_URL}/api/auth/local`;
+    const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/local`;
 
     try {
         const { email, password } = await req.json();
