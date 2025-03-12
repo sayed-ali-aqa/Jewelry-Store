@@ -34,3 +34,27 @@ export interface ProductImagesProps {
 export interface ProductCardProps {
     className?: string,
 }
+
+// Because every products request has {data [...]}
+export interface ProductsApiResponse {
+    data: Product[];
+}
+
+export interface Product {
+    id: number;
+    name: string;
+    slug: string;
+    price: number;
+    discount: number;
+    quantity: number;
+    label: string;
+    primary_material: string;
+    secondary_material?: string;
+    weight: number;
+    style: string;
+    description: { type: string; children: { type: string; text: string }[] }[];
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    alt: string;
+};
