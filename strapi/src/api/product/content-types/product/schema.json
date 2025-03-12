@@ -75,6 +75,12 @@
     "alt": {
       "type": "string",
       "required": true
+    },
+    "wishlists": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::wishlist.wishlist",
+      "mappedBy": "product"
     }
   }
 }
