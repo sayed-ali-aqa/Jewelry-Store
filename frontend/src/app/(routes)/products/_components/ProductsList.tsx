@@ -1,0 +1,64 @@
+"use client";
+
+import React, { useCallback, useEffect, useState } from 'react';
+import { debounce } from 'lodash';
+import ProductCard from '@/components/ProductCard';
+import { Product } from '@types/allTypes';
+
+const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
+    const [products, setProducts] = useState(initialProducts);
+    const [search, setSearch] = useState("");
+
+    // Define debounced search function
+    const fetchFilteredProducts = useCallback(
+        debounce(async (query: string) => {
+            if (!query.trim()) return;
+
+            const res = await fetch(`/api/products?search=${query}`);
+            const data = await res.json();
+
+            setProducts(data.data);
+        }, 500), // 500ms debounce delay
+        []
+    );
+
+    useEffect(() => {
+        if (search.trim()) {
+            fetchFilteredProducts(search); // Trigger the debounced function
+        } else {
+            setProducts(initialProducts);
+        }
+
+        return () => {
+            // Cancel any pending requests when the component unmounts or the search term changes
+            fetchFilteredProducts.cancel();
+        };
+    }, [search, fetchFilteredProducts]);
+
+
+    return (
+        <section className='flex gap-6'>
+            <div className='w-[300px] bg-red-200'>
+                <input
+                    className='border-2 border-black'
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder='Search here'
+                />
+            </div>
+
+            <div className='flex justify-center gap-6 flex-wrap'>
+                {products.length > 0 ? (
+                    products.map((product: Product) => (
+                        <ProductCard key={product.id} product={product} className='max-w-[300px]' />
+                    ))
+                ) : (
+                    <p className="text-gray-500">No products available</p>
+                )}
+            </div>
+        </section>
+    );
+};
+
+export default ProductsList;

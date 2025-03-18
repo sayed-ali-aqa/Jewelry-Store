@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_materials",
+  "info": {
+    "singularName": "product-material",
+    "pluralName": "product-materials",
+    "displayName": "Product Material"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "material": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product",
+      "mappedBy": "secondary_materials"
+    }
+  }
+}

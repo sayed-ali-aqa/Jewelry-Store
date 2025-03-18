@@ -400,6 +400,70 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiProductMaterialProductMaterial
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'product_materials';
+  info: {
+    displayName: 'Product Material';
+    pluralName: 'product-materials';
+    singularName: 'product-material';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product-material.product-material'
+    > &
+      Schema.Attribute.Private;
+    material: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiProductStyleProductStyle
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'product_styles';
+  info: {
+    displayName: 'Product Style';
+    pluralName: 'product-styles';
+    singularName: 'product-style';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product-style.product-style'
+    > &
+      Schema.Attribute.Private;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    style: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   collectionName: 'products';
   info: {
@@ -441,7 +505,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     price: Schema.Attribute.Decimal &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<0>;
-    primary_material: Schema.Attribute.String;
+    primaryMaterials: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::product-material.product-material'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     quantity: Schema.Attribute.Integer &
       Schema.Attribute.Required &
@@ -452,11 +519,17 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<1>;
-    secondary_material: Schema.Attribute.String;
+    secondary_materials: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::product-material.product-material'
+    >;
     slug: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    style: Schema.Attribute.String & Schema.Attribute.Required;
+    styles: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::product-style.product-style'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1007,6 +1080,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::category.category': ApiCategoryCategory;
+      'api::product-material.product-material': ApiProductMaterialProductMaterial;
+      'api::product-style.product-style': ApiProductStyleProductStyle;
       'api::product.product': ApiProductProduct;
       'api::wishlist.wishlist': ApiWishlistWishlist;
       'plugin::content-releases.release': PluginContentReleasesRelease;

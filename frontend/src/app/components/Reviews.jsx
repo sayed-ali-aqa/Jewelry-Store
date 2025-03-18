@@ -4,7 +4,7 @@ import { Separator } from '@/components/ui/separator'
 
 const Reviews = () => {
     return (
-        <section className='min-h-[450px] p-4 md:p-8 bg-[url("/images/covers/01.jpg")] bg-cover bg-center bg-no-repeat w-full flex justify-center items-center'>
+        <section className='min-h-[400px] p-4 md:p-8 bg-[url("/images/covers/01.jpg")] bg-cover bg-center bg-no-repeat w-full flex justify-center items-center'>
             <div className='flex items-center justify-center gap-4 md:gap-8 bg-white w-full max-w-[700px] p-6 md:p-12'>
                 <div className='flex flex-col space-y-4 items-center justify-center'>
                     <img src='/images/icons/trustpilot.svg' alt='Reviews about us on TrustPilot' height={46} />

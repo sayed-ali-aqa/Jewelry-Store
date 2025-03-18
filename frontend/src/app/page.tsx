@@ -7,8 +7,6 @@ import { getNewProducts } from "../lib/api";
 
 export default async function Home() {
   const newProducts = await getNewProducts();
-  console.log(newProducts);
-  
 
   return (
     <div>

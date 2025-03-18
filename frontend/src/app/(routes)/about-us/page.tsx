@@ -1,5 +1,4 @@
 import React from 'react'
-import Reviews from '@/components/Reviews'
 import Image from 'next/image'
 const storyImage = '/images/covers/03.jpg'
 const whyUs = '/images/covers/02.jpg'
@@ -7,8 +6,6 @@ const whyUs = '/images/covers/02.jpg'
 const page = () => {
     return (
         <div>
-            <Reviews />
-
             <section className='py-16 px-4 max-w-[1200px] mx-auto flex flex-col gap-20'>
                 <div className='flex gap-8 items-center flex-col md:flex-row'>
                     <div className='w-full md:w-1/2'>

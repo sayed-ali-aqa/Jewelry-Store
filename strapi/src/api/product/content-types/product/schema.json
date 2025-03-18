@@ -40,18 +40,8 @@
     "label": {
       "type": "string"
     },
-    "primary_material": {
-      "type": "string"
-    },
-    "secondary_material": {
-      "type": "string"
-    },
     "weight": {
       "type": "decimal",
-      "required": true
-    },
-    "style": {
-      "type": "string",
       "required": true
     },
     "category_name": {
@@ -81,6 +71,24 @@
       "relation": "oneToMany",
       "target": "api::wishlist.wishlist",
       "mappedBy": "product"
+    },
+    "primaryMaterials": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product-material.product-material",
+      "inversedBy": "products"
+    },
+    "secondary_materials": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product-material.product-material",
+      "inversedBy": "products"
+    },
+    "styles": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product-style.product-style",
+      "inversedBy": "products"
     }
   }
 }

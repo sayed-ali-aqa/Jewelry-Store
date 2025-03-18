@@ -13,3 +13,15 @@ export async function getNewProducts(): Promise<ProductsApiResponse> {
         return { data: [] } // default value
     }
 }
+
+export async function getProducts(): Promise<ProductsApiResponse> {
+    const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?sort=createdAt:desc&pagination[limit]=8&populate=images`;
+
+    try {
+        const res = await axios.get(baseUrl);
+        
+        return res.data;
+    } catch (error) {
+        return { data: [] } // default value
+    }
+}
