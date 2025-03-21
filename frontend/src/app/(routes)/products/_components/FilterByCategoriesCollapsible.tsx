@@ -17,7 +17,7 @@ const FilterCategoriesCollapsible = ({ categories }: { categories: { category_na
             open={isOpen}
             onOpenChange={setIsOpen}
             className='border-b'>
-            <CollapsibleTrigger className='w-full font-semibold flex justify-between items-center transition-all duration-300 hover:bg-slate-100 px-2 py-3'>
+            <CollapsibleTrigger className={`${isOpen && 'bg-slate-100'} w-full font-semibold flex justify-between items-center transition-all duration-300 hover:bg-slate-100 px-2 py-3`}>
                 <span>Categories</span>
                 {
                     isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />

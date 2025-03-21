@@ -3,7 +3,7 @@
 import React from 'react'
 import { useSearchParams } from 'next/navigation';
 import { Input } from "@/components/ui/input"
-import { Pen, Search, X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 
 const SearchProductsInput = () => {
     const searchParams = useSearchParams();
