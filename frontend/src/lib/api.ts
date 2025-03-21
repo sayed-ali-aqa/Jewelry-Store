@@ -19,7 +19,43 @@ export async function getProducts(): Promise<ProductsApiResponse> {
 
     try {
         const res = await axios.get(baseUrl);
-        
+
+        return res.data;
+    } catch (error) {
+        return { data: [] } // default value
+    }
+}
+
+export async function getProductsCategories() {
+    const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories`;
+
+    try {
+        const res = await axios.get(baseUrl);        
+
+        return res.data;
+    } catch (error) {
+        return { data: [] } // default value
+    }
+}
+
+export async function getProductsStyles() {
+    const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/product-styles`;
+
+    try {
+        const res = await axios.get(baseUrl);        
+
+        return res.data;
+    } catch (error) {
+        return { data: [] } // default value
+    }
+}
+
+export async function getProductsMaterials() {
+    const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/product-materials`;
+
+    try {
+        const res = await axios.get(baseUrl);        
+
         return res.data;
     } catch (error) {
         return { data: [] } // default value

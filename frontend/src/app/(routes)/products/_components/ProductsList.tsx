@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { debounce } from 'lodash';
 import ProductCard from '@/components/ProductCard';
 import { Product } from '@types/allTypes';
+import ProductsFilter from './ProductsFilter';
 
 const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
     const [products, setProducts] = useState(initialProducts);
@@ -35,15 +36,7 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
 
     return (
         <section className='flex gap-6'>
-            <div className='w-[300px] bg-red-200'>
-                <input
-                    className='border-2 border-black'
-                    type="text"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    placeholder='Search here'
-                />
-            </div>
+            <ProductsFilter search={search} setSearch={setSearch} />
 
             <div className='flex justify-center gap-6 flex-wrap'>
                 {products.length > 0 ? (
