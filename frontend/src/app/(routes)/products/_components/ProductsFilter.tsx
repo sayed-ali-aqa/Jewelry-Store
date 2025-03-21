@@ -1,14 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import ProductsFilterCheckbox from './ProductsFilterCheckbox';
 import { getProductsCategories, getProductsStyles, getProductsMaterials } from '../../../../lib/api';
+import FilterByCategoriesCollapsible from './FilterByCategoriesCollapsible';
 
 // Define interfaces for the expected data structure of categories, styles, and materials
 interface Category {
@@ -31,8 +25,6 @@ interface ProductsFilterProps {
 }
 
 const ProductsFilter: React.FC<ProductsFilterProps> = ({ search, setSearch }) => {
-    const [isOpen, setIsOpen] = React.useState(false);
-
     // Type the state variables properly
     const [categories, setCategories] = useState<Category[]>([]);
     const [styles, setStyles] = useState<Style[]>([]);
@@ -67,25 +59,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ search, setSearch }) =>
             </div>
 
             <div className='mt-4'>
-                <Collapsible
-                    open={isOpen}
-                    onOpenChange={setIsOpen}
-                    className='border-b'>
-                    <CollapsibleTrigger className='w-full font-semibold flex justify-between items-center transition-all duration-300 hover:bg-slate-100 px-2 py-3'>
-                        <span>Categories</span>
-                        {
-                            isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />
-                        }
-                    </CollapsibleTrigger>
-                    <CollapsibleContent className='px-2 py-4 flex flex-col gap-3'>
-                        {
-                            categories.length > 0 ? (categories.map((item, index) => (
-                                // Ensure category_name is properly typed here
-                                <ProductsFilterCheckbox key={index} index={index} category={item.category_name} />
-                            ))) : <p className='text-slate-500 -mt-2'>No categories available</p>
-                        }
-                    </CollapsibleContent>
-                </Collapsible>
+                <FilterByCategoriesCollapsible categories={categories} />
             </div>
         </div>
     );
