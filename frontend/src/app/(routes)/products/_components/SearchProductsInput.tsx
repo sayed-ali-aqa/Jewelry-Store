@@ -1,0 +1,42 @@
+"use client"
+
+import React from 'react'
+import { useSearchParams } from 'next/navigation';
+import { Input } from "@/components/ui/input"
+import { Search } from 'lucide-react';
+
+const SearchProductsInput = () => {
+    const searchParams = useSearchParams();
+
+    const updateSearchQuery = (value: string) => {
+        const params = new URLSearchParams(window.location.search);
+
+        if (value) {
+            params.set('search', value);
+        } else {
+            params.delete('search');
+        }
+
+        // Update the browser’s URL without reloading the page by replacing the current URL.
+        window.history.replaceState(null, '', '?' + params.toString());
+    };
+
+    return (
+        <div className='relative'>
+            <Input
+                className='border-slate-300 border-[1px] shadow-none h-11 w-full'
+                type="text"
+                value={searchParams.get('search') || ''}
+                onChange={(e) => updateSearchQuery(e.target.value)}
+                placeholder='Search here'
+            />
+
+            <Search
+                size={18}
+                className="absolute top-1/2 right-2 transform -translate-y-1/2 transition-transform" // Fixed centering with translation
+            />
+        </div>
+    )
+}
+
+export default SearchProductsInput

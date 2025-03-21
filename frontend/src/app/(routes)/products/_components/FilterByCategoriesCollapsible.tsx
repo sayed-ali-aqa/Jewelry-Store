@@ -1,4 +1,5 @@
 "use client"
+
 import React from 'react'
 import {
     Collapsible,
@@ -25,7 +26,6 @@ const FilterCategoriesCollapsible = ({ categories }: { categories: { category_na
             <CollapsibleContent className={`${isOpen && 'py-4'} px-2 flex flex-col gap-3`}>
                 {
                     categories.length > 0 ? (categories.map((item, index) => (
-                        // Ensure category_name is properly typed here
                         <ProductsFilterCheckbox key={index} index={index} category={item.category_name} />
                     ))) : <p className='text-slate-500 -mt-2'>No categories available</p>
                 }

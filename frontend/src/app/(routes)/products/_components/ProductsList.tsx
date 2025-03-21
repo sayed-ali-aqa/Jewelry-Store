@@ -5,12 +5,12 @@ import { debounce } from 'lodash';
 import ProductCard from '@/components/ProductCard';
 import { Product } from '@types/allTypes';
 import ProductsFilter from './ProductsFilter';
+import { useSearchParams } from 'next/navigation';
 
 const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
+    const searchParams = useSearchParams(); 
     const [products, setProducts] = useState(initialProducts);
-    const [search, setSearch] = useState("");
 
-    // Define debounced search function
     const fetchFilteredProducts = useMemo(() =>
         debounce(async (query: string) => {
             if (!query.trim()) return;
@@ -21,24 +21,24 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
         []);
 
     useEffect(() => {
+        const search = searchParams.get('search') || '';
+
         if (search.trim()) {
-            fetchFilteredProducts(search); // Trigger the debounced function
+            fetchFilteredProducts(search);
         } else {
             setProducts(initialProducts);
         }
 
         return () => {
-            // Cancel any pending requests when the component unmounts or the search term changes
             fetchFilteredProducts.cancel();
         };
-    }, [search, fetchFilteredProducts]);
-
+    }, [searchParams.get('search'), fetchFilteredProducts]);
 
     return (
-        <section className='flex gap-6'>
-            <ProductsFilter search={search} setSearch={setSearch} />
+        <section className='flex gap-10'>
+            <ProductsFilter />
 
-            <div className='flex justify-center gap-6 flex-wrap'>
+            <div className='w-full flex gap-6 flex-wrap'>
                 {products.length > 0 ? (
                     products.map((product: Product) => (
                         <ProductCard key={product.id} product={product} className='max-w-[300px]' />
