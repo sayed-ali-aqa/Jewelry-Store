@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { debounce } from 'lodash';
 import ProductCard from '@/components/ProductCard';
 import { Product } from '@types/allTypes';
@@ -10,17 +10,14 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
     const [search, setSearch] = useState("");
 
     // Define debounced search function
-    const fetchFilteredProducts = useCallback(
+    const fetchFilteredProducts = useMemo(() =>
         debounce(async (query: string) => {
             if (!query.trim()) return;
-
             const res = await fetch(`/api/products?search=${query}`);
             const data = await res.json();
-
             setProducts(data.data);
-        }, 500), // 500ms debounce delay
-        []
-    );
+        }, 500),
+        []);
 
     useEffect(() => {
         if (search.trim()) {

@@ -4,6 +4,7 @@ import WishlistIconButton from '@/components/WishlistIconButton'
 import Link from 'next/link'
 import ProductLabel from './ProductLabel'
 import { ProductCardProps } from '@types/allTypes'
+import Image from 'next/image'
 
 const ProductCard: React.FC<ProductCardProps> = ({ className, product }) => {
     return (
@@ -14,9 +15,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ className, product }) => {
                 <WishlistIconButton id={product.id} />
             </div>
 
-            <img
+            <Image
                 src={`${process.env.NEXT_PUBLIC_SERVER_URL}${product.images[0].url}`}
                 alt={product.alt}
+                width={300}
+                height={300}
+                className='w-full h-auto object-cover'
             />
 
             <div className='bg-white absolute bottom-3 left-3 right-3 p-4 flex flex-col gap-1'>
