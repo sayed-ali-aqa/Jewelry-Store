@@ -3,7 +3,7 @@
 import React from 'react'
 import { useSearchParams } from 'next/navigation';
 import { Input } from "@/components/ui/input"
-import { Search } from 'lucide-react';
+import { Pen, Search, X } from 'lucide-react';
 
 const SearchProductsInput = () => {
     const searchParams = useSearchParams();
@@ -11,7 +11,7 @@ const SearchProductsInput = () => {
     const updateSearchQuery = (value: string) => {
         const params = new URLSearchParams(window.location.search);
 
-        if (value) {
+        if (value.trim()) {
             params.set('search', value);
         } else {
             params.delete('search');
@@ -31,10 +31,22 @@ const SearchProductsInput = () => {
                 placeholder='Search here'
             />
 
-            <Search
-                size={18}
-                className="absolute top-1/2 right-2 transform -translate-y-1/2 transition-transform" // Fixed centering with translation
-            />
+            {
+                searchParams.get('search')?.trim() ? (
+                    <X
+                        size={18}
+                        onClick={() => updateSearchQuery('')}
+                        className="absolute top-1/2 right-2 transform -translate-y-1/2 transition-transform cursor-pointer hover:text-destructive"
+                    />
+                ) : (
+                    <Search
+                        size={18}
+                        className="absolute top-1/2 right-2 transform -translate-y-1/2 transition-transform"
+                    />
+                )
+            }
+
+
         </div>
     )
 }
