@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Collapsible,
     CollapsibleContent,
@@ -10,6 +10,10 @@ import ProductsFilterCheckbox from "./ProductsFilterCheckbox";
 
 const FilterByCategoriesCollapsible = ({ categories }: { categories: { category: string }[] }) => {
     const [isOpen, setIsOpen] = React.useState(false);
+
+    useEffect(() => {
+        setIsOpen(categories.length > 0 ? true : false);
+    }, [categories])
 
     return (
         <Collapsible open={isOpen} onOpenChange={setIsOpen} className="border-b">

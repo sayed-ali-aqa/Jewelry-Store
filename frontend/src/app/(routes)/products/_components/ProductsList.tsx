@@ -17,6 +17,8 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
             debounce(async (query: string, categories: string[], styles: string[], materials: string[]) => {
                 let filters: string[] = [];
 
+                const searchQuery = `filters[name][$contains]=${query}`
+
                 // Add category filters
                 if (categories.length > 0) {
                     categories.forEach((c) => {
@@ -41,7 +43,7 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
                 // Construct the final query
                 const filterQuery = filters.length > 0 ? `&${filters.join("&")}` : "";
 
-                const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?sort=createdAt:desc&pagination[limit]=8&populate=images&populate=category&search=${query}${filterQuery}`;
+                const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?sort=createdAt:desc&pagination[limit]=8&populate=images&populate=category&${searchQuery}&${filterQuery}`;
 
                 const res = await fetch(url);
                 const data = await res.json();
@@ -55,7 +57,7 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
         const categories = searchParams.getAll("category");
         const styles = searchParams.getAll("style");
         const materials = searchParams.getAll("material");
-        
+
         if (search.trim() || categories.length > 0 || styles.length > 0 || materials.length > 0) {
             fetchFilteredProducts(search, categories, styles, materials);
         } else {
@@ -74,7 +76,7 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
             <div className='w-full flex gap-6 flex-wrap'>
                 {products && products.length > 0 ? (
                     products.map((product: Product) => (
-                        <ProductCard key={product.id} product={product} className='max-w-[300px]' />
+                        <ProductCard key={product.id} product={product} className='max-w-[280px] h-fit' />
                     ))
                 ) : (
                     <p className="text-gray-500">No products available</p>
