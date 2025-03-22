@@ -14,7 +14,7 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
     // Define debounced search function
     const fetchFilteredProducts = useMemo(
         () =>
-            debounce(async (query: string, categories: string[], styles: string[]) => {
+            debounce(async (query: string, categories: string[], styles: string[], materials: string[]) => {
                 let filters: string[] = [];
 
                 // Add category filters
@@ -27,7 +27,14 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
                 // Add style filters
                 if (styles.length > 0) {
                     styles.forEach((s, index) => {
-                        filters.push(`filters[$and][${categories.length + index}][style][style][$eq]=${encodeURIComponent(s)}`);
+                        filters.push(`filters[$or][${categories.length + index}][style][style][$eq]=${encodeURIComponent(s)}`);
+                    });
+                }
+
+                // Add materials filters
+                if (materials.length > 0) {
+                    materials.forEach((s, index) => {
+                        filters.push(`filters[$or][${materials.length + index}][material][material][$eq]=${encodeURIComponent(s)}`);
                     });
                 }
 
@@ -47,9 +54,10 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
         const search = searchParams.get("search") || "";
         const categories = searchParams.getAll("category");
         const styles = searchParams.getAll("style");
-
-        if (search.trim() || categories.length > 0 || styles.length > 0) {
-            fetchFilteredProducts(search, categories, styles);
+        const materials = searchParams.getAll("material");
+        
+        if (search.trim() || categories.length > 0 || styles.length > 0 || materials.length > 0) {
+            fetchFilteredProducts(search, categories, styles, materials);
         } else {
             setProducts(initialProducts);
         }

@@ -2,8 +2,9 @@
 import React from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSearchParams, useRouter } from "next/navigation";
+import { filterCheckBoxProps } from "@types/allTypes";
 
-const ProductsFilterCheckbox = ({ listItem, filterKey }: { listItem: string, filterKey: string }) => {
+const ProductsFilterCheckbox: React.FC<filterCheckBoxProps> = ({ listItem, filterKey }) => {
     const searchParams = useSearchParams();
     const router = useRouter();
 

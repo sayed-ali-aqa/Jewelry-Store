@@ -58,17 +58,22 @@ export interface Product {
     updatedAt: string;
     publishedAt: string;
     alt: string;
-    images: {url: string}[];
+    images: { url: string }[];
 };
 
-export interface Category {
+export interface CategoryProps {
     category: string;
 }
 
-export interface Style {
+export interface StyleProps {
     style: string;
 }
 
-export interface Material {
+export interface MaterialProps {
     material: string;
+}
+
+export interface filterCheckBoxProps {
+    listItem: string,
+    filterKey: string,
 }

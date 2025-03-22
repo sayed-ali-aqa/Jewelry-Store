@@ -72,13 +72,7 @@
       "target": "api::wishlist.wishlist",
       "mappedBy": "product"
     },
-    "primaryMaterials": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::product-material.product-material",
-      "inversedBy": "products"
-    },
-    "secondary_materials": {
+    "material": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::product-material.product-material",

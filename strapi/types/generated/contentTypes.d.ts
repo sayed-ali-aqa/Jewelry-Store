@@ -498,14 +498,14 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'api::product.product'
     > &
       Schema.Attribute.Private;
+    material: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::product-material.product-material'
+    >;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     price: Schema.Attribute.Decimal &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<0>;
-    primaryMaterials: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::product-material.product-material'
-    >;
     publishedAt: Schema.Attribute.DateTime;
     quantity: Schema.Attribute.Integer &
       Schema.Attribute.Required &
@@ -516,10 +516,6 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<1>;
-    secondary_materials: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::product-material.product-material'
-    >;
     slug: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;

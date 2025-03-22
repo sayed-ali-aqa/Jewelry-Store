@@ -5,12 +5,13 @@ import { getProductsCategories, getProductsStyles, getProductsMaterials } from '
 import FilterByCategoriesCollapsible from './FilterByCategoriesCollapsible';
 import SearchProductsInput from './SearchProductsInput';
 import FilterByStylesCollapsible from './FilterByStylesCollapsible';
-import { Category, Style, Material } from '@types/allTypes';
+import { CategoryProps, StyleProps, MaterialProps } from '@types/allTypes';
+import FilterByMaterialsCollapsible from './FilterByMaterialsCollapsible';
 
 const ProductsFilter: React.FC = () => {
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [styles, setStyles] = useState<Style[]>([]);
-    const [materials, setMaterials] = useState<Material[]>([]);
+    const [categories, setCategories] = useState<CategoryProps[]>([]);
+    const [styles, setStyles] = useState<StyleProps[]>([]);
+    const [materials, setMaterials] = useState<MaterialProps[]>([]);
 
     const fetchData = async () => {
         const [categoriesData, stylesData, materialsData] = await Promise.all([
@@ -35,6 +36,7 @@ const ProductsFilter: React.FC = () => {
             <div className='mt-4'>
                 <FilterByCategoriesCollapsible categories={categories} />
                 <FilterByStylesCollapsible styles={styles} />
+                <FilterByMaterialsCollapsible materials={materials} />
             </div>
         </div>
     );
