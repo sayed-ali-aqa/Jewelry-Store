@@ -15,7 +15,7 @@ export async function getNewProducts(): Promise<ProductsApiResponse> {
 }
 
 export async function getProducts(): Promise<ProductsApiResponse> {
-    const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?sort=createdAt:desc&pagination[limit]=8&populate=images`;
+    const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?sort=createdAt:desc&pagination[limit]=8&populate=images&populate=category`;
 
     try {
         const res = await axios.get(baseUrl);
@@ -30,7 +30,7 @@ export async function getProductsCategories() {
     const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories`;
 
     try {
-        const res = await axios.get(baseUrl);        
+        const res = await axios.get(baseUrl);  
 
         return res.data;
     } catch (error) {

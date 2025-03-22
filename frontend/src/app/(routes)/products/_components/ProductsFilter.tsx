@@ -6,7 +6,7 @@ import FilterByCategoriesCollapsible from './FilterByCategoriesCollapsible';
 import SearchProductsInput from './SearchProductsInput';
 
 interface Category {
-    category_name: string;
+    category: string;
 }
 
 interface Style {
@@ -23,15 +23,15 @@ const ProductsFilter: React.FC = () => {
     const [materials, setMaterials] = useState<Material[]>([]);
 
     const fetchData = async () => {
-        const [categories, styles, materials] = await Promise.all([
+        const [categoriesData, stylesData, materialsData] = await Promise.all([
             getProductsCategories(),
             getProductsStyles(),
             getProductsMaterials(),
         ]);
 
-        setCategories(categories.data);
-        setStyles(styles.data);
-        setMaterials(materials.data);
+        setCategories(categoriesData.data);
+        setStyles(stylesData.data);
+        setMaterials(materialsData.data);
     };
 
     useEffect(() => {

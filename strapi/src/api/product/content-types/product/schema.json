@@ -44,7 +44,7 @@
       "type": "decimal",
       "required": true
     },
-    "category_name": {
+    "category": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::category.category",

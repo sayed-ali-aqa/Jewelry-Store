@@ -11,7 +11,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "category_name": {
+    "category": {
       "type": "string",
       "required": true,
       "unique": true
@@ -20,7 +20,7 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::product.product",
-      "mappedBy": "category_name"
+      "mappedBy": "category"
     }
   }
 }

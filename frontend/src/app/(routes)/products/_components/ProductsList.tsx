@@ -8,23 +8,33 @@ import ProductsFilter from './ProductsFilter';
 import { useSearchParams } from 'next/navigation';
 
 const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
-    const searchParams = useSearchParams(); 
+    const searchParams = useSearchParams();
     const [products, setProducts] = useState(initialProducts);
 
-    const fetchFilteredProducts = useMemo(() =>
-        debounce(async (query: string) => {
-            if (!query.trim()) return;
-            const res = await fetch(`/api/products?search=${query}`);
-            const data = await res.json();
-            setProducts(data.data);
-        }, 500),
-        []);
+    // Define debounced search function
+    const fetchFilteredProducts = useMemo(
+        () =>
+            debounce(async (query: string, categories: string[]) => {
+                // Prepare the category filter part by mapping each category and joining them with '&'
+                const categoryQuery = categories
+                    .map((c) => `filters[category][category][$eq]=${encodeURIComponent(c)}`)
+                    .join("&");
+
+                const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?sort=createdAt:desc&pagination[limit]=8&populate=images&populate=category&search=${query}&${categoryQuery}`;
+
+                const res = await fetch(url);
+                const data = await res.json();
+                setProducts(data.data);
+            }, 500),
+        []
+    );
 
     useEffect(() => {
-        const search = searchParams.get('search') || '';
+        const search = searchParams.get("search") || "";
+        const categories = searchParams.getAll("category");
 
-        if (search.trim()) {
-            fetchFilteredProducts(search);
+        if (search.trim() || categories.length > 0) {
+            fetchFilteredProducts(search, categories);
         } else {
             setProducts(initialProducts);
         }
@@ -32,7 +42,7 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
         return () => {
             fetchFilteredProducts.cancel();
         };
-    }, [searchParams.get('search'), fetchFilteredProducts]);
+    }, [searchParams]);
 
     return (
         <section className='flex gap-10'>

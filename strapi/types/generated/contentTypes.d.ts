@@ -380,7 +380,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    category_name: Schema.Attribute.String &
+    category: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     createdAt: Schema.Attribute.DateTime;
@@ -477,10 +477,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   };
   attributes: {
     alt: Schema.Attribute.String & Schema.Attribute.Required;
-    category_name: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::category.category'
-    >;
+    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
