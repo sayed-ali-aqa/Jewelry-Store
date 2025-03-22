@@ -4,7 +4,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useSearchParams, useRouter } from "next/navigation";
 import { filterRangeValuesCheckBoxProps } from "@types/allTypes";
 
-const ProductsFilterRangeValuesCheckbox: React.FC<filterRangeValuesCheckBoxProps> = ({ listItem, filterKey }) => {
+const ProductsFilterWeightRangeValuesCheckbox: React.FC<filterRangeValuesCheckBoxProps> = ({ listItem, filterKey }) => {
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -14,14 +14,15 @@ const ProductsFilterRangeValuesCheckbox: React.FC<filterRangeValuesCheckBoxProps
 
     const handleCheckboxChange = (checked: boolean) => {
         const params = new URLSearchParams(searchParams.toString());
+        params.delete("weightRange"); // Remove all weight input range values
 
         if (checked) {
-            params.append(filterKey, rangeValue); // ✅ Append new filter value
+            params.append(filterKey, rangeValue); // Append new filter value
         } else {
-            params.delete(filterKey); // ❌ Remove all first
+            params.delete(filterKey); // Remove all first
             currentWeights
                 .filter((w) => w !== rangeValue)
-                .forEach((w) => params.append(filterKey, w)); // ✅ Re-add remaining
+                .forEach((w) => params.append(filterKey, w)); // Re-add remaining
         }
 
         router.push(`?${params.toString()}`, { scroll: false });
@@ -46,4 +47,4 @@ const ProductsFilterRangeValuesCheckbox: React.FC<filterRangeValuesCheckBoxProps
     );
 };
 
-export default ProductsFilterRangeValuesCheckbox;
+export default ProductsFilterWeightRangeValuesCheckbox;

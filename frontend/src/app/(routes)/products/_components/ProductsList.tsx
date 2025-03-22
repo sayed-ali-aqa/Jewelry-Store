@@ -70,7 +70,7 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
         const categories = searchParams.getAll("category"); // Handle multiple category filters
         const styles = searchParams.getAll("style"); // Handle multiple style filters
         const materials = searchParams.getAll("material"); // Handle multiple material filters
-        const weightRanges = searchParams.getAll("weight"); // Handle multiple weight filters
+        const weightRanges = searchParams.getAll("weight").length > 0 ? searchParams.getAll("weight") : searchParams.getAll("weightRange"); // Handle multiple weight filters
 
         if (search.trim() || categories.length > 0 || styles.length > 0 || materials.length > 0 || weightRanges.length > 0) {
             fetchFilteredProducts(search, categories, styles, materials, weightRanges);

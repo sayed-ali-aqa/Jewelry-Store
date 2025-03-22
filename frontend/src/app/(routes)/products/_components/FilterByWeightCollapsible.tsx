@@ -5,9 +5,10 @@ import {
     CollapsibleContent,
     CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Minus } from "lucide-react";
 import { weightRanges } from "../../../../../datalist";
-import ProductsFilterRangeValuesCheckbox from "./ProductsFilterRangeValuesCheckbox";
+import ProductsFilterWeightRangeValuesCheckbox from "./ProductsFilterWeightRangeValuesCheckbox";
+import ProductsFilterWeightRangeValuesInputs from "./ProductsFilterWeightRangeValuesInputs";
 
 const FilterByWeightCollapsible = () => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -22,7 +23,7 @@ const FilterByWeightCollapsible = () => {
             <CollapsibleContent className={`${isOpen ? "py-4" : ""} px-2 flex flex-col gap-3`}>
                 {weightRanges.length > 0 ? (
                     weightRanges.map((range, index) => (
-                        <ProductsFilterRangeValuesCheckbox
+                        <ProductsFilterWeightRangeValuesCheckbox
                             key={index}
                             listItem={range}
                             filterKey="weight"
@@ -31,6 +32,8 @@ const FilterByWeightCollapsible = () => {
                 ) : (
                     <p className="text-slate-500 -mt-2">No weights available</p>
                 )}
+
+                <ProductsFilterWeightRangeValuesInputs />
             </CollapsibleContent>
         </Collapsible>
     );
