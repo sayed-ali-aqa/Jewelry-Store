@@ -77,3 +77,8 @@ export interface filterCheckBoxProps {
     listItem: string,
     filterKey: string,
 }
+
+export interface filterRangeValuesCheckBoxProps{
+    listItem: number[],
+    filterKey: string,
+}

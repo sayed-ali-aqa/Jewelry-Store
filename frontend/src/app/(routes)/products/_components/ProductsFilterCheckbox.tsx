@@ -8,10 +8,10 @@ const ProductsFilterCheckbox: React.FC<filterCheckBoxProps> = ({ listItem, filte
     const searchParams = useSearchParams();
     const router = useRouter();
 
-    const currentCategories = searchParams.getAll(filterKey); // Get selected categories
+    const currentList = searchParams.getAll(filterKey); // Get selected categories
 
     // Check if the list item is already selected
-    const isChecked = currentCategories.includes(listItem);
+    const isChecked = currentList.includes(listItem);
 
     const handleCheckboxChange = (checked: boolean) => {
         const params = new URLSearchParams(window.location.search);
@@ -19,9 +19,9 @@ const ProductsFilterCheckbox: React.FC<filterCheckBoxProps> = ({ listItem, filte
         if (checked) {
             params.append(filterKey, listItem); // Add list item to filter
         } else {
-            const updatedCategories = currentCategories.filter((c) => c !== listItem);
+            const updatedList = currentList.filter((c) => c !== listItem);
             params.delete(filterKey); // Remove all categories first
-            updatedCategories.forEach((c) => params.append(filterKey, c)); // Add back filtered ones
+            updatedList.forEach((c) => params.append(filterKey, c)); // Add back filtered ones
         }
 
         router.push(`?${params.toString()}`, { scroll: false });

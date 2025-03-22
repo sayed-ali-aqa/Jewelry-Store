@@ -7,6 +7,7 @@ import SearchProductsInput from './SearchProductsInput';
 import FilterByStylesCollapsible from './FilterByStylesCollapsible';
 import { CategoryProps, StyleProps, MaterialProps } from '@types/allTypes';
 import FilterByMaterialsCollapsible from './FilterByMaterialsCollapsible';
+import FilterByWeightCollapsible from './FilterByWeightCollapsible';
 
 const ProductsFilter: React.FC = () => {
     const [categories, setCategories] = useState<CategoryProps[]>([]);
@@ -30,13 +31,14 @@ const ProductsFilter: React.FC = () => {
     }, []);
 
     return (
-        <div className='w-[250px] min-w-[250px] h-screen max-h-fit-content'>
+        <div className='w-[250px] min-w-[250px] min-h-screen max-h-fit-content'>
             <SearchProductsInput />
 
             <div className='mt-4'>
                 <FilterByCategoriesCollapsible categories={categories} />
                 <FilterByStylesCollapsible styles={styles} />
                 <FilterByMaterialsCollapsible materials={materials} />
+                <FilterByWeightCollapsible />
             </div>
         </div>
     );

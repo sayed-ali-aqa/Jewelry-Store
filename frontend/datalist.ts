@@ -20,3 +20,10 @@ export const accountNavLinks = [
         icon: "User"
     },
 ]
+
+export const weightRanges = [
+    [1, 10],
+    [11, 20],
+    [21, 50],
+    [51, 100],
+];
