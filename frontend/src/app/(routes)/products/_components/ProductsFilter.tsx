@@ -4,18 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { getProductsCategories, getProductsStyles, getProductsMaterials } from '../../../../lib/api';
 import FilterByCategoriesCollapsible from './FilterByCategoriesCollapsible';
 import SearchProductsInput from './SearchProductsInput';
-
-interface Category {
-    category: string;
-}
-
-interface Style {
-    name: string;
-}
-
-interface Material {
-    type: string;
-}
+import FilterByStylesCollapsible from './FilterByStylesCollapsible';
+import { Category, Style, Material } from '@types/allTypes';
 
 const ProductsFilter: React.FC = () => {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -44,6 +34,7 @@ const ProductsFilter: React.FC = () => {
 
             <div className='mt-4'>
                 <FilterByCategoriesCollapsible categories={categories} />
+                <FilterByStylesCollapsible styles={styles} />
             </div>
         </div>
     );

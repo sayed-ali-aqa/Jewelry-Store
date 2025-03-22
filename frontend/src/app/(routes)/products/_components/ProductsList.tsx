@@ -14,13 +14,27 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
     // Define debounced search function
     const fetchFilteredProducts = useMemo(
         () =>
-            debounce(async (query: string, categories: string[]) => {
-                // Prepare the category filter part by mapping each category and joining them with '&'
-                const categoryQuery = categories
-                    .map((c) => `filters[category][category][$eq]=${encodeURIComponent(c)}`)
-                    .join("&");
+            debounce(async (query: string, categories: string[], styles: string[]) => {
+                let filters: string[] = [];
 
-                const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?sort=createdAt:desc&pagination[limit]=8&populate=images&populate=category&search=${query}&${categoryQuery}`;
+                // Add category filters
+                if (categories.length > 0) {
+                    categories.forEach((c) => {
+                        filters.push(`filters[$and][0][category][category][$eq]=${encodeURIComponent(c)}`);
+                    });
+                }
+
+                // Add style filters
+                if (styles.length > 0) {
+                    styles.forEach((s, index) => {
+                        filters.push(`filters[$and][${categories.length + index}][style][style][$eq]=${encodeURIComponent(s)}`);
+                    });
+                }
+
+                // Construct the final query
+                const filterQuery = filters.length > 0 ? `&${filters.join("&")}` : "";
+
+                const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?sort=createdAt:desc&pagination[limit]=8&populate=images&populate=category&search=${query}${filterQuery}`;
 
                 const res = await fetch(url);
                 const data = await res.json();
@@ -32,9 +46,10 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
     useEffect(() => {
         const search = searchParams.get("search") || "";
         const categories = searchParams.getAll("category");
+        const styles = searchParams.getAll("style");
 
-        if (search.trim() || categories.length > 0) {
-            fetchFilteredProducts(search, categories);
+        if (search.trim() || categories.length > 0 || styles.length > 0) {
+            fetchFilteredProducts(search, categories, styles);
         } else {
             setProducts(initialProducts);
         }
@@ -49,7 +64,7 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
             <ProductsFilter />
 
             <div className='w-full flex gap-6 flex-wrap'>
-                {products.length > 0 ? (
+                {products && products.length > 0 ? (
                     products.map((product: Product) => (
                         <ProductCard key={product.id} product={product} className='max-w-[300px]' />
                     ))

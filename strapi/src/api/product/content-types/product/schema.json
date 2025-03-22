@@ -84,7 +84,7 @@
       "target": "api::product-material.product-material",
       "inversedBy": "products"
     },
-    "styles": {
+    "style": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::product-style.product-style",

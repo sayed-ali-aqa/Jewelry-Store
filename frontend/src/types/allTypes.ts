@@ -60,3 +60,15 @@ export interface Product {
     alt: string;
     images: {url: string}[];
 };
+
+export interface Category {
+    category: string;
+}
+
+export interface Style {
+    style: string;
+}
+
+export interface Material {
+    material: string;
+}

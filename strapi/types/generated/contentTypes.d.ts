@@ -523,7 +523,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     slug: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    styles: Schema.Attribute.Relation<
+    style: Schema.Attribute.Relation<
       'manyToMany',
       'api::product-style.product-style'
     >;
