@@ -98,13 +98,13 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
     }, [searchParams]);
 
     return (
-        <section className="flex gap-10">
+        <section className="flex gap-10 flex-col md:flex-row">
             <ProductsFilter />
 
             <div className="w-full flex gap-6 flex-wrap">
                 {products && products.length > 0 ? (
                     products.map((product: Product) => (
-                        <ProductCard key={product.id} product={product} className="max-w-[280px] h-fit" />
+                        <ProductCard key={product.id} product={product} className="xs:max-w-[280px] h-fit" />
                     ))
                 ) : (
                     <p className="text-gray-500">No products available</p>

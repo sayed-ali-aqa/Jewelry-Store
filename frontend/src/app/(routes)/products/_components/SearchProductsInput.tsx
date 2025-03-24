@@ -22,7 +22,7 @@ const SearchProductsInput = () => {
     };
 
     return (
-        <div className='relative'>
+        <div className='relative w-full'>
             <Input
                 className='border-slate-300 border-[1px] shadow-none h-11 w-full'
                 type="text"

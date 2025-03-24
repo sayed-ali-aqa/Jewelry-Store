@@ -32,7 +32,7 @@ const ProductsFilter: React.FC = () => {
     }, []);
 
     return (
-        <div className='w-[250px] min-w-[250px] min-h-screen max-h-fit-content'>
+        <div className='w-full md:w-[250px] min-w-[250px] min-h-fit-content max-h-fit-content'>
             <SearchProductsInput />
 
             <div className='mt-4'>

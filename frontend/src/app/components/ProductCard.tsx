@@ -8,7 +8,7 @@ import Image from 'next/image'
 
 const ProductCard: React.FC<ProductCardProps> = ({ className, product }) => {
     return (
-        <Link href={`/products/${product.slug}`} className={`relative w-full min-w-[250px] h-auto group ${className}`}>
+        <Link href={`/products/${product.slug}`} className={`relative w-full min-w-[200px] h-auto group ${className}`}>
             <div className='flex justify-between absolute top-4 w-full items-center'>
                 <ProductLabel label={product.label} />
 
