@@ -27,3 +27,10 @@ export const weightRanges = [
     [21, 50],
     [51, 100],
 ];
+
+export const priceRanges = [
+    [10, 100],
+    [101, 500],
+    [501, 1000],
+    [1001, 10000],
+];

@@ -14,7 +14,7 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
     // Define debounced search function
     const fetchFilteredProducts = useMemo(
         () =>
-            debounce(async (query: string, categories: string[], styles: string[], materials: string[], weightRanges: string[]) => {
+            debounce(async (query: string, categories: string[], styles: string[], materials: string[], weightRanges: string[], priceRanges: string[]) => {
                 let filters: string[] = [];
 
                 const searchQuery = `filters[name][$contains]=${query}`;
@@ -53,6 +53,19 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
                     });
                 }
 
+                // Add price filters as range queries
+                if (priceRanges.length > 0) {
+                    priceRanges.forEach((range, index) => {
+                        const [min, max] = range.split("-").map(Number); // Convert "1-10" to [1,10]
+                        filters.push(
+                            `filters[$or][${index}][price][$gte]=${min}`
+                        );
+                        filters.push(
+                            `filters[$or][${index}][price][$lte]=${max}`
+                        );
+                    });
+                }
+
                 // Construct the final query
                 const filterQuery = filters.length > 0 ? `&${filters.join("&")}` : "";
 
@@ -71,9 +84,10 @@ const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
         const styles = searchParams.getAll("style"); // Handle multiple style filters
         const materials = searchParams.getAll("material"); // Handle multiple material filters
         const weightRanges = searchParams.getAll("weight").length > 0 ? searchParams.getAll("weight") : searchParams.getAll("weightRange"); // Handle multiple weight filters
+        const priceRanges = searchParams.getAll("price").length > 0 ? searchParams.getAll("price") : searchParams.getAll("priceRange"); // Handle multiple price filters
 
-        if (search.trim() || categories.length > 0 || styles.length > 0 || materials.length > 0 || weightRanges.length > 0) {
-            fetchFilteredProducts(search, categories, styles, materials, weightRanges);
+        if (search.trim() || categories.length > 0 || styles.length > 0 || materials.length > 0 || weightRanges.length > 0 || priceRanges.length > 0) {
+            fetchFilteredProducts(search, categories, styles, materials, weightRanges, priceRanges);
         } else {
             setProducts(initialProducts);
         }

@@ -8,6 +8,7 @@ import FilterByStylesCollapsible from './FilterByStylesCollapsible';
 import { CategoryProps, StyleProps, MaterialProps } from '@types/allTypes';
 import FilterByMaterialsCollapsible from './FilterByMaterialsCollapsible';
 import FilterByWeightCollapsible from './FilterByWeightCollapsible';
+import FilterByPriceCollapsible from './FilterByPriceCollapsible';
 
 const ProductsFilter: React.FC = () => {
     const [categories, setCategories] = useState<CategoryProps[]>([]);
@@ -39,6 +40,7 @@ const ProductsFilter: React.FC = () => {
                 <FilterByStylesCollapsible styles={styles} />
                 <FilterByMaterialsCollapsible materials={materials} />
                 <FilterByWeightCollapsible />
+                <FilterByPriceCollapsible />
             </div>
         </div>
     );
