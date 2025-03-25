@@ -2,113 +2,94 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { debounce } from "lodash";
-import ProductCard from "@/components/ProductCard";
-import { Product } from "@types/allTypes";
+import { Product, ProductsListProps } from "@types/allTypes";
+import { useSearchParams, useRouter } from "next/navigation";
 import ProductsFilter from "./ProductsFilter";
-import { useSearchParams } from "next/navigation";
+import ProductCard from "@/components/ProductCard";
+import ProductsPagination from "./ProductsPagination";
 
-const ProductsList = ({ initialProducts }: { initialProducts: Product[] }) => {
+const ProductsList: React.FC<ProductsListProps> = ({ initialProducts }) => {
+    const [products, setProducts] = useState(initialProducts.data);
+    const [pagination, setPagination] = useState(initialProducts.meta.pagination);
+    const [currentPage, setCurrentPage] = useState(0);
+
     const searchParams = useSearchParams();
-    const [products, setProducts] = useState(initialProducts);
 
-    // Define debounced search function
-    const fetchFilteredProducts = useMemo(
+    useEffect(() => {
+        setCurrentPage(parseInt(searchParams.get("start") || "0", 10))
+    }, [])
+
+    const fetchProducts = useMemo(
         () =>
-            debounce(async (query: string, categories: string[], styles: string[], materials: string[], weightRanges: string[], priceRanges: string[]) => {
+            debounce(async () => {
+                const start = parseInt(searchParams.get("start") || "0", 10);
+                const search = searchParams.get("search") || "";
+                const categories = searchParams.getAll("category");
+                const styles = searchParams.getAll("style");
+                const materials = searchParams.getAll("material");
+                const weightRanges = searchParams.getAll("weight").length > 0 ? searchParams.getAll("weight") : searchParams.getAll("weightRange");
+                const priceRanges = searchParams.getAll("price").length > 0 ? searchParams.getAll("price") : searchParams.getAll("priceRange");
+
                 let filters: string[] = [];
 
-                const searchQuery = `filters[name][$contains]=${query}`;
-
-                // Add category filters
-                if (categories.length > 0) {
-                    categories.forEach((c) => {
-                        filters.push(`filters[$and][0][category][category][$eq]=${encodeURIComponent(c)}`);
-                    });
+                if (search.trim()) {
+                    filters.push(`filters[name][$contains]=${search}`);
                 }
+                categories.forEach(c => filters.push(`filters[$and][0][category][category][$eq]=${encodeURIComponent(c)}`));
+                styles.forEach((s, index) => filters.push(`filters[$or][${index}][style][style][$eq]=${encodeURIComponent(s)}`));
+                materials.forEach((m, index) => filters.push(`filters[$or][${index}][material][material][$eq]=${encodeURIComponent(m)}`));
 
-                // Add style filters
-                if (styles.length > 0) {
-                    styles.forEach((s, index) => {
-                        filters.push(`filters[$or][${categories.length + index}][style][style][$eq]=${encodeURIComponent(s)}`);
-                    });
-                }
+                weightRanges.forEach((range, index) => {
+                    const [min, max] = range.split("-").map(Number);
+                    filters.push(`filters[$or][${index}][weight][$gte]=${min}`);
+                    filters.push(`filters[$or][${index}][weight][$lte]=${max}`);
+                });
 
-                // Add materials filters
-                if (materials.length > 0) {
-                    materials.forEach((m, index) => {
-                        filters.push(`filters[$or][${materials.length + index}][material][material][$eq]=${encodeURIComponent(m)}`);
-                    });
-                }
+                priceRanges.forEach((range, index) => {
+                    const [min, max] = range.split("-").map(Number);
+                    filters.push(`filters[$or][${index}][price][$gte]=${min}`);
+                    filters.push(`filters[$or][${index}][price][$lte]=${max}`);
+                });
 
-                // Add weight filters as range queries
-                if (weightRanges.length > 0) {
-                    weightRanges.forEach((range, index) => {
-                        const [min, max] = range.split("-").map(Number); // Convert "1-10" to [1,10]
-                        filters.push(
-                            `filters[$or][${index}][weight][$gte]=${min}`
-                        );
-                        filters.push(
-                            `filters[$or][${index}][weight][$lte]=${max}`
-                        );
-                    });
-                }
-
-                // Add price filters as range queries
-                if (priceRanges.length > 0) {
-                    priceRanges.forEach((range, index) => {
-                        const [min, max] = range.split("-").map(Number); // Convert "1-10" to [1,10]
-                        filters.push(
-                            `filters[$or][${index}][price][$gte]=${min}`
-                        );
-                        filters.push(
-                            `filters[$or][${index}][price][$lte]=${max}`
-                        );
-                    });
-                }
-
-                // Construct the final query
                 const filterQuery = filters.length > 0 ? `&${filters.join("&")}` : "";
-
-                const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?sort=createdAt:desc&pagination[limit]=8&populate=images&populate=category&${searchQuery}&${filterQuery}`;
+                const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?sort=createdAt:desc&pagination[start]=${start}&pagination[limit]=8&populate=images&populate=category${filterQuery}`;
 
                 const res = await fetch(url);
                 const data = await res.json();
+
                 setProducts(data.data);
+                setPagination(data.meta.pagination);
             }, 500),
-        []
+        [searchParams]
     );
 
     useEffect(() => {
-        const search = searchParams.get("search") || "";
-        const categories = searchParams.getAll("category"); // Handle multiple category filters
-        const styles = searchParams.getAll("style"); // Handle multiple style filters
-        const materials = searchParams.getAll("material"); // Handle multiple material filters
-        const weightRanges = searchParams.getAll("weight").length > 0 ? searchParams.getAll("weight") : searchParams.getAll("weightRange"); // Handle multiple weight filters
-        const priceRanges = searchParams.getAll("price").length > 0 ? searchParams.getAll("price") : searchParams.getAll("priceRange"); // Handle multiple price filters
-
-        if (search.trim() || categories.length > 0 || styles.length > 0 || materials.length > 0 || weightRanges.length > 0 || priceRanges.length > 0) {
-            fetchFilteredProducts(search, categories, styles, materials, weightRanges, priceRanges);
-        } else {
-            setProducts(initialProducts);
-        }
-
+        fetchProducts();
         return () => {
-            fetchFilteredProducts.cancel();
+            fetchProducts.cancel();
         };
     }, [searchParams]);
 
     return (
-        <section className="flex gap-10 flex-col md:flex-row">
+        <section className="flex gap-10 flex-col md:flex-row min-h-[80vh]">
             <ProductsFilter />
 
-            <div className="w-full flex gap-6 flex-wrap">
-                {products && products.length > 0 ? (
-                    products.map((product: Product) => (
-                        <ProductCard key={product.id} product={product} className="xs:max-w-[280px] h-fit" />
-                    ))
-                ) : (
-                    <p className="text-gray-500">No products available</p>
-                )}
+            <div className="flex flex-col gap-6 w-full">
+                <div className="w-full flex gap-6 flex-wrap">
+                    {products.length > 0 ? (
+                        products.map((product: Product) => (
+                            <ProductCard key={product.id} product={product} className="xs:max-w-[280px] h-fit" />
+                        ))
+                    ) : (
+                        <p className="text-gray-500 text-center">No products available</p>
+                    )}
+                </div>
+
+                <ProductsPagination
+                    pagination={pagination}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                />
             </div>
         </section>
     );

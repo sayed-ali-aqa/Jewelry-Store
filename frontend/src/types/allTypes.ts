@@ -37,8 +37,20 @@ export interface ProductCardProps {
 }
 
 // Because every products request has {data [...]}
+export interface ProductsApiResponseWithoutPagination {
+    data: Product[];
+}
+
+// Because every products request has with pagination
 export interface ProductsApiResponse {
     data: Product[];
+    meta: {
+        pagination: {
+            start: number;
+            limit: number;
+            total: number;
+        };
+    };
 }
 
 export interface Product {
@@ -60,6 +72,21 @@ export interface Product {
     alt: string;
     images: { url: string }[];
 };
+
+export interface ProductsResponse {
+    data: Product[];
+    meta: {
+        pagination: {
+            start: number;
+            limit: number;
+            total: number;
+        };
+    };
+}
+
+export interface ProductsListProps {
+    initialProducts: ProductsResponse;
+}
 
 export interface CategoryProps {
     category: string;
