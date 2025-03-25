@@ -26,14 +26,15 @@ export async function getProducts(): Promise<ProductsApiResponse> {
 }
 
 export async function getProductsCategories() {
-    const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories`;
+    const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories?populate=image`;
 
     try {
-        const res = await axios.get(baseUrl);  
+        const res = await fetch(baseUrl, { next: { revalidate: 3600 * 24 * 7 } }); // ISR every week  
 
-        return res.data;
+        const data = await res.json();
+        return data;
     } catch (error) {
-        return { data: [] } // default value
+        return { data: [] } // Fallback value
     }
 }
 
@@ -41,7 +42,7 @@ export async function getProductsStyles() {
     const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/product-styles`;
 
     try {
-        const res = await axios.get(baseUrl);        
+        const res = await axios.get(baseUrl);
 
         return res.data;
     } catch (error) {
@@ -53,7 +54,7 @@ export async function getProductsMaterials() {
     const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/product-materials`;
 
     try {
-        const res = await axios.get(baseUrl);        
+        const res = await axios.get(baseUrl);
 
         return res.data;
     } catch (error) {

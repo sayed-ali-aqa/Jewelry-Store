@@ -105,7 +105,16 @@ export interface filterCheckBoxProps {
     filterKey: string,
 }
 
-export interface filterRangeValuesCheckBoxProps{
+export interface filterRangeValuesCheckBoxProps {
     listItem: number[],
     filterKey: string,
+}
+
+export interface CategoryBannerProps {
+    productCategories: {
+        category: string;
+        image: {
+            url: string;
+        }
+    }[];
 }

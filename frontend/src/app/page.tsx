@@ -12,7 +12,7 @@ export default async function Home() {
     <div>
       <Slider />
       <HomeBanner />
-      <CategoryBanner />
+      <CategoryBanner/>
       <TopProducts products={newProducts.data} />
       <Testimonials />
     </div>
