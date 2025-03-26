@@ -26,7 +26,7 @@ export interface ProductLableProps {
 }
 
 export interface ProductImagesProps {
-    images: string[],
+    images: {url: string}[],
     alt: string,
     labelText?: string
 }

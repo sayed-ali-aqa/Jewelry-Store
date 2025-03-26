@@ -2,7 +2,7 @@ import axios from "axios";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
-    const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?sort=createdAt:desc&pagination[limit]=6&populate=images`;
+    const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?sort=createdAt:desc&pagination[limit]=8&populate=images`;
 
     const { searchParams } = new URL(req.url);
     const search = searchParams.get("search") || "";

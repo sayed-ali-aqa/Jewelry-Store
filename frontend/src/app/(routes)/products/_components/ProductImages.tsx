@@ -12,7 +12,7 @@ const ProductImages: React.FC<ProductImagesProps> = ({ images, alt, labelText })
                 {images.map((image, index) => (
                     <img
                         key={index}
-                        src={`/images/products/${image}`}
+                        src={`${process.env.NEXT_PUBLIC_SERVER_URL}${image?.url}`}
                         alt={`${alt} - image ${index + 1}`}
                         className={`w-20 h-20 object-contain object-center bg-slate-50 ${selectedImageIndex === index ? 'border-2 border-primary' : ''}`}
                         onClick={() => setSelectedImageIndex(index)}
@@ -22,7 +22,7 @@ const ProductImages: React.FC<ProductImagesProps> = ({ images, alt, labelText })
 
             <div className='relative mx-auto'>
                 <img
-                    src={`/images/products/${images[selectedImageIndex]}`}
+                    src={`${process.env.NEXT_PUBLIC_SERVER_URL}${images[selectedImageIndex]?.url}`}
                     alt={alt}
                     className='w-auto h-auto object-cover object-center'
                 />
