@@ -2,7 +2,15 @@ import React from 'react';
 import ProductCard from '@/components/ProductCard';
 import { Product } from '@types/allTypes';
 
-const TopProducts = ({ products }: { products: Product[] }) => {
+const getNewProducts = async () => {
+    // revalidate every 6 hours
+    const res = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/products/new`, { next: { revalidate: 60 * 60 * 6 } });
+    return res.json();
+};
+
+const NewProducts = async () => {
+    const products = await getNewProducts();
+
     return (
         <section className='flex flex-col items-center px-4 mx-auto pt-3 pb-12 gap-8 max-w-[1800px]'>
             <h2 className='text-4xl font-semibold text-center'>New Products</h2>
@@ -20,4 +28,4 @@ const TopProducts = ({ products }: { products: Product[] }) => {
     );
 };
 
-export default TopProducts;
+export default NewProducts;

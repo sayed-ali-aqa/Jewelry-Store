@@ -118,3 +118,8 @@ export interface CategoryBannerProps {
         }
     }[];
 }
+
+export interface suggestedProductsByCategoryProps{
+    id: string, 
+    category: string
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductCard from '@/components/ProductCard';
-import { Product } from '@types/allTypes';
+import { Product, suggestedProductsByCategoryProps } from '@types/allTypes';
 import axios from 'axios';
 
 const getSuggestedProductsByCategory = async (id: string, category: string) => {
@@ -11,7 +11,7 @@ const getSuggestedProductsByCategory = async (id: string, category: string) => {
     return response.data;  
 };
 
-const ProductsSuggestions = async ({ id, category }: { id: string, category: string }) => {
+const ProductsSuggestions: React.FC<suggestedProductsByCategoryProps> = async ({ id, category }) => {
     const products = await getSuggestedProductsByCategory(id, category);
 
     return (
