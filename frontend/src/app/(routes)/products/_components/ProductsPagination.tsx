@@ -28,7 +28,7 @@ const ProductsPagination: React.FC<ProductsPaginationProps> = ({ pagination, cur
     const totalPages = Math.ceil(pagination.total / pagination.limit);
 
     const handlePageChange = (newStart: number) => {
-        if (newStart >= 0 && newStart < pagination.total) {
+        if (newStart >= 0 && newStart < totalPages) {
             setCurrentPage(newStart);
             router.push(`?start=${newStart}`, { scroll: false });
         }
@@ -39,7 +39,7 @@ const ProductsPagination: React.FC<ProductsPaginationProps> = ({ pagination, cur
             <PaginationContent>
                 <PaginationItem>
                     <PaginationPrevious
-                        onClick={() => handlePageChange(currentPage - 1)}
+                        onClick={() => handlePageChange(currentPage - 8)}
                         aria-label="Go to previous page"
                         className={currentPage === 0 ? "text-slate-500 hover:bg-white hover:text-slate-500" : ""}
                     />
@@ -65,7 +65,7 @@ const ProductsPagination: React.FC<ProductsPaginationProps> = ({ pagination, cur
 
                 {totalPages > 1 && (
                     <PaginationItem>
-                        <PaginationLink isActive={currentPage === totalPages - 1} onClick={() => handlePageChange(totalPages - 1)}>
+                        <PaginationLink isActive={currentPage === totalPages - 1} onClick={() => handlePageChange(totalPages - 8)}>
                             {totalPages}
                         </PaginationLink>
                     </PaginationItem>
@@ -73,9 +73,9 @@ const ProductsPagination: React.FC<ProductsPaginationProps> = ({ pagination, cur
 
                 <PaginationItem>
                     <PaginationNext
-                        onClick={() => handlePageChange(currentPage + 1)}
+                        onClick={() => handlePageChange(currentPage + 8)}
                         aria-label="Go to next page"
-                        className={currentPage === totalPages - 1 ? "text-slate-500 hover:bg-white hover:text-slate-500" : ""}
+                        className={currentPage * 8 === totalPages - 1 ? "text-slate-500 hover:bg-white hover:text-slate-500" : ""}
                     />
                 </PaginationItem>
             </PaginationContent>
