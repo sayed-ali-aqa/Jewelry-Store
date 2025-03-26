@@ -1,4 +1,4 @@
-// ----------------- This is a utility file where you write reusable API-fetching functions ------------------
+// -------------  It's typically used for client-side fetching (e.g., in useEffect, inside components) or for utility functions, and is not the ideal place for ISR or SSR. ------------------
 
 import axios from 'axios';
 import { ProductsApiResponse, ProductsApiResponseWithoutPagination } from "@types/allTypes";

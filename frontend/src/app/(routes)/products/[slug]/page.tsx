@@ -4,9 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Heart, ShoppingBag, Star, StarHalf } from 'lucide-react';
 import ProductImages from '../_components/ProductImages';
 import BreadCrumb from '@/components/BreadCrumb';
+import ProductsSuggestions from '../_components/ProductsSuggestions';
 
 const getProductBySlug = async (slug: string) => {
-    const response = await axios.get(`http://localhost:3000/api/products/${slug}`);
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/products/${slug}`);
     return response.data;
 };
 
@@ -88,15 +89,12 @@ const Page = async ({ params }: { params: { slug: string } }) => {
                 <p className='text-slate-500'>{product[0]?.description[0]?.children[0]?.text}</p>
             </div>
 
-            <div className='py-10'>
-                <h2 className='text-2xl font-semibold text-center mb-6'>You Might Also Like</h2>
+            <div className='py-6 mt-8'>
+                <h2 className='text-3xl font-semibold text-center mb-6'>You Might Also Like</h2>
 
-                {/* <div className='flex gap-4 flex-wrap justify-center'>
-                    <ProductCard className="max-w-[300px]" />
-                    <ProductCard className="max-w-[300px]" />
-                    <ProductCard className="max-w-[300px]" />
-                    <ProductCard className="max-w-[300px]" />
-                </div> */}
+                <ProductsSuggestions
+                    id={product[0]?.id}
+                    category={product[0]?.category?.category} />
             </div>
         </div>
     );
