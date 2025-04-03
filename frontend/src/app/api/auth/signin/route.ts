@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import axios from 'axios';
-import { setTokenCookie } from "../../../../lib/authCookie";
+import { setTokenCookie, setUserId } from "../../../../lib/authCookie";
 
 export async function POST(req: Request) {
     const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/local`;
@@ -14,6 +14,8 @@ export async function POST(req: Request) {
         });
 
         if (response.status === 200) {
+            console.log();
+            
             const res = new NextResponse(
                 JSON.stringify({
                     message: "Signed in successfully",
@@ -25,6 +27,7 @@ export async function POST(req: Request) {
             );
 
             setTokenCookie(res, response.data.jwt);
+            setUserId(res, response.data.user.id);
 
             return res;
         }

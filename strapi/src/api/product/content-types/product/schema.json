@@ -66,12 +66,6 @@
       "type": "string",
       "required": true
     },
-    "wishlists": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::wishlist.wishlist",
-      "mappedBy": "product"
-    },
     "material": {
       "type": "relation",
       "relation": "manyToMany",
@@ -83,6 +77,12 @@
       "relation": "manyToMany",
       "target": "api::product-style.product-style",
       "inversedBy": "products"
+    },
+    "wishlists": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::wishlist.wishlist",
+      "mappedBy": "products"
     }
   }
 }

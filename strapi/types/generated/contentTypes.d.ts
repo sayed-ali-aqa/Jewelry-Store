@@ -537,6 +537,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
 export interface ApiWishlistWishlist extends Struct.CollectionTypeSchema {
   collectionName: 'wishlists';
   info: {
+    description: '';
     displayName: 'Wishlist';
     pluralName: 'wishlists';
     singularName: 'wishlist';
@@ -554,7 +555,7 @@ export interface ApiWishlistWishlist extends Struct.CollectionTypeSchema {
       'api::wishlist.wishlist'
     > &
       Schema.Attribute.Private;
-    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
+    products: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

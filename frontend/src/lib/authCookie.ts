@@ -12,3 +12,16 @@ export function setTokenCookie(res: NextResponse, token: string) {
         sameSite: "strict", // Prevent CSRF attacks
     });
 }
+
+export function setUserId(res: NextResponse, userId: string) {
+    // Set HTTP-only cookie
+    res.cookies.set({
+        name: "userId",
+        value: userId,
+        httpOnly: true, // Cannot be accessed via JavaScript
+        secure: process.env.NODE_ENV === "production", // Use HTTPS in production
+        maxAge: 60 * 60 * 24 * 7, // 7 days
+        path: "/", // Accessible across the entire site
+        sameSite: "strict", // Prevent CSRF attacks
+    });
+}

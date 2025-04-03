@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import axios from 'axios';
-import { setTokenCookie } from "../../../../lib/authCookie";
+import { setTokenCookie, setUserId } from "../../../../lib/authCookie";
 
 export async function POST(req: Request) {
     const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/local/register`;
@@ -26,6 +26,7 @@ export async function POST(req: Request) {
             );
 
             setTokenCookie(res, response.data.jwt);
+            setUserId(res, response.data.user.id);
 
             return res;
         }
