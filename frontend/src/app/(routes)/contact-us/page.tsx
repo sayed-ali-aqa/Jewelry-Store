@@ -1,10 +1,7 @@
 import { Mail, MapPin, Phone } from 'lucide-react'
 import React from 'react'
 import { Separator } from "@/components/ui/separator"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from '@/components/ui/button'
-
+import Form from './_components/Form';
 
 const page = () => {
     return (
@@ -48,42 +45,7 @@ const page = () => {
             <section className='mx-auto max-w-4xl'>
                 <h1 className='text-4xl font-bold text-center mb-12'>Contact Us</h1>
 
-                <form action="">
-                    <div className='flex flex-col gap-6'>
-                        <div>
-                            <Input
-                                type="text"
-                                placeholder='Your Name *'
-                                className='h-12'
-                            />
-                        </div>
-
-                        <div>
-                            <Input
-                                type="email"
-                                placeholder='Your Email *'
-                                className='h-12'
-                            />
-                        </div>
-
-                        <div>
-                            <Input
-                                type="text"
-                                placeholder='Title *'
-                                className='h-12'
-                            />
-                        </div>
-
-                        <div>
-                            <Textarea
-                                rows={8}
-                                placeholder='Message *'
-                            />
-                        </div>
-
-                        <Button variant="dark" className='w-fit h-12 font-semibold'>Send Message</Button>
-                    </div>
-                </form>
+                <Form />
             </section>
         </div>
     )

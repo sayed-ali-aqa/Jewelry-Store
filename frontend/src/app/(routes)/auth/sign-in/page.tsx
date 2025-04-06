@@ -80,7 +80,6 @@ const Page = () => {
                     <Button type="submit" variant="dark" className="w-fit h-12 font-semibold" size="lg" disabled={isSubmitting}>
                         {isSubmitting ? <div className="spinner" /> : "Sign In"}
                     </Button>
-
                 </div>
             </form>
         </>

@@ -138,3 +138,10 @@ export interface WishlistIconButtonProps {
     userId?: string,
     token?: string
 }
+
+export interface ContactRequestProps {
+    name: string,
+    email: string,
+    title: string,
+    message: string,
+}
