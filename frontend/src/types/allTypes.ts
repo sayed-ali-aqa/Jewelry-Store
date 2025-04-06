@@ -34,8 +34,6 @@ export interface ProductImagesProps {
 export interface ProductCardProps {
     className?: string,
     product: Product;
-    token?: string,
-    userId?: string,
 }
 
 // Because every products request has {data [...]}

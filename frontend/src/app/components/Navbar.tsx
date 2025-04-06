@@ -1,7 +1,7 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from "next/link"
-import { Facebook, Gem, Heart, Instagram, Menu, ShoppingBag, Twitter, User, X, Youtube } from 'lucide-react'
+import { Facebook, Gem, Heart, Instagram, Menu, ShoppingBag, Truck, Twitter, User, X, Youtube } from 'lucide-react'
 
 import {
   Select,
@@ -11,10 +11,31 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import Image from 'next/image'
+import { getWishlist } from '../../lib/api'
+import { toast } from 'sonner'
 const Logo = '/images/logo/logo.png'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store/store'
 
 export function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false)
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated)
+
+  const [wishlistCount, setWishlistCount] = useState<number>(0)
+
+  const fetchWishlist = async () => {
+    try {
+      const wishlist = await getWishlist()
+      setWishlistCount(wishlist?.meta?.pagination?.total || 0)
+
+    } catch (error) {
+      toast.error("Failed to fetch wishlist")
+    }
+  }
+
+  useEffect(() => {
+    fetchWishlist()
+  }, [isAuthenticated])
 
   return (
     <div className='border-b md:border-none sticky top-0 z-50'>
@@ -71,8 +92,13 @@ export function Navbar() {
         <div className='flex items-center gap-6'>
           <div className='flex items-center gap-1'>
             <Link href="/account/personal-info" className='transition-all duration-300 p-2 hover:text-primary'><User size={20} /></Link>
-            <Link href="/account/whislist" className='transition-all duration-300 p-2 hover:text-primary'><Heart size={20} /></Link>
-            
+            {/* <Link  className='transition-all duration-300 p-2 hover:text-primary'><Heart size={20} />{wishlistCount}</Link> */}
+
+            <Link href="/account/whislist" className='transition-all duration-300 p-2 hover:text-primary cursor-pointer relative'>
+              <Heart size={20} />
+              <span className='absolute -top-1 right-0 bg-primary text-white text-xs font-semibold w-[22px] h-[22px] rounded-full text-center leading-[22px]'>{wishlistCount}</span>
+            </Link>
+
             <div className='transition-all duration-300 p-2 hover:text-primary cursor-pointer relative'>
               <ShoppingBag size={20} />
               <span className='absolute -top-1 right-0 bg-primary text-white text-xs font-semibold w-[22px] h-[22px] rounded-full text-center leading-[22px]'>2</span>

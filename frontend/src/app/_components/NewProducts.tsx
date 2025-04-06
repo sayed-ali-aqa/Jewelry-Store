@@ -1,7 +1,6 @@
 import React from 'react';
 import ProductCard from '@/components/ProductCard';
 import { Product } from '@types/allTypes';
-import { cookies } from "next/headers";
 
 const getNewProducts = async () => {
     // revalidate every 6 hours
@@ -12,13 +11,6 @@ const getNewProducts = async () => {
 const NewProducts = async () => {
     const products = await getNewProducts();
 
-    // Await the cookies() function
-    const cookieStore = await cookies();
-
-    // Get the token & userId from HttpOnly cookies
-    const token = cookieStore.get("token")?.value;
-    const userId = cookieStore.get("userId")?.value;
-
     return (
         <section className='flex flex-col items-center px-4 mx-auto pt-3 pb-12 gap-8 max-w-[1800px]'>
             <h2 className='text-4xl font-semibold text-center'>New Products</h2>
@@ -27,8 +19,6 @@ const NewProducts = async () => {
                 {products.length > 0 ? (
                     products.map((product: Product) => (
                         <ProductCard
-                            token={token}
-                            userId={userId}
                             key={product.id}
                             product={product}
                             className='max-w-[280px]'

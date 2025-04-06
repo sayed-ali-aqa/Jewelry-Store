@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import { ProductsApiResponse } from "@types/allTypes";
+import { toast } from 'sonner';
 
 export async function getProducts(): Promise<ProductsApiResponse> {
   const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?sort=createdAt:desc&pagination[limit]=8&populate=images&populate=category`;
@@ -51,24 +52,32 @@ export async function getProductsMaterials() {
   }
 }
 
-export async function addToWishlist(id: any, userId: any, jwt: string) {
-  const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/wishlists`;
-
-  const data = {
-    data: {
-      products: [id], 
-      users_permissions_user: userId, 
-    },
-  };
-
+export async function addToWishlist(id: number) {
   try {
-    const res = await axios.post(baseUrl, data, {
-      headers: {
-        Authorization: `Bearer ${jwt}`, // Auth token
-      },
-    });
+    const response = await fetch("/api/auth/auth-info", { credentials: "include" });
+    const authInfo = await response.json();
 
-    return res.data;
+    if (authInfo && authInfo.token && authInfo.userId) {
+      const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/wishlists`;
+
+      const data = {
+        data: {
+          products: [id],
+          users_permissions_user: authInfo.userId,
+        },
+      };
+
+      const res = await axios.post(baseUrl, data, {
+        headers: {
+          Authorization: `Bearer ${authInfo.token}`, // Auth token
+        },
+      });
+
+      return res.data;
+    } else {
+      toast.error("Please login to add to wishlist")
+      return {}
+    }
   } catch (error) {
     console.error("Error adding to wishlist:", error);
     throw error;
@@ -84,5 +93,29 @@ export async function getTestimonials() {
     return res.data;
   } catch (error) {
     return { data: [] } // default value
+  }
+}
+
+export async function getWishlist() {
+  try {
+    const response = await fetch("/api/auth/auth-info", { credentials: "include" });
+    const data = await response.json();
+
+    if (data && data.token && data.userId) {
+      const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/wishlists?populate=*&filters[users_permissions_user][id][$eq]=${data.userId}`;
+
+      const res = await axios.get(baseUrl, {
+        headers: {
+          Authorization: `Bearer ${data.token}`, // Auth token
+        },
+      });
+
+      return res.data;
+    } else {
+      return {}
+    }
+  } catch (error) {
+    console.error("Error adding to wishlist:", error);
+    throw error;
   }
 }

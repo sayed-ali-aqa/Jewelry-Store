@@ -25,11 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={lato.className}>
-        <Navbar />
         <Providers>
+          <Navbar />
           {children}
+          <Footer />
         </Providers>
-        <Footer />
 
         <Toaster position="top-center" richColors />
       </body>
