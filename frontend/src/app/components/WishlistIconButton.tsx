@@ -1,33 +1,20 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Heart } from "lucide-react";
 import { addToWishlist } from "../../lib/api";
 import { toast } from "sonner";
+import { WishlistIconButtonProps } from "@types/allTypes";
 
-const WishlistIconButton = ({ id }: { id: any }) => {
-    const [token, setToken] = useState<string | null>(null);
-    const [userId, setUserId] = useState<string | null>(null);
+const WishlistIconButton: React.FC<WishlistIconButtonProps> = ({ id, userId, token }) => {
     const [isAddedToWishlist, setIsAddedToWishlist] = useState<Boolean>(false)
-
-    useEffect(() => {
-        const fetchToken = async () => {
-            const response = await fetch("/api/auth/auth-info", { credentials: "include" });
-
-            const data = await response.json();
-            setToken(data.token);
-            setUserId(data.userId)
-        };
-
-        fetchToken();
-    }, []);
 
     const handleAddToWishlist = async (e: React.MouseEvent) => {
         e.stopPropagation();
         e.preventDefault();
 
         if (!token) {
-            toast.error("Please login to add to withlist")
+            toast.error("Please login to add to wishlist")
 
             return;
         }

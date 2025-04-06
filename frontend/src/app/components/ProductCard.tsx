@@ -6,13 +6,13 @@ import ProductLabel from './ProductLabel'
 import { ProductCardProps } from '@types/allTypes'
 import Image from 'next/image'
 
-const ProductCard: React.FC<ProductCardProps> = ({ className, product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ className, product, token, userId }) => {
     return (
         <Link href={`/products/${product.slug}`} className={`relative w-full min-w-[200px] h-auto group ${className}`}>
             <div className='flex justify-between absolute top-4 w-full items-center'>
                 <ProductLabel label={product.label} />
 
-                <WishlistIconButton id={product.id} />
+                <WishlistIconButton id={product.id} userId={userId} token={token} />
             </div>
 
             <Image

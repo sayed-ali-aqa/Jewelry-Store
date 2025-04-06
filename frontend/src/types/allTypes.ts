@@ -26,7 +26,7 @@ export interface ProductLableProps {
 }
 
 export interface ProductImagesProps {
-    images: {url: string}[],
+    images: { url: string }[],
     alt: string,
     labelText?: string
 }
@@ -34,6 +34,8 @@ export interface ProductImagesProps {
 export interface ProductCardProps {
     className?: string,
     product: Product;
+    token?: string,
+    userId?: string,
 }
 
 // Because every products request has {data [...]}
@@ -119,8 +121,8 @@ export interface CategoryBannerProps {
     }[];
 }
 
-export interface suggestedProductsByCategoryProps{
-    id: string, 
+export interface suggestedProductsByCategoryProps {
+    id: string,
     category: string
 }
 
@@ -132,3 +134,9 @@ export interface Review {
         url: string
     };
 };
+
+export interface WishlistIconButtonProps {
+    id: number,
+    userId?: string,
+    token?: string
+}
