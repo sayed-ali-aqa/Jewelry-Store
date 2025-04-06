@@ -74,3 +74,15 @@ export async function addToWishlist(id: any, userId: any, jwt: string) {
     throw error;
   }
 }
+
+export async function getTestimonials() {
+  const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/reviews?populate=*`;
+
+  try {
+    const res = await axios.get(baseUrl);
+
+    return res.data;
+  } catch (error) {
+    return { data: [] } // default value
+  }
+}

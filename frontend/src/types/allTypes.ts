@@ -123,3 +123,12 @@ export interface suggestedProductsByCategoryProps{
     id: string, 
     category: string
 }
+
+export interface Review {
+    name: string;
+    testimonial: string;
+    rating: number;
+    image: {
+        url: string
+    };
+};

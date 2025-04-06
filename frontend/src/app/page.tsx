@@ -9,9 +9,9 @@ export default async function Home() {
     <div>
       <Slider />
       <HomeBanner />
-      <CategoryBanner/>
+      <CategoryBanner />
       <NewProducts />
-      <Testimonials />
+      <Testimonials/>
     </div>
   );
 }
