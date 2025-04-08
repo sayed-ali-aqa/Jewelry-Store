@@ -25,3 +25,25 @@ export function setUserId(res: NextResponse, userId: string) {
         sameSite: "strict", // Prevent CSRF attacks
     });
 }
+
+export function clearTokenCookie(res: NextResponse) {
+    res.cookies.set({
+        name: "token",
+        value: "",
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 0, // Expire immediately
+        path: "/",
+        sameSite: "strict",
+    });
+
+    res.cookies.set({
+        name: "userId",
+        value: "",
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 0,
+        path: "/",
+        sameSite: "strict",
+    });
+}

@@ -2,18 +2,13 @@
 
 import { LayoutProps } from "@types/allTypes";
 import React from "react";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../../../store/store";
 import Link from "next/link";
-import { ChevronRight, Heart, Package, User, LogOut } from "lucide-react";
+import { ChevronRight, Heart, Package, User } from "lucide-react";
 import { usePathname } from 'next/navigation'
 import { accountNavLinks } from "../../../../datalist";
+import SignOutButton from "./_components/SignOutButton";
 
 const AuthLayout: React.FC<LayoutProps> = ({ children }) => {
-    // const { user } = useSelector(
-    //     (state: RootState) => state.auth
-    // );
-
     const pathName = usePathname()
 
     const iconMap: Record<string, React.ComponentType<{ size: number }>> = {
@@ -37,9 +32,7 @@ const AuthLayout: React.FC<LayoutProps> = ({ children }) => {
                     ))}
 
                     <li className="border-b last:border-b-0 group text-slate-500">
-                        <span role="button" onClick={() => alert("Signed Out")} className="px-3 py-8 flex items-center gap-3 w-full transition-all duration-300 group-hover:text-destructive">
-                            <LogOut size={20}/> Sign Out <ChevronRight className="ml-auto" size={20} />
-                        </span>
+                        <SignOutButton />
                     </li>
                 </ul>
             </div>

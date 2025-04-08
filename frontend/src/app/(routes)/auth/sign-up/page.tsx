@@ -33,7 +33,7 @@ const Page = () => {
             dispatch(setUser(response.user));
 
             setTimeout(() => {
-                router.push("/about-us")
+                router.push("/account/orders")
             }, 1000)
         }
     };
