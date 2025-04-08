@@ -11,6 +11,10 @@ export interface AuthStateProps {
     isLoading: boolean;
 }
 
+export interface WishlistStatusProps {
+    wishlistStatus: boolean
+}
+
 export interface LayoutProps {
     children: ReactNode;
 }

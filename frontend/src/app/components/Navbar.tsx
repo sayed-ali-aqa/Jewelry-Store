@@ -20,6 +20,7 @@ import { RootState } from '../../store/store'
 export function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false)
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated)
+  const wishlistStatus = useSelector((state: RootState) => state.wishlistStatus.wishlistStatus);
 
   const [wishlistCount, setWishlistCount] = useState<number>(0)
 
@@ -35,7 +36,7 @@ export function Navbar() {
 
   useEffect(() => {
     fetchWishlist()
-  }, [isAuthenticated])
+  }, [isAuthenticated, wishlistStatus])
 
   return (
     <div className='border-b md:border-none sticky top-0 z-50'>

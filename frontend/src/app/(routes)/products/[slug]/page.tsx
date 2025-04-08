@@ -5,6 +5,8 @@ import { Heart, ShoppingBag, Star, StarHalf } from 'lucide-react';
 import ProductImages from '../_components/ProductImages';
 import BreadCrumb from '@/components/BreadCrumb';
 import ProductsSuggestions from '../_components/ProductsSuggestions';
+import AddToCartButton from '../_components/AddToCartButton';
+import AddToWishlistButton from '../_components/AddToWishlistButton';
 
 const getProductBySlug = async (slug: string) => {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/products/${slug}`);
@@ -78,8 +80,9 @@ const Page = async ({ params }: { params: { slug: string } }) => {
                     </div>
 
                     <div className='flex items-center gap-4 mt-10'>
-                        <Button size="lg" className='text-lg px-5 py-6'><ShoppingBag /> Add to Cart</Button>
-                        <Button variant="outline" size="lg" className='text-lg px-5 py-6'><Heart /> Add to Wishlist</Button>
+                        <AddToCartButton id={product[0]?.id} />
+
+                        <AddToWishlistButton id={product[0]?.id} />
                     </div>
                 </div>
             </div>
