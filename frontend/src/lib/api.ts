@@ -148,7 +148,31 @@ export async function getWishlist() {
       return {}
     }
   } catch (error) {
-    console.error("Error adding to wishlist:", error);
+    console.error("Error fetching wishlists:", error);
+    throw error;
+  }
+}
+
+export async function getCart() {
+  try {
+    const response = await fetch("/api/auth/auth-info", { credentials: "include" });
+    const data = await response.json();
+
+    if (data && data.token && data.userId) {
+      const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/carts?populate=*&filters[users_permissions_user][id][$eq]=${data.userId}`;
+
+      const res = await axios.get(baseUrl, {
+        headers: {
+          Authorization: `Bearer ${data.token}`, // Auth token
+        },
+      });
+
+      return res.data;
+    } else {
+      return {}
+    }
+  } catch (error) {
+    console.error("Error fetching carts:", error);
     throw error;
   }
 }
