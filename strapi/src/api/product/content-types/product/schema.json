@@ -83,6 +83,12 @@
       "relation": "oneToMany",
       "target": "api::wishlist.wishlist",
       "mappedBy": "products"
+    },
+    "carts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cart.cart",
+      "mappedBy": "products"
     }
   }
 }

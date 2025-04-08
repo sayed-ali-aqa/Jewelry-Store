@@ -84,6 +84,39 @@ export async function addToWishlist(id: number) {
   }
 }
 
+export async function addToCart(id: number, quantity: number) {
+  try {
+    const response = await fetch("/api/auth/auth-info", { credentials: "include" });
+    const authInfo = await response.json();
+
+    if (authInfo && authInfo.token && authInfo.userId) {
+      const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/carts`;
+
+      const data = {
+        data: {
+          products: [id],
+          quantity: quantity,
+          users_permissions_user: authInfo.userId,
+        },
+      };
+
+      const res = await axios.post(baseUrl, data, {
+        headers: {
+          Authorization: `Bearer ${authInfo.token}`, // Auth token
+        },
+      });
+
+      return res.data;
+    } else {
+      toast.error("Please login to add to cart")
+      return {}
+    }
+  } catch (error) {
+    console.error("Error adding to cart:", error);
+    throw error;
+  }
+}
+
 export async function getTestimonials() {
   const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/reviews?populate=*`;
 

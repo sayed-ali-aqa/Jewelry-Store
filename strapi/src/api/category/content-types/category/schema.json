@@ -31,6 +31,12 @@
         "images",
         "files"
       ]
+    },
+    "carts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cart.cart",
+      "mappedBy": "products"
     }
   }
 }
