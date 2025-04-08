@@ -110,7 +110,7 @@ export function Navbar() {
           <div className='flex items-center gap-1'>
             <Link href="/account/personal-info" className='transition-all duration-300 p-2 hover:text-primary'><User size={20} /></Link>
 
-            <Link href="/account/whislist" className='transition-all duration-300 p-2 hover:text-primary cursor-pointer relative'>
+            <Link href="/account/wishlist" className='transition-all duration-300 p-2 hover:text-primary cursor-pointer relative'>
               <Heart size={20} />
               <span className='absolute -top-1 right-0 bg-primary text-white text-xs font-semibold w-[22px] h-[22px] rounded-full text-center leading-[22px]'>{wishlistCount}</span>
             </Link>
