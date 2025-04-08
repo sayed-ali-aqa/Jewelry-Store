@@ -3,7 +3,7 @@
 import { LayoutProps } from "@types/allTypes";
 import React from "react";
 import Link from "next/link";
-import { ChevronRight, Heart, Package, User } from "lucide-react";
+import { ChevronRight, Heart, Package, ShoppingBag, User } from "lucide-react";
 import { usePathname } from 'next/navigation'
 import { accountNavLinks } from "../../../../datalist";
 import SignOutButton from "./_components/SignOutButton";
@@ -15,10 +15,11 @@ const AuthLayout: React.FC<LayoutProps> = ({ children }) => {
         Package: Package,
         Heart: Heart,
         User: User,
+        ShoppingBag,
     };
 
     return (
-        <div className="bg-slate-50 w-full min-h-[85vh] flex gap-6 p-[5%]">
+        <div className="bg-slate-50 w-full min-h-[85vh] flex gap-6 px-[5%] py-10">
             <div className="bg-white min-w-[350px] p-6">
                 <h2 className="uppercase text-slate-500 text-xl">User Account</h2>
 
