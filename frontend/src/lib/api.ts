@@ -52,7 +52,7 @@ export async function getProductsMaterials() {
   }
 }
 
-export async function addToWishlist(id: number) {
+export async function addToWishlist(id: string) {
   try {
     const response = await fetch("/api/auth/auth-info", { credentials: "include" });
     const authInfo = await response.json();
@@ -84,7 +84,7 @@ export async function addToWishlist(id: number) {
   }
 }
 
-export async function addToCart(id: number, quantity: number) {
+export async function addToCart(id: string, quantity: number) {
   try {
     const response = await fetch("/api/auth/auth-info", { credentials: "include" });
     const authInfo = await response.json();

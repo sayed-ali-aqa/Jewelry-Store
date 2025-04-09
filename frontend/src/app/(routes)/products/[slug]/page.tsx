@@ -80,9 +80,9 @@ const Page = async ({ params }: { params: { slug: string } }) => {
                     </div>
 
                     <div className='flex items-center gap-4 mt-10'>
-                        <AddToCartButton id={product[0]?.id} />
+                        <AddToCartButton id={product[0]?.documentId} />
 
-                        <AddToWishlistButton id={product[0]?.id} />
+                        <AddToWishlistButton id={product[0]?.documentId} />
                     </div>
                 </div>
             </div>
@@ -96,7 +96,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
                 <h2 className='text-3xl font-semibold text-center mb-6'>You Might Also Like</h2>
 
                 <ProductsSuggestions
-                    id={product[0]?.id}
+                    id={product[0]?.documentId}
                     category={product[0]?.category?.category} />
             </div>
         </div>

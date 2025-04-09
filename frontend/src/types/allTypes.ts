@@ -40,9 +40,9 @@ export interface ProductImagesProps {
 }
 
 export type AccountItemType = {
-    documentId: number,
+    documentId: string,
     products: {
-        id: number,
+        documentId: string,
         name: string,
         slug: string,
         price: number,
@@ -89,7 +89,7 @@ export interface ProductsApiResponse {
 }
 
 export interface Product {
-    id: number;
+    documentId: string,
     name: string;
     slug: string;
     price: number;
@@ -169,7 +169,7 @@ export interface Review {
 };
 
 export interface WishlistIconButtonProps {
-    id: number,
+    id: string,
     userId?: string,
     token?: string
 }

@@ -9,7 +9,7 @@ import { RootState } from '../../../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCartStatus } from '../../../../store/slices/cartStatusSlice';
 
-const AddToCartButton = ({ id }: { id: number }) => {
+const AddToCartButton = ({ id }: { id: string }) => {
     const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false)
     const cartStatus = useSelector((state: RootState) => state.cartStatus.cartStatus);
     const dispatch = useDispatch();

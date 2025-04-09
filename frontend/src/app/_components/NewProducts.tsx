@@ -19,7 +19,7 @@ const NewProducts = async () => {
                 {products.length > 0 ? (
                     products.map((product: Product) => (
                         <ProductCard
-                            key={product.id}
+                            key={product.documentId}
                             product={product}
                             className='max-w-[280px]'
                         />

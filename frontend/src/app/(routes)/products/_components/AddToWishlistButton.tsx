@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../../../store/store';
 
 
-const AddToWishlistButton = ({ id }: { id: number }) => {
+const AddToWishlistButton = ({ id }: { id: string }) => {
     const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false)
     const wishlistStatus = useSelector((state: RootState) => state.wishlistStatus.wishlistStatus);
     const dispatch = useDispatch();

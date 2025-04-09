@@ -12,7 +12,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ className, product }) => {
             <div className='flex justify-between absolute top-4 w-full items-center'>
                 <ProductLabel label={product.label} />
 
-                <WishlistIconButton id={product.id} />
+                <WishlistIconButton id={product.documentId} />
             </div>
 
             <Image
