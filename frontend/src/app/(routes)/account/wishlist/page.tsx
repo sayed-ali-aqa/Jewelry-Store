@@ -6,10 +6,13 @@ import { toast } from 'sonner'
 import EmptyPlaceholder from '../_components/EmptyPlaceholder'
 import WishlistCard from '../_components/WishlistCard'
 import { WishlistType } from '@types/allTypes'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../store/store'
 const WishlistIcon = '/images/icons/empty-wishlist.png'
 
 const page = () => {
   const [wishlists, setWishlists] = useState<[]>([])
+  const wishlistStatus = useSelector((state: RootState) => state.wishlistStatus.wishlistStatus);
 
   const fetchWishlist = async () => {
     try {
@@ -23,7 +26,7 @@ const page = () => {
 
   useEffect(() => {
     fetchWishlist()
-  }, [])
+  }, [wishlistStatus])
 
   return (
     <div>

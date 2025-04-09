@@ -40,7 +40,7 @@ export interface ProductImagesProps {
 }
 
 export type WishlistType = {
-    id: number,
+    documentId: number,
     products: {
         id: number,
         name: string,

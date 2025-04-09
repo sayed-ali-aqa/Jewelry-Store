@@ -2,11 +2,11 @@
 
 import React from "react";
 import { X } from "lucide-react";
-import { addToWishlist } from "../../../../lib/api";
+import { removeWishlist } from "../../../../lib/api";
 import { toast } from "sonner";
 import { WishlistIconButtonProps } from "@types/allTypes";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../store/store"; 
+import { RootState } from "../../../../store/store";
 import { setWishlistStatus } from "../../../../store/slices/wishlistStatusSlice";
 
 const WishlistRemoveButton: React.FC<WishlistIconButtonProps> = ({ id }) => {
@@ -17,11 +17,13 @@ const WishlistRemoveButton: React.FC<WishlistIconButtonProps> = ({ id }) => {
         e.stopPropagation();
         e.preventDefault();
 
-        const response = await addToWishlist(id);
+        const response = await removeWishlist(id);
 
-        if (response && response?.data?.id) {
+        if (response && response?.status === 200) {
             dispatch(setWishlistStatus(!wishlistStatus)); // Update Redux state
-            toast.success("Added to wishlist successfully");
+            toast.success(response.message);
+        } else {
+            toast.error("Failed to remove wishlist");
         }
     };
 

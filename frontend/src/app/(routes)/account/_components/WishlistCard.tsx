@@ -1,6 +1,5 @@
 
 import React from 'react'
-import WishlistIconButton from '@/components/WishlistIconButton'
 import Link from 'next/link'
 import { WishlistCardProps } from '@types/allTypes'
 import Image from 'next/image'
@@ -13,7 +12,7 @@ const WishlistCard: React.FC<WishlistCardProps> = ({ className, wishlist }) => {
             <div className='flex justify-between absolute top-4 w-full items-center'>
                 <ProductLabel label={wishlist?.products?.label} />
 
-                <WishlistRemoveButton id={wishlist.id} />
+                <WishlistRemoveButton id={wishlist.documentId} />
             </div>
 
             <Image
