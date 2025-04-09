@@ -39,9 +39,31 @@ export interface ProductImagesProps {
     labelText?: string
 }
 
+export type WishlistType = {
+    id: number,
+    products: {
+        id: number,
+        name: string,
+        slug: string,
+        price: number,
+        discount: number,
+        quantity: number,
+        label: string,
+        alt: string,
+        images: {
+            url: string
+        }[]
+    }
+}
+
 export interface ProductCardProps {
     className?: string,
     product: Product;
+}
+
+export interface WishlistCardProps {
+    className?: string,
+    wishlist: Wishlist;
 }
 
 // Because every products request has {data [...]}

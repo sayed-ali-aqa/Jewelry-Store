@@ -135,7 +135,13 @@ export async function getWishlist() {
     const data = await response.json();
 
     if (data && data.token && data.userId) {
-      const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/wishlists?populate=*&filters[users_permissions_user][id][$eq]=${data.userId}`;
+      const query = new URLSearchParams({
+        'populate[products][populate]': 'images',
+        'sort[createdAt]': 'desc',
+        [`filters[users_permissions_user][id][$eq]`]: data.userId,
+      });
+
+      const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/wishlists?${query.toString()}`;
 
       const res = await axios.get(baseUrl, {
         headers: {

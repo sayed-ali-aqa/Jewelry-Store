@@ -4,16 +4,17 @@ import React, { useEffect, useState } from 'react'
 import { getWishlist } from '../../../../lib/api'
 import { toast } from 'sonner'
 import EmptyPlaceholder from '../_components/EmptyPlaceholder'
+import WishlistCard from '../_components/WishlistCard'
+import { WishlistType } from '@types/allTypes'
 const WishlistIcon = '/images/icons/empty-wishlist.png'
 
 const page = () => {
-  const [wishlist, setWishlist] = useState<[]>([])
+  const [wishlists, setWishlists] = useState<[]>([])
 
   const fetchWishlist = async () => {
     try {
       const data = await getWishlist()
-      console.log(data.data);
-      setWishlist(data.data)
+      setWishlists(data.data)
 
     } catch (error) {
       toast.error("Failed to fetch wishlist")
@@ -26,14 +27,20 @@ const page = () => {
 
   return (
     <div>
-      {wishlist.length === 0 ? (
+      {wishlists.length === 0 ? (
         <EmptyPlaceholder
           image={WishlistIcon}
           text="You haven't added anything to your wishlist yet."
           actionText="Add To Wishlist Now"
         />
       ) : (
-        <h1>hi</h1>
+        <div className="w-full flex gap-x-6 gap-y-8 flex-wrap">
+          {
+            wishlists.map((wishlist: WishlistType) => (
+              <WishlistCard key={wishlist.id} wishlist={wishlist} className="xs:max-w-[280px] h-fit" />
+            ))
+          }
+        </div>
       )}
     </div>
   )
