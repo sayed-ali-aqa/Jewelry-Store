@@ -6,7 +6,7 @@ export const protectedRoutes = [
 export const accountNavLinks = [
     {
         title: "Cart",
-        url: "/account/cart",
+        url: "/account/shopping-cart",
         icon: "ShoppingBag"
     },
     {

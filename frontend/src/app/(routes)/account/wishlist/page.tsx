@@ -5,7 +5,7 @@ import { getWishlist } from '../../../../lib/api'
 import { toast } from 'sonner'
 import EmptyPlaceholder from '../_components/EmptyPlaceholder'
 import WishlistCard from '../_components/WishlistCard'
-import { WishlistType } from '@types/allTypes'
+import { AccountItemType } from '@types/allTypes'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../store/store'
 const WishlistIcon = '/images/icons/empty-wishlist.png'
@@ -39,8 +39,8 @@ const page = () => {
       ) : (
         <div className="w-full flex gap-x-6 gap-y-8 flex-wrap">
           {
-            wishlists.map((wishlist: WishlistType) => (
-              <WishlistCard key={wishlist.id} wishlist={wishlist} className="xs:max-w-[280px] h-fit" />
+            wishlists.map((wishlist: AccountItemType) => (
+              <WishlistCard key={wishlist.documentId} wishlist={wishlist} className="xs:max-w-[280px] h-fit" />
             ))
           }
         </div>

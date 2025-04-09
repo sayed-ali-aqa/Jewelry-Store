@@ -39,7 +39,7 @@ export interface ProductImagesProps {
     labelText?: string
 }
 
-export type WishlistType = {
+export type AccountItemType = {
     documentId: number,
     products: {
         id: number,
@@ -63,7 +63,12 @@ export interface ProductCardProps {
 
 export interface WishlistCardProps {
     className?: string,
-    wishlist: Wishlist;
+    wishlist: AccountItemType;
+}
+
+export interface CartCardProps {
+    className?: string,
+    cart: AccountItemType;
 }
 
 // Because every products request has {data [...]}

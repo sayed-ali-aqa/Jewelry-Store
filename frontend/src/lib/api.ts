@@ -165,7 +165,13 @@ export async function getCart() {
     const data = await response.json();
 
     if (data && data.token && data.userId) {
-      const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/carts?populate=*&filters[users_permissions_user][id][$eq]=${data.userId}`;
+      const query = new URLSearchParams({
+        'populate[products][populate]': 'images',
+        'sort[createdAt]': 'desc',
+        [`filters[users_permissions_user][id][$eq]`]: data.userId,
+      });
+
+      const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/carts?${query.toString()}`;
 
       const res = await axios.get(baseUrl, {
         headers: {
@@ -200,6 +206,29 @@ export async function removeWishlist(id: number) {
       return { status: 200, message: "Wishlist removed successfully" };
     } else {
       return { status: 401, message: "Please login to remove wishlist" }
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function removeCart(id: number) {
+  try {
+    const response = await fetch("/api/auth/auth-info", { credentials: "include" });
+    const authInfo = await response.json();
+
+    if (authInfo && authInfo.token && authInfo.userId) {
+      const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/carts/${id}`;
+
+      const res = await axios.delete(baseUrl, {
+        headers: {
+          Authorization: `Bearer ${authInfo.token}`, // Auth token
+        },
+      });
+
+      return { status: 200, message: "Cart item removed successfully" };
+    } else {
+      return { status: 401, message: "Please login to remove Cart item" }
     }
   } catch (error) {
     throw error;

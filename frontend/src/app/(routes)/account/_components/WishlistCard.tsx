@@ -1,12 +1,12 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { WishlistCardProps } from '@types/allTypes'
+import { AccountItemTypeCardProps } from '@types/allTypes'
 import Image from 'next/image'
 import ProductLabel from '@/components/ProductLabel'
 import WishlistRemoveButton from './WishlistRemoveButton'
 
-const WishlistCard: React.FC<WishlistCardProps> = ({ className, wishlist }) => {
+const WishlistCard: React.FC<AccountItemTypeCardProps> = ({ className, wishlist }) => {
     return (
         <Link href={`/products/${wishlist?.products?.slug}`} className={`relative w-full min-w-[200px] h-auto group ${className}`}>
             <div className='flex justify-between absolute top-4 w-full items-center'>
