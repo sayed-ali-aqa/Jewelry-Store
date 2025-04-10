@@ -1,21 +1,17 @@
 "use client"
+
 import React, { useEffect, useState } from 'react'
 import Link from "next/link"
-import { Facebook, Gem, Heart, Instagram, Menu, ShoppingBag, Truck, Twitter, User, X, Youtube } from 'lucide-react'
+import { Facebook, Gem, Heart, Instagram, Menu, Twitter, User, X, Youtube } from 'lucide-react'
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import Image from 'next/image'
 import { getCart, getWishlist } from '../../lib/api'
 import { toast } from 'sonner'
 const Logo = '/images/logo/logo.png'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store/store'
+import { CartSheet } from './CartSheet'
+import LanguageSelect from './LanguageSelect'
 
 export function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false)
@@ -63,16 +59,7 @@ export function Navbar() {
             <p className='text-sm font-semibold text-white'>#1 Free Global Shipping</p>
           </div>
 
-          <Select>
-            <SelectTrigger className="w-[95px] border-none shadow-none text-white outline-none focus:ring-0 font-semibold">
-              <SelectValue placeholder="English" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="English" className='focus:bg-white focus:text-primary'>English</SelectItem>
-              <SelectItem value="French" className='focus:bg-white focus:text-primary'>French</SelectItem>
-              <SelectItem value="German" className='focus:bg-white focus:text-primary'>German</SelectItem>
-            </SelectContent>
-          </Select>
+          <LanguageSelect />
         </div>
 
         <div className='hidden md:flex items-center gap-12 justify-between'>
@@ -115,10 +102,7 @@ export function Navbar() {
               <span className='absolute -top-1 right-0 bg-primary text-white text-xs font-semibold w-[22px] h-[22px] rounded-full text-center leading-[22px]'>{wishlistCount}</span>
             </Link>
 
-            <div className='transition-all duration-300 p-2 hover:text-primary cursor-pointer relative'>
-              <ShoppingBag size={20} />
-              <span className='absolute -top-1 right-0 bg-primary text-white text-xs font-semibold w-[22px] h-[22px] rounded-full text-center leading-[22px]'>{cartCount}</span>
-            </div>
+            <CartSheet cartCount={cartCount} />
           </div>
 
           <div className='md:hidden block'>
