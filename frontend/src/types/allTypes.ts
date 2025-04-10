@@ -64,6 +64,11 @@ export type AccountItemType = {
     }
 }
 
+export interface CartItemCardProps {
+    id: string,
+    currentQuantity: number
+}
+
 export interface ProductCardProps {
     className?: string,
     product: Product;
@@ -187,4 +192,13 @@ export interface ContactRequestProps {
     email: string,
     title: string,
     message: string,
+}
+
+export interface EmptyPlaceholderProps {
+    image: string,
+    text: string,
+    actionText: string,
+    clasName?: string,
+    imageSize: number,
+    isAction: boolean,
 }

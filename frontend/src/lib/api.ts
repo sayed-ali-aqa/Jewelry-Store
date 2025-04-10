@@ -234,3 +234,57 @@ export async function removeCart(id: number) {
     throw error;
   }
 }
+
+export async function updateCartItemQuantity(id: string, quantity: number) {
+  try {
+    const response = await fetch("/api/auth/auth-info", { credentials: "include" });
+    const authInfo = await response.json();
+
+    if (authInfo && authInfo.token && authInfo.userId) {
+      const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/carts/${id}`;
+
+      const data = {
+        data: {
+          quantity: quantity,
+        },
+      };
+
+      const res = await axios.put(baseUrl, data, {
+        headers: {
+          Authorization: `Bearer ${authInfo.token}`, // Auth token
+        },
+      });
+
+      return res.data;
+    } else {
+      toast.error("Please login to update cart item quantity")
+      return {}
+    }
+  } catch (error) {
+    console.error("Error updating cart item quantity: ", error);
+    throw error;
+  }
+}
+
+export async function removeCartItem(id: string) {
+  try {
+    const response = await fetch("/api/auth/auth-info", { credentials: "include" });
+    const authInfo = await response.json();
+
+    if (authInfo && authInfo.token && authInfo.userId) {
+      const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/carts/${id}`;
+
+      const res = await axios.delete(baseUrl, {
+        headers: {
+          Authorization: `Bearer ${authInfo.token}`, // Auth token
+        },
+      });
+
+      return { status: 200, message: "Cart item removed" };
+    } else {
+      return { status: 401, message: "Please login to remove cart item" }
+    }
+  } catch (error) {
+    throw error;
+  }
+}

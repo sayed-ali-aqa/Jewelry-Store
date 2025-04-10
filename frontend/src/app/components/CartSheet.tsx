@@ -19,10 +19,10 @@ import { useSelector } from "react-redux"
 import { RootState } from "../../store/store"
 import { AccountItemType, CartItem } from "@types/allTypes"
 import EmptyPlaceholder from "@/(routes)/account/_components/EmptyPlaceholder"
-import CartItemCart from "./CartItemCart"
+import CartItemCard from "./CartItemCard"
 const CartIcon = '/images/icons/empty-cart.png'
 
-export function CartSheet({ isAuthenticated }: { isAuthenticated: boolean }) {
+export function CartSheet() {
     const [cartCount, setCartCount] = useState<number>(0)
     const [cartData, setCartData] = useState<AccountItemType[]>([])
     const [cartSubTotal, setCartSubTotal] = useState<number>(0)
@@ -31,10 +31,7 @@ export function CartSheet({ isAuthenticated }: { isAuthenticated: boolean }) {
     const fetchCart = async () => {
         try {
             const data = await getCart()
-            console.log(data.data);
             setCartData(data.data)
-
-            setCartCount(data?.meta?.pagination?.total || 0)
 
         } catch (error) {
             toast.error("Failed to fetch cart")
@@ -43,7 +40,7 @@ export function CartSheet({ isAuthenticated }: { isAuthenticated: boolean }) {
 
     useEffect(() => {
         fetchCart()
-    }, [isAuthenticated, cartStatus])
+    }, [cartStatus])
 
     useEffect(() => {
         if (cartData.length > 0) {
@@ -54,6 +51,16 @@ export function CartSheet({ isAuthenticated }: { isAuthenticated: boolean }) {
             }, 0);
 
             setCartSubTotal(subtotal);
+
+            let totalCartCount = 0;
+            cartData.map((item) => {
+                totalCartCount += item.quantity
+            })
+
+            setCartCount(totalCartCount)
+        }else{
+            setCartSubTotal(0);
+            setCartCount(0)
         }
     }, [cartData]);
 
@@ -78,12 +85,15 @@ export function CartSheet({ isAuthenticated }: { isAuthenticated: boolean }) {
                             image={CartIcon}
                             text="You haven't added anything to your shopping cart yet."
                             actionText="Add To Cart Now"
+                            imageSize={130}
+                            clasName="max-h-[60vh] w-[300px] flex mx-auto"
+                            isAction={false}
                         />
                     ) : (
                         <div className="w-full flex gap-x-6 gap-y-8 flex-wrap">
                             {
                                 cartData.map((cart: AccountItemType, index: number) => (
-                                    <CartItemCart key={index} cart={cart} />
+                                    <CartItemCard key={index} cart={cart} />
                                 ))
                             }
                         </div>

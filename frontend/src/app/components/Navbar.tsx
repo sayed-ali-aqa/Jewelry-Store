@@ -85,7 +85,7 @@ export function Navbar() {
               <span className='absolute -top-1 right-0 bg-primary text-white text-xs font-semibold w-[22px] h-[22px] rounded-full text-center leading-[22px]'>{wishlistCount}</span>
             </Link>
 
-            <CartSheet isAuthenticated={isAuthenticated} />
+            <CartSheet />
           </div>
 
           <div className='md:hidden block'>

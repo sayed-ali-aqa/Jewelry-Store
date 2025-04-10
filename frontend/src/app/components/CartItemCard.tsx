@@ -2,12 +2,11 @@
 
 import Image from 'next/image'
 import React from 'react'
-import { CartQuantitySelect } from './CartQuantitySelect'
+import CartQuantitySelect from './CartQuantitySelect' 
 import { CartRemoveButton } from './CartRemoveButton'
 import { AccountItemType } from '@types/allTypes'
 
-const CartItemCart: React.FC<AccountItemType> = ({ cart }) => {
-
+const CartItemCard: React.FC<AccountItemType> = ({ cart }) => {
     return (
         <div className="flex gap-4 p-6 w-full border-b">
             <div>
@@ -25,13 +24,13 @@ const CartItemCart: React.FC<AccountItemType> = ({ cart }) => {
                     <span className="text-slate-500 font-semibold">${((cart.products.price - ((cart.products.price / 100) * cart.products.discount)) * cart.quantity).toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
-                    <CartQuantitySelect />
+                    <CartQuantitySelect id={cart.documentId} currentQuantity={cart.quantity}/>
 
-                    <CartRemoveButton />
+                    <CartRemoveButton id={cart.documentId}/>
                 </div>
             </div>
         </div>
     )
 }
 
-export default CartItemCart
+export default CartItemCard

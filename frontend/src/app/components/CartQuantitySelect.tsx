@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 
 import {
@@ -5,16 +7,33 @@ import {
     SelectContent,
     SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import { CartItemCardProps } from "@types/allTypes"
+import { setCartStatus } from "../../store/slices/cartStatusSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "../../store/store"
+import { toast } from "sonner"
+import { updateCartItemQuantity } from "../../lib/api"
 
-export function CartQuantitySelect() {
+const CartQuantitySelect: React.FC<CartItemCardProps> = ({ id, currentQuantity }) => {
+    const cartStatus = useSelector((state: RootState) => state.cartStatus.cartStatus);
+    const dispatch = useDispatch();
+
+    const handleUpdateCartItemQuantity = async (quantity: string) => {
+        const response = await updateCartItemQuantity(id, Number(quantity));
+
+        if (response && response?.data?.id) {
+            dispatch(setCartStatus(!cartStatus)); // Update Redux state
+            toast.success("Cart item quantity updated");
+        }
+    };
+
     return (
-        <Select>
+        <Select onValueChange={handleUpdateCartItemQuantity} defaultValue={`${currentQuantity}`}>
             <SelectTrigger className="w-[70px]">
-                <SelectValue placeholder="1" />
+                <SelectValue placeholder={currentQuantity} />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
@@ -28,3 +47,5 @@ export function CartQuantitySelect() {
         </Select>
     )
 }
+
+export default CartQuantitySelect
