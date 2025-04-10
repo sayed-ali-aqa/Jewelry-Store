@@ -10,14 +10,14 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { CartItemCardProps } from "@types/allTypes"
+import { CartQuantitySelectProps } from "@types/allTypes"
 import { setCartStatus } from "../../store/slices/cartStatusSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../store/store"
 import { toast } from "sonner"
 import { updateCartItemQuantity } from "../../lib/api"
 
-const CartQuantitySelect: React.FC<CartItemCardProps> = ({ id, currentQuantity }) => {
+const CartQuantitySelect: React.FC<CartQuantitySelectProps> = ({ id, currentQuantity }) => {
     const cartStatus = useSelector((state: RootState) => state.cartStatus.cartStatus);
     const dispatch = useDispatch();
 

@@ -64,9 +64,13 @@ export type AccountItemType = {
     }
 }
 
-export interface CartItemCardProps {
+export interface CartQuantitySelectProps {
     id: string,
     currentQuantity: number
+}
+
+export interface CartItemCardProps {
+    cart: AccountItemType
 }
 
 export interface ProductCardProps {

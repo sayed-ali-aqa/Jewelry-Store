@@ -4,9 +4,9 @@ import Image from 'next/image'
 import React from 'react'
 import CartQuantitySelect from './CartQuantitySelect' 
 import { CartRemoveButton } from './CartRemoveButton'
-import { AccountItemType } from '@types/allTypes'
+import { CartItemCardProps } from '@types/allTypes'
 
-const CartItemCard: React.FC<AccountItemType> = ({ cart }) => {
+const CartItemCard: React.FC<CartItemCardProps> = ({ cart }) => {
     return (
         <div className="flex gap-4 p-6 w-full border-b">
             <div>
