@@ -19,6 +19,14 @@ export interface CartStatusProps {
     cartStatus: boolean
 }
 
+export interface CartItem {
+    quantity: number;
+    products: {
+        price: number;
+        discount: number;
+    };
+}
+
 export interface LayoutProps {
     children: ReactNode;
 }
@@ -41,13 +49,13 @@ export interface ProductImagesProps {
 
 export type AccountItemType = {
     documentId: string,
+    quantity: number,
     products: {
         documentId: string,
         name: string,
         slug: string,
         price: number,
         discount: number,
-        quantity: number,
         label: string,
         alt: string,
         images: {

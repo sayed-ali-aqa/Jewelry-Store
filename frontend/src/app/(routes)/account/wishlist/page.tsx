@@ -40,7 +40,11 @@ const page = () => {
         <div className="w-full flex gap-x-6 gap-y-8 flex-wrap">
           {
             wishlists.map((wishlist: AccountItemType) => (
-              <WishlistCard key={wishlist.documentId} wishlist={wishlist} className="xs:max-w-[280px] h-fit" />
+              <WishlistCard
+                key={wishlist.documentId}
+                wishlist={wishlist}
+                className="xs:max-w-[280px] h-fit"
+              />
             ))
           }
         </div>

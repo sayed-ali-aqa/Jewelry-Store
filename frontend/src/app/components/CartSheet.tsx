@@ -1,11 +1,9 @@
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+"use client"
+
 import {
     Sheet,
     SheetClose,
     SheetContent,
-    SheetDescription,
     SheetFooter,
     SheetHeader,
     SheetTitle,
@@ -13,13 +11,52 @@ import {
 } from "@/components/ui/sheet"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { ShoppingBag } from "lucide-react"
-const ImageUrl = "/images/products/01.jpg"
-import Image from "next/image"
-import { CartQuantitySelect } from "./CartQuantitySelect"
-import { CartRemoveButton } from "./CartRemoveButton"
 import Link from "next/link"
+import { toast } from "sonner"
+import { getCart } from "../../lib/api"
+import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+import { RootState } from "../../store/store"
+import { AccountItemType, CartItem } from "@types/allTypes"
+import EmptyPlaceholder from "@/(routes)/account/_components/EmptyPlaceholder"
+import CartItemCart from "./CartItemCart"
+const CartIcon = '/images/icons/empty-cart.png'
 
-export function CartSheet({ cartCount = 0 }: { cartCount: number }) {
+export function CartSheet({ isAuthenticated }: { isAuthenticated: boolean }) {
+    const [cartCount, setCartCount] = useState<number>(0)
+    const [cartData, setCartData] = useState<AccountItemType[]>([])
+    const [cartSubTotal, setCartSubTotal] = useState<number>(0)
+    const cartStatus = useSelector((state: RootState) => state.cartStatus.cartStatus);
+
+    const fetchCart = async () => {
+        try {
+            const data = await getCart()
+            console.log(data.data);
+            setCartData(data.data)
+
+            setCartCount(data?.meta?.pagination?.total || 0)
+
+        } catch (error) {
+            toast.error("Failed to fetch cart")
+        }
+    }
+
+    useEffect(() => {
+        fetchCart()
+    }, [isAuthenticated, cartStatus])
+
+    useEffect(() => {
+        if (cartData.length > 0) {
+            const subtotal = cartData.reduce((acc, item) => {
+                const { price, discount } = item.products;
+                const discountedPrice = price - (price * discount / 100);
+                return acc + (discountedPrice * item.quantity);
+            }, 0);
+
+            setCartSubTotal(subtotal);
+        }
+    }, [cartData]);
+
     return (
         <Sheet>
             <SheetTrigger asChild>
@@ -32,97 +69,26 @@ export function CartSheet({ cartCount = 0 }: { cartCount: number }) {
                 <SheetHeader className="text-left border-b pb-4 px-6">
                     <div>
                         <SheetTitle>My Cart ({cartCount})</SheetTitle>
-                        <p>Subtotal: <span className="font-semibold ml-1">$237.33</span></p>
+                        <p>Subtotal: <span className="font-semibold ml-1">${(cartSubTotal).toFixed(2)}</span></p>
                     </div>
                 </SheetHeader>
                 <ScrollArea className="flex flex-col h-[66vh] w-full">
-                    <div className="flex gap-4 p-6 w-full border-b">
-                        <div>
-                            <Image
-                                src={ImageUrl}
-                                alt="image"
-                                width={120}
-                                height={150}
-                            />
+                    {cartData.length === 0 ? (
+                        <EmptyPlaceholder
+                            image={CartIcon}
+                            text="You haven't added anything to your shopping cart yet."
+                            actionText="Add To Cart Now"
+                        />
+                    ) : (
+                        <div className="w-full flex gap-x-6 gap-y-8 flex-wrap">
+                            {
+                                cartData.map((cart: AccountItemType, index: number) => (
+                                    <CartItemCart key={index} cart={cart} />
+                                ))
+                            }
                         </div>
-                        <div className="flex flex-col justify-around w-full">
-                            <div>
-                                <h3 className="font-semibold mb-[2px]">Cotton floral print Dress</h3>
-                                <span className="text-slate-500 font-semibold">$340.00</span>
-                            </div>
-                            <div className="flex justify-between">
-                                <CartQuantitySelect />
+                    )}
 
-                                <CartRemoveButton />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="flex gap-4 p-6 w-full border-b">
-                        <div>
-                            <Image
-                                src={ImageUrl}
-                                alt="image"
-                                width={120}
-                                height={150}
-                            />
-                        </div>
-                        <div className="flex flex-col justify-around w-full">
-                            <div>
-                                <h3 className="font-semibold mb-[2px]">Cotton floral print Dress</h3>
-                                <span className="text-slate-500 font-semibold">$340.00</span>
-                            </div>
-                            <div className="flex justify-between">
-                                <CartQuantitySelect />
-
-                                <CartRemoveButton />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="flex gap-4 p-6 w-full border-b">
-                        <div>
-                            <Image
-                                src={ImageUrl}
-                                alt="image"
-                                width={120}
-                                height={150}
-                            />
-                        </div>
-                        <div className="flex flex-col justify-around w-full">
-                            <div>
-                                <h3 className="font-semibold mb-[2px]">Cotton floral print Dress</h3>
-                                <span className="text-slate-500 font-semibold">$340.00</span>
-                            </div>
-                            <div className="flex justify-between">
-                                <CartQuantitySelect />
-
-                                <CartRemoveButton />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="flex gap-4 p-6 w-full border-b">
-                        <div>
-                            <Image
-                                src={ImageUrl}
-                                alt="image"
-                                width={120}
-                                height={150}
-                            />
-                        </div>
-                        <div className="flex flex-col justify-around w-full">
-                            <div>
-                                <h3 className="font-semibold mb-[2px]">Cotton floral print Dress</h3>
-                                <span className="text-slate-500 font-semibold">$340.00</span>
-                            </div>
-                            <div className="flex justify-between">
-                                <CartQuantitySelect />
-
-                                <CartRemoveButton />
-                            </div>
-                        </div>
-                    </div>
                 </ScrollArea>
                 <SheetFooter className="h-[150px] pt-4 px-6 border-t-2">
                     <SheetClose asChild>

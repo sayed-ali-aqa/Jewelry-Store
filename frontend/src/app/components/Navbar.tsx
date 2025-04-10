@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Facebook, Gem, Heart, Instagram, Menu, Twitter, User, X, Youtube } from 'lucide-react'
 
 import Image from 'next/image'
-import { getCart, getWishlist } from '../../lib/api'
+import { getWishlist } from '../../lib/api'
 import { toast } from 'sonner'
 const Logo = '/images/logo/logo.png'
 import { useSelector } from 'react-redux'
@@ -17,10 +17,7 @@ export function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false)
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated)
   const wishlistStatus = useSelector((state: RootState) => state.wishlistStatus.wishlistStatus);
-  const cartStatus = useSelector((state: RootState) => state.cartStatus.cartStatus);
-
   const [wishlistCount, setWishlistCount] = useState<number>(0)
-  const [cartCount, setCartCount] = useState<number>(0)
 
   const fetchWishlist = async () => {
     try {
@@ -32,23 +29,9 @@ export function Navbar() {
     }
   }
 
-  const fetchCart = async () => {
-    try {
-      const cart = await getCart()
-      setCartCount(cart?.meta?.pagination?.total || 0)
-
-    } catch (error) {
-      toast.error("Failed to fetch cart")
-    }
-  }
-
   useEffect(() => {
     fetchWishlist()
   }, [isAuthenticated, wishlistStatus])
-
-  useEffect(() => {
-    fetchCart()
-  }, [isAuthenticated, cartStatus])
 
   return (
     <div className='border-b md:border-none sticky top-0 z-50'>
@@ -102,7 +85,7 @@ export function Navbar() {
               <span className='absolute -top-1 right-0 bg-primary text-white text-xs font-semibold w-[22px] h-[22px] rounded-full text-center leading-[22px]'>{wishlistCount}</span>
             </Link>
 
-            <CartSheet cartCount={cartCount} />
+            <CartSheet isAuthenticated={isAuthenticated} />
           </div>
 
           <div className='md:hidden block'>
