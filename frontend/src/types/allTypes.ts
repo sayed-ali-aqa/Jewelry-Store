@@ -203,6 +203,6 @@ export interface EmptyPlaceholderProps {
     text: string,
     actionText: string,
     clasName?: string,
-    imageSize: number,
-    isAction: boolean,
+    imageSize?: number,
+    isAction?: boolean,
 }

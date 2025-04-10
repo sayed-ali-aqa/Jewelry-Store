@@ -167,10 +167,11 @@ export async function getCart() {
     if (data && data.token && data.userId) {
       const query = new URLSearchParams({
         'populate[products][populate]': 'images',
-        'sort[createdAt]': 'desc',
-        [`filters[users_permissions_user][id][$eq]`]: data.userId,
+        'sort[0]': 'createdAt:desc',
+        // 'pagination[limit]': '2',
+        'filters[users_permissions_user][id][$eq]': data.userId,
       });
-
+      
       const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/carts?${query.toString()}`;
 
       const res = await axios.get(baseUrl, {

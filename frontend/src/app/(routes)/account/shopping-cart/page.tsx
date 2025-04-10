@@ -7,7 +7,7 @@ import EmptyPlaceholder from '../_components/EmptyPlaceholder'
 import { AccountItemType } from '@types/allTypes'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../store/store'
-import ShoppingCartCard from '../_components/ShoppingCartCard'
+import CartItemCard from '@/components/CartItemCard'
 const CartIcon = '/images/icons/empty-cart.png'
 
 const page = () => {
@@ -40,7 +40,9 @@ const page = () => {
         <div className="w-full flex gap-x-6 gap-y-8 flex-wrap">
           {
             carts.map((cart: AccountItemType) => (
-              <ShoppingCartCard key={cart.documentId} cart={cart} className="xs:max-w-[280px] h-fit" />
+              <CartItemCard
+                key={cart.documentId}
+                cart={cart} />
             ))
           }
         </div>
