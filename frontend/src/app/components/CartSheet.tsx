@@ -20,6 +20,7 @@ import { RootState } from "../../store/store"
 import { AccountItemType, CartItem } from "@types/allTypes"
 import EmptyPlaceholder from "@/(routes)/account/_components/EmptyPlaceholder"
 import CartItemCard from "./CartItemCard"
+import { calculateCartTotalAfterDiscount, calculateNumOfCartItems } from "@utils/calulations/calculate"
 const CartIcon = '/images/icons/empty-cart.png'
 
 export function CartSheet() {
@@ -44,21 +45,12 @@ export function CartSheet() {
 
     useEffect(() => {
         if (cartData.length > 0) {
-            const subtotal = cartData.reduce((acc, item) => {
-                const { price, discount } = item.products;
-                const discountedPrice = price - (price * discount / 100);
-                return acc + (discountedPrice * item.quantity);
-            }, 0);
-
+            const subtotal = calculateCartTotalAfterDiscount(cartData)
             setCartSubTotal(subtotal);
 
-            let totalCartCount = 0;
-            cartData.map((item) => {
-                totalCartCount += item.quantity
-            })
-
+            const totalCartCount = calculateNumOfCartItems(cartData)
             setCartCount(totalCartCount)
-        }else{
+        } else {
             setCartSubTotal(0);
             setCartCount(0)
         }
