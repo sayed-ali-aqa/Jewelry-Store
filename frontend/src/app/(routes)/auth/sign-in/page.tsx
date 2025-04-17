@@ -10,7 +10,7 @@ import { AuthProps } from '@types/allTypes';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AuthSchema } from '@utils/validations/authValidation';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUser } from '../../../../store/slices/authSlice';
 import { useRouter } from 'next/navigation'
 

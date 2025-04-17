@@ -30,7 +30,7 @@ const page = () => {
   }, [cartStatus])
 
   return (
-    <div>
+    <div className='bg-white min-h-full p-6'>
       {carts.length === 0 ? (
         <EmptyPlaceholder
           image={CartIcon}

@@ -76,6 +76,12 @@
       "relation": "oneToMany",
       "target": "api::cart.cart",
       "mappedBy": "users_permissions_user"
+    },
+    "user_info": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::user-info.user-info",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

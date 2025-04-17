@@ -38,7 +38,7 @@ const AuthLayout: React.FC<LayoutProps> = ({ children }) => {
                 </ul>
             </div>
 
-            <div className="bg-white w-full p-6">{children}</div>
+            <div className="w-full">{children}</div>
         </div>
     );
 };

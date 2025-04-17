@@ -30,7 +30,7 @@ const page = () => {
   }, [wishlistStatus])
 
   return (
-    <div>
+    <div className='bg-white min-h-full p-6'>
       {wishlists.length === 0 ? (
         <EmptyPlaceholder
           image={WishlistIcon}

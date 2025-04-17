@@ -206,3 +206,9 @@ export interface EmptyPlaceholderProps {
     imageSize?: number,
     isAction?: boolean,
 }
+
+export interface personalInfoType {
+    firstName: string,
+    lastName: string,
+    phone?: string,
+}
