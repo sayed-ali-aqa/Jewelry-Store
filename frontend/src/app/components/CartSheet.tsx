@@ -32,8 +32,9 @@ export function CartSheet() {
     const fetchCart = async () => {
         try {
             const data = await getCart()
-            setCartData(data.data)
 
+            // If the obeject data is empty then let it be an empty array
+            setCartData(Object.keys(data).length > 0 ? data.data : [])
         } catch (error) {
             toast.error("Failed to fetch cart")
         }
@@ -72,7 +73,7 @@ export function CartSheet() {
                     </div>
                 </SheetHeader>
                 <ScrollArea className="flex flex-col h-[66vh] w-full">
-                    {cartData.length === 0 ? (
+                    {!cartData || cartData.length === 0 ? (
                         <EmptyPlaceholder
                             image={CartIcon}
                             text="You haven't added anything to your shopping cart yet."
