@@ -17,8 +17,9 @@ const page = () => {
   const fetchCart = async () => {
     try {
       const data = await getCart()
-      setCarts(data.data)
 
+      //If no data then set it to empty array
+      setCarts(Object.keys(data).length > 0 ? data.data : [])
     } catch (error) {
       toast.error("Failed to fetch wishlist")
     }
