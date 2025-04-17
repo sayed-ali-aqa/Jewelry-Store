@@ -14,12 +14,10 @@ export async function POST(req: Request) {
         });
 
         if (response.status === 200) {
-            console.log();
-            
             const res = new NextResponse(
                 JSON.stringify({
                     message: "Signed in successfully",
-                    user: response.data.user, 
+                    user: response.data.user,
                 }),
                 {
                     status: 200,

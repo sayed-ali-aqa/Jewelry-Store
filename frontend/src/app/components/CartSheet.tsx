@@ -17,7 +17,7 @@ import { getCart } from "../../lib/api"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "../../store/store"
-import { AccountItemType, CartItem } from "@types/allTypes"
+import { AccountItemType } from "@types/allTypes"
 import EmptyPlaceholder from "@/(routes)/account/_components/EmptyPlaceholder"
 import CartItemCard from "./CartItemCard"
 import { calculateCartTotalAfterDiscount, calculateNumOfCartItems } from "@utils/calulations/calculate"
@@ -28,6 +28,7 @@ export function CartSheet() {
     const [cartData, setCartData] = useState<AccountItemType[]>([])
     const [cartSubTotal, setCartSubTotal] = useState<number>(0)
     const cartStatus = useSelector((state: RootState) => state.cartStatus.cartStatus);
+    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated)
 
     const fetchCart = async () => {
         try {
@@ -42,7 +43,7 @@ export function CartSheet() {
 
     useEffect(() => {
         fetchCart()
-    }, [cartStatus])
+    }, [isAuthenticated, cartStatus])
 
     useEffect(() => {
         if (cartData.length > 0) {
