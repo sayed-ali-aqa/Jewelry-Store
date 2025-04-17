@@ -11,7 +11,7 @@ export const PersonalInfoForm = async ({ firstName, lastName, phone }: personalI
         // validate with Zod
         PersonalInfoSchema.parse({ firstName, lastName, phone })
 
-        const response = await axios.post("/api/account/personal-info", { firstName, lastName, phone, userId: authInfo.userId });
+        const response = await axios.post("/api/account/personal-info", { firstName, lastName, phone, userId: authInfo.userId, token: authInfo.token });
 
         if (response.status === 200 || response.status === 201) {
             return { status: 200 };

@@ -4,10 +4,11 @@ import { protectedRoutes } from "../datalist";
 
 export function middleware(req: NextRequest) {
     const token = req.cookies.get("token")?.value; // Get the JWT from cookies
+    const userId = req.cookies.get("userId")?.value; // Get the JWT from cookies
     const { pathname } = req.nextUrl;
 
     // If the user is NOT logged in and tries to access a protected route, redirect to login
-    if (!token && protectedRoutes.includes(pathname)) {
+    if ((!userId || !token) && protectedRoutes.includes(pathname)) {
         return NextResponse.redirect(new URL("/auth/sign-in", req.url));
     }
 

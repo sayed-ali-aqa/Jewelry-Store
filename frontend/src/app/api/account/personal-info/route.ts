@@ -5,7 +5,7 @@ export async function POST(req: Request) {
     const baseUrl = `http://localhost:1337/api/user-infos`;
 
     try {
-        const { firstName, lastName, phone, userId } = await req.json();
+        const { firstName, lastName, phone, userId, token } = await req.json();
 
         const data = {
             data: {
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
 
         const response = await axios.post(baseUrl, data, {
             headers: {
-                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQ0ODcxNTQwLCJleHAiOjE3NDc0NjM1NDB9.7vWa1Ob9YvqdWv5NlHrEyd9iVpIlftG5NIpmURW0upY`, // Auth token
+                Authorization: `Bearer ${token}`, // Auth token
             },
         });
 

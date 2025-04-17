@@ -26,6 +26,8 @@ const page = () => {
         console.log(response);
         if (response.status === 200) {
             toast.success("Personal info updated successfully")
+        } else if (response.status === 403) {
+            toast.error(response.error)
         } else {
             toast.error("Failed to update personal info")
         }

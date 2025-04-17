@@ -1,6 +1,9 @@
 // Define the protected routes
 export const protectedRoutes = [
-    "/account/personal-info"
+    "/account/orders",
+    "/account/shopping-cart",
+    "/account/wishlist",
+    "/account/personal-info",
 ];
 
 export const accountNavLinks = [
