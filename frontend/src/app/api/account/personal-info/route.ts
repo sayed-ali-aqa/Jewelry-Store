@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import axios from 'axios';
 
 export async function POST(req: Request) {
-    const baseUrl = `http://localhost:1337/api/user-infos`;
+    const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user-infos`;
 
     try {
         const { firstName, lastName, phone, userId, token } = await req.json();
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
         if (response.status === 201 || response.status === 200) {
             const res = new NextResponse(
                 JSON.stringify({
-                    message: "Personal info updated successfully",
+                    message: "Personal info added successfully",
                 }),
                 {
                     status: 200,
@@ -33,15 +33,16 @@ export async function POST(req: Request) {
             );
 
             return res;
-        } else {
-            return new NextResponse(
-                JSON.stringify({ message: "Failed to update personal info" }),
-                { status: 400 }
-            );
         }
+
+        // 🚨 If response is not 200
+        return new NextResponse(
+            JSON.stringify({ message: "Failed to add personal info" }),
+            { status: response.status || 500 }
+        );
     } catch (error: any) {
         return new NextResponse(
-            JSON.stringify({ message: "Failed to update personal info" }),
+            JSON.stringify({ message: "Failed to add personal info" }),
             { status: 400 }
         );
     }

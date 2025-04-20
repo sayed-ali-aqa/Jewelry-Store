@@ -86,7 +86,7 @@ const Footer = () => {
         <div>
           <span className='text-sm '>
             &copy;  {currentYear} All rights reserved. Developed by
-            <Link href="https://sayedalimousavi.com/" className='text-nowrap transition-all duration-300 ml-1 hover:text-primary font-semibold'>Sayed Ali Aqa Mousavi</Link>
+            <Link href="https://sayedalimousavi.com/" className='text-nowrap transition-all duration-300 ml-1 hover:underline font-semibold'>Sayed Ali Aqa Mousavi</Link>
           </span>
         </div>
 

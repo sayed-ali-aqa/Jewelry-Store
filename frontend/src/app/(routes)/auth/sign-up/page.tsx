@@ -6,10 +6,10 @@ import React from 'react';
 import { Label } from "@/components/ui/label";
 import Link from 'next/link';
 import { signUpForm } from '@utils/actions/auth';
-import { AuthProps } from '@types/allTypes';
+import { SignUpProps } from '@types/allTypes';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AuthSchema } from '@utils/validations/authValidation';
+import { SignUpSchema } from '@utils/validations/authValidation';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../../../store/slices/authSlice';
 import { useRouter } from 'next/navigation';
@@ -22,14 +22,14 @@ const Page = () => {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm<AuthProps>({
-        resolver: zodResolver(AuthSchema),  // Use Zod resolver for validation
+    } = useForm<SignUpProps>({
+        resolver: zodResolver(SignUpSchema),  // Use Zod resolver for validation
     });
 
-    const onSubmit = async (data: AuthProps) => {
+    const onSubmit = async (data: SignUpProps) => {
         const response = await signUpForm(data);  // Call the signup API with validated data
 
-        if (response.user && response.status === 201) {
+        if (response.user && response.status === 200) {
             dispatch(setUser(response.user));
 
             setTimeout(() => {
@@ -44,6 +44,47 @@ const Page = () => {
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex flex-col gap-6">
+                    <div className='flex gap-6'>
+                        {/* First name Input */}
+                        <div className="w-full flex flex-col gap-1">
+                            <Label htmlFor="firstName">First Name <span className="text-destructive">*</span></Label>
+                            <Input
+                                type="text"
+                                placeholder="First Name"
+                                className={`h-12 ${errors.firstName ? "border-2 border-destructive focus-visible:ring-0" : ""}`}
+                                {...register("firstName")}
+                            />
+
+                            {errors.firstName && <span role="alert" aria-live="assertive" className="text-destructive text-sm">{errors.firstName?.message}</span>}
+                        </div>
+
+                        {/* Last name Input */}
+                        <div className="w-full flex flex-col gap-1">
+                            <Label htmlFor="lastName">Last Name <span className="text-destructive">*</span></Label>
+                            <Input
+                                type="text"
+                                placeholder="Last Name"
+                                className={`h-12 ${errors.lastName ? "border-2 border-destructive focus-visible:ring-0" : ""}`}
+                                {...register("lastName")}
+                            />
+
+                            {errors.lastName && <span role="alert" aria-live="assertive" className="text-destructive text-sm">{errors.lastName?.message}</span>}
+                        </div>
+                    </div>
+
+                    {/* Phone Input */}
+                    <div className="w-full flex flex-col gap-1">
+                        <Label htmlFor="phone">Phone</Label>
+                        <Input
+                            type="tel"
+                            placeholder="Phone"
+                            className={`h-12 ${errors.phone ? "border-2 border-destructive focus-visible:ring-0" : ""}`}
+                            {...register("phone")}
+                        />
+
+                        {errors.phone && <span role="alert" aria-live="assertive" className="text-destructive text-sm">{errors.phone?.message}</span>}
+                    </div>
+
                     {/* Email Input */}
                     <div className="flex flex-col gap-1">
                         <Label htmlFor="email">Email <span className="text-destructive">*</span></Label>
@@ -83,7 +124,6 @@ const Page = () => {
                                 "Sign Up"
                             )
                         }
-
                     </Button>
                 </div>
             </form>

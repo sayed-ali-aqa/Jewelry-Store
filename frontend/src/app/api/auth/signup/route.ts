@@ -14,14 +14,14 @@ export async function POST(req: Request) {
             password,
         });
 
-        if (response.status === 200 || response.status === 201) {
+        if (response.status === 201 || response.status === 200) {
             const res = new NextResponse(
                 JSON.stringify({
-                    message: "Signed up successfully",
-                    user: response.data.user,
+                    message: "Account created successfully",
+                    data: response.data,
                 }),
                 {
-                    status: 201,
+                    status: 200,
                 }
             );
 
@@ -30,9 +30,21 @@ export async function POST(req: Request) {
 
             return res;
         }
+
+        // 🚨 If response is not 200
+        return new NextResponse(
+            JSON.stringify({ message: "Unexpected error occurred" }),
+            { status: response.status || 500 }
+        );
+
     } catch (error: any) {
-        // Check if the error is related to the email already being taken
-        if (error.response?.data?.error?.status === 400 || error.response?.data?.error?.message.includes("Email or Username are already taken")) {
+        console.log("error: ", error);
+
+
+        if (
+            error.response?.data?.error?.status === 400 ||
+            error.response?.data?.error?.message?.includes("Email or Username are already taken")
+        ) {
             return new NextResponse(
                 JSON.stringify({ message: "Email already taken" }),
                 { status: 400 }

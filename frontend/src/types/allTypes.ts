@@ -1,8 +1,23 @@
 import { ReactNode } from "react";
 
-export interface AuthProps {
+export interface SignInProps {
     email: string,
     password: string,
+}
+
+export interface SignUpProps {
+    firstName: string,
+    lastName: string,
+    phone?: string,
+    email: string,
+    password: string,
+}
+
+export interface ContactProps {
+    name: string,
+    email: string,
+    title: string,
+    message: string,
 }
 
 export interface AuthStateProps {

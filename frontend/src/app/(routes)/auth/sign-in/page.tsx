@@ -6,10 +6,10 @@ import React from 'react';
 import { Label } from "@/components/ui/label";
 import Link from 'next/link';
 import { signInForm } from '@utils/actions/auth';
-import { AuthProps } from '@types/allTypes';
+import { SignInProps } from '@types/allTypes';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AuthSchema } from '@utils/validations/authValidation';
+import { SignInSchema } from '@utils/validations/authValidation';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../../../store/slices/authSlice';
 import { useRouter } from 'next/navigation'
@@ -22,11 +22,11 @@ const Page = () => {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm<AuthProps>({
-        resolver: zodResolver(AuthSchema),  // Use Zod resolver for validation
+    } = useForm<SignInProps>({
+        resolver: zodResolver(SignInSchema),  // Use Zod resolver for validation
     });
 
-    const onSubmit = async (data: AuthProps) => {
+    const onSubmit = async (data: SignInProps) => {
 
         const response = await signInForm(data);  // Call the signup API with validated data
 

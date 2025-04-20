@@ -1,22 +1,28 @@
 import axios from 'axios';
 import { toast } from "sonner"
-import { AuthProps } from '@/types/auth';
-import { AuthSchema } from '../validations/authValidation';
+import { SignInProps, SignUpProps } from '@/types/auth';
+import { SignInSchema } from '../validations/authValidation';
 
-export const signUpForm = async ({ email, password }: AuthProps): Promise<{ user?: string; status?: number, error?: string }> => {
+export const signUpForm = async ({ firstName, lastName, phone, email, password }: SignUpProps): Promise<{ user?: string; status?: number, error?: string }> => {
     try {
-        // validate with Zod
-        AuthSchema.parse({ email, password })
+        // 1. create the username, email, and password and return the user data
+        const response = await axios.post("/api/auth/signup", { firstName, lastName, phone, email, password });
 
-        const response = await axios.post("/api/auth/signup", { email, password });
+        if (response.status === 200) {
+            const token = response.data.data.jwt
+            const userId = response.data.data.user.id
 
-        if (response.status === 201) {
-            toast.success("Signed up successfully!");
+            // 2. Then add firstname, lastname, and phone
+            const personalInfoRes = await axios.post("/api/account/personal-info", { firstName, lastName, phone, userId: userId, token: token });
 
-            return { status: 201, user: response.data.user || null };
+            if (personalInfoRes.status === 200) {
+                toast.success("Account created successfully!");
+
+                return { status: 200, user: response.data.data.user || null };
+            }
         }
     } catch (error: any) {
-        let errorMessage = "Failed to sign up";
+        let errorMessage = "Failed to create account";
 
         if (error.response?.status === 400) {
             errorMessage = error.response.data.message;
@@ -29,9 +35,9 @@ export const signUpForm = async ({ email, password }: AuthProps): Promise<{ user
     return { error: "Unexpected error occurred" }; // Fallback in case no return happens
 }
 
-export const signInForm = async ({ email, password }: AuthProps): Promise<{ user?: string; status?: number, error?: string }> => {
+export const signInForm = async ({ email, password }: SignInProps): Promise<{ user?: string; status?: number, error?: string }> => {
     try {
-        AuthSchema.parse({ email, password });
+        SignInSchema.parse({ email, password });
 
         const response = await axios.post("/api/auth/signin", { email, password });
 

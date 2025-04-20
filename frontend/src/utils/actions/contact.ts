@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { toast } from "sonner"
-import { AuthProps } from '@/types/auth';
+import { ContactProps } from '@/types/auth';
 import { contactRequestSchema } from '@utils/validations/contactRequestValidation';
 
-export const contactForm = async ({ name, email, title, message }: AuthProps): Promise<{ status?: number, error?: string }> => {
+export const contactForm = async ({ name, email, title, message }: ContactProps): Promise<{ status?: number, error?: string }> => {
     try {
         // validate with Zod
         contactRequestSchema.parse({ name, email, title, message })
