@@ -2,21 +2,14 @@
 
 import React from 'react'
 import AccountInfo from './_componets/AccountInfo';
+import AccountPassword from './_componets/AccountPassword';
 
 const page = () => {
-   
-
     return (
         <div className='min-h-full flex flex-col gap-6'>
             <AccountInfo />
 
-            <div className='bg-white p-6'>
-                login 2
-            </div>
-
-            <div className='bg-white p-6'>
-                login 3
-            </div>
+            <AccountPassword />
         </div>
     )
 }

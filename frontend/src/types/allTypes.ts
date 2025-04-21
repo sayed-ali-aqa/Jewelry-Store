@@ -231,3 +231,9 @@ export interface personalInfoType {
 export interface personalInfoUpdatType extends personalInfoType{
     id: string,
 }
+
+export interface AccountPasswordType {
+    confirmPassword: string,
+    newPassword: string,
+    currentPassword: string,
+}
