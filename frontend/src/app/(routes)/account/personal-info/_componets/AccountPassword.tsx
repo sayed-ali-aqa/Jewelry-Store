@@ -26,7 +26,7 @@ const AccountPassword = () => {
 
         if (response.status === 200) {
             toast.success("Password changed successfully");
-        } else if (response.status === 403) {
+        } else if (response.status === 400) {
             toast.error(response.error);
         } else {
             toast.error("Failed to change password");

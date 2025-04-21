@@ -33,6 +33,11 @@ export async function POST(req: Request) {
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (error: any) {
+    console.log("error: ", error);
+    console.log("error error: ", error.error);
+    console.log("error message: ", error.message);
+    
+
     const errorMessage = error?.response?.data?.message || "Failed to change password.";
     return new NextResponse(
       JSON.stringify({ message: errorMessage }),

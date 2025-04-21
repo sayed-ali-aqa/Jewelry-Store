@@ -38,13 +38,14 @@ export const ChangeAccountPassword = async ({ currentPassword, newPassword, conf
         }
     } catch (error: any) {
         let errorMessage = "Failed to update password";
+        let statusCode;
 
         if (error.response?.status === 400) {
-            errorMessage = error.response.data.message;
+            errorMessage = "Current password is incorrect";
+            statusCode = 400;
         }
 
-        toast.error(errorMessage);
-        return { error: errorMessage }; // Always return an object
+        return { status: statusCode || 500, error: errorMessage }; // Always return an object
     }
 
     return { error: "Unexpected error occurred" }; // Fallback in case no return happens
