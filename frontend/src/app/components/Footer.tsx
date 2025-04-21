@@ -91,10 +91,10 @@ const Footer = () => {
         </div>
 
         <div className='flex gap-2 items-center max-h-[40px]'>
-          <img src="/images/cards/paypal.svg" height={20} className='max-h-[32px]' alt="" />
-          <img src="/images/cards/visa.svg" height={20} className='max-h-[32px]' alt="" />
-          <img src="/images/cards/mastercard.svg" height={20} className='max-h-[32px]' alt="" />
-          <img src="/images/cards/amex.svg" height={20} className='max-h-[32px]' alt="" />
+          <img src="/images/cards/paypal.svg" height={20} className='max-h-[32px]' alt="We support Paypal" />
+          <img src="/images/cards/visa.svg" height={20} className='max-h-[32px]' alt="We support Visa card" />
+          <img src="/images/cards/mastercard.svg" height={20} className='max-h-[32px]' alt="We support Mastercard" />
+          <img src="/images/cards/amex.svg" height={20} className='max-h-[32px]' alt="We support Amex" />
         </div>
       </div>
     </div>

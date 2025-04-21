@@ -4,6 +4,7 @@ export const protectedRoutes = [
     "/account/shopping-cart",
     "/account/wishlist",
     "/account/personal-info",
+    "/checkout",
 ];
 
 export const accountNavLinks = [
@@ -42,3 +43,21 @@ export const priceRanges = [
     [501, 1000],
     [1001, 10000],
 ];
+
+export const shippingOptions = [
+    {
+        method: "Standard",
+        description: "Delivery in 3 - 5 days",
+        price: 20,
+    },
+    {
+        method: "Express",
+        description: "Delivery in 2 - 3 days",
+        price: 50,
+    },
+    {
+        method: "Free",
+        description: "Same day",
+        price: 0,
+    }
+]

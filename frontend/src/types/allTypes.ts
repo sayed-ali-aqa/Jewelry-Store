@@ -228,7 +228,7 @@ export interface personalInfoType {
     phone?: string,
 }
 
-export interface personalInfoUpdatType extends personalInfoType{
+export interface personalInfoUpdatType extends personalInfoType {
     id: string,
 }
 
@@ -236,4 +236,16 @@ export interface AccountPasswordType {
     confirmPassword: string,
     newPassword: string,
     currentPassword: string,
+}
+
+export interface CheckoutType {
+    firstName: string,
+    lastName: string,
+    phone?: string,
+    email: string,
+    country: string,
+    address: string,
+    city: string,
+    zipCode: string,
+    note?: string,
 }
