@@ -4,8 +4,7 @@
   "info": {
     "singularName": "user-info",
     "pluralName": "user-infos",
-    "displayName": "User Info",
-    "description": ""
+    "displayName": "User Info"
   },
   "options": {
     "draftAndPublish": true
@@ -24,8 +23,7 @@
     },
     "phone": {
       "type": "string",
-      "maxLength": 15,
-      "required": false
+      "maxLength": 15
     },
     "users_permissions_user": {
       "type": "relation",

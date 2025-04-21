@@ -701,7 +701,6 @@ export interface ApiSubscribeSubscribe extends Struct.CollectionTypeSchema {
 export interface ApiUserInfoUserInfo extends Struct.CollectionTypeSchema {
   collectionName: 'user_infos';
   info: {
-    description: '';
     displayName: 'User Info';
     pluralName: 'user-infos';
     singularName: 'user-info';

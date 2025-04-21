@@ -1,13 +1,9 @@
 import axios from 'axios';
 import { toast } from "sonner"
 import { ContactProps } from '@/types/auth';
-import { contactRequestSchema } from '@utils/validations/contactRequestValidation';
 
 export const contactForm = async ({ name, email, title, message }: ContactProps): Promise<{ status?: number, error?: string }> => {
     try {
-        // validate with Zod
-        contactRequestSchema.parse({ name, email, title, message })
-
         const response = await axios.post("/api/contact", { name, email, title, message });
 
         if (response.status === 201) {

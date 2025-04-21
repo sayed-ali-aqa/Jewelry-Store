@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { toast } from "sonner"
 import { SignInProps, SignUpProps } from '@/types/auth';
-import { SignInSchema } from '../validations/authValidation';
 
 export const signUpForm = async ({ firstName, lastName, phone, email, password }: SignUpProps): Promise<{ user?: string; status?: number, error?: string }> => {
     try {
@@ -37,8 +36,6 @@ export const signUpForm = async ({ firstName, lastName, phone, email, password }
 
 export const signInForm = async ({ email, password }: SignInProps): Promise<{ user?: string; status?: number, error?: string }> => {
     try {
-        SignInSchema.parse({ email, password });
-
         const response = await axios.post("/api/auth/signin", { email, password });
 
         if (response.status === 200) {

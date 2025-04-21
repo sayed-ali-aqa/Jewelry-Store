@@ -227,3 +227,7 @@ export interface personalInfoType {
     lastName: string,
     phone?: string,
 }
+
+export interface personalInfoUpdatType extends personalInfoType{
+    id: string,
+}

@@ -38,8 +38,6 @@ export async function POST(req: Request) {
         );
 
     } catch (error: any) {
-        console.log("error: ", error);
-
 
         if (
             error.response?.data?.error?.status === 400 ||

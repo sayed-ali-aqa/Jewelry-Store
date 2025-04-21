@@ -171,7 +171,7 @@ export async function getCart() {
         // 'pagination[limit]': '2',
         'filters[users_permissions_user][id][$eq]': data.userId,
       });
-      
+
       const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/carts?${query.toString()}`;
 
       const res = await axios.get(baseUrl, {
@@ -287,5 +287,25 @@ export async function removeCartItem(id: string) {
     }
   } catch (error) {
     throw error;
+  }
+}
+
+export async function getUserInfoById() {
+  const authInfoResponse = await fetch("/api/auth/auth-info", { credentials: "include" });
+  const authInfo = await authInfoResponse.json();
+
+  const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user-infos?populate=users_permissions_user&filters[users_permissions_user][id][$eq]=${authInfo.userId}`;
+
+  try {
+    const res = await fetch(baseUrl, {
+      headers: {
+        Authorization: `Bearer ${authInfo.token}`,
+      },
+    });
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { data: null } // Fallback value
   }
 }
