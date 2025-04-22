@@ -61,3 +61,5 @@ export const shippingOptions = [
         price: 0,
     }
 ]
+
+export const taxRate = 5;

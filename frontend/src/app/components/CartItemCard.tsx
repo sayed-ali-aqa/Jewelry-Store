@@ -19,7 +19,7 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ cart }) => {
                 />
             </div>
             <div className="flex justify-between items-center w-full">
-                <div className='flex flex-col py-3 h-full'>
+                <div className='flex flex-col py-1 h-full'>
                     <h3 className="font-semibold mb-[2px]">{cart?.products?.name}</h3>
 
                     <div className='flex gap-2'>

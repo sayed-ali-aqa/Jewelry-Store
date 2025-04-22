@@ -2,25 +2,38 @@
 
 import BreadCrumb from '@/components/BreadCrumb'
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CheckoutType, SignUpProps } from '@types/allTypes';
+import { AccountItemType, CheckoutType, SignUpProps } from '@types/allTypes';
 import { signUpForm } from '@utils/actions/auth';
 import { useRouter } from 'next/navigation';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../../store/slices/authSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { CheckoutSchema } from '@utils/validations/checkoutValidation';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { shippingOptions } from '../../../../datalist';
+import { shippingOptions, taxRate } from '../../../../datalist';
 import { Textarea } from '@/components/ui/textarea';
 import CartItemCard from '@/components/CartItemCard';
+import { getCart } from '../../../lib/api';
+import { toast } from 'sonner';
+import EmptyPlaceholder from '../account/_components/EmptyPlaceholder';
+import { RootState } from '../../../store/store';
+import { calculateCartTotalAfterDiscount, calculateNumOfCartItems } from '@utils/calulations/calculate';
+const CartIcon = '/images/icons/empty-cart.png'
 
 const page = () => {
   const dispatch = useDispatch();
   const router = useRouter()
+
+  const [cartData, setCartData] = useState<AccountItemType[]>([])
+  const [cartCount, setCartCount] = useState<number>(0)
+  const [cartSubTotal, setCartSubTotal] = useState<number>(0)
+  const cartStatus = useSelector((state: RootState) => state.cartStatus.cartStatus);
+  const [totalTax, setTotalTax] = useState<number>(0)
+  const [totalShippingCost, setTotalShippingCost] = useState<number>(0)
 
   const {
     register,
@@ -41,6 +54,52 @@ const page = () => {
       }, 1000)
     }
   };
+
+  const fetchCart = async () => {
+    try {
+      const data = await getCart()
+
+      // If the obeject data is empty then let it be an empty array
+      setCartData(Object.keys(data).length > 0 ? data.data : [])
+    } catch (error) {
+      toast.error("Failed to fetch cart")
+    }
+  }
+
+  useEffect(() => {
+    fetchCart()
+  }, [cartStatus])
+
+  useEffect(() => {
+    if (cartData.length > 0) {
+      const subtotal = calculateCartTotalAfterDiscount(cartData)
+      setCartSubTotal(subtotal);
+
+      const totalCartCount = calculateNumOfCartItems(cartData)
+      setCartCount(totalCartCount)
+    } else {
+      setCartSubTotal(0);
+      setCartCount(0)
+    }
+  }, [cartData]);
+
+  const [selectedShippingMethod, setSelectedShippingMethod] = useState("0"); // Default value
+
+  useEffect(()=>{
+    setTotalShippingCost(Number(selectedShippingMethod) * cartCount)
+  }, [selectedShippingMethod, cartCount])
+
+
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(""); // Default value
+
+  const handlePaymentMethodChange = (value: any) => {
+    setSelectedPaymentMethod(value);
+  };
+
+  useEffect(()=>{
+    const totalTax = Number(((cartSubTotal + totalShippingCost) / 100) * taxRate)
+    setTotalTax(totalTax)
+  }, [totalShippingCost, cartSubTotal])
 
   return (
     <div className='bg-slate-50 w-full px-4 pt-6 pb-10'>
@@ -184,17 +243,21 @@ const page = () => {
               <div className='bg-white py-6 flex flex-col gap-6'>
                 <h2 className='text-2xl mx-6'>Shipping Methods</h2>
 
-                <RadioGroup defaultValue="Free">
+                <RadioGroup value={selectedShippingMethod} onValueChange={(value)=> setSelectedShippingMethod(value)}>
                   {shippingOptions.map((item, index) => (
-                    <Label key={index} htmlFor={item.method} className="py-3 px-6 flex items-center justify-between space-x-2 transition-all duration-300 cursor-pointer hover:bg-slate-100">
+                    <Label
+                      key={index}
+                      htmlFor={item.method}
+                      className="py-3 px-6 flex items-center justify-between space-x-2 transition-all duration-300 cursor-pointer hover:bg-slate-100"
+                    >
                       <div>
-                        <h3 className='text-lg'>{item.method}</h3>
-                        <p className='text-slate-600 font-medium'>{item.description}</p>
+                        <h3 className="text-lg">{item.method}</h3>
+                        <p className="text-slate-600 font-medium">{item.description}</p>
                       </div>
 
-                      <div className='flex items-center gap-4'>
-                        <span className='text-lg'>${(item.price).toFixed(2)}</span>
-                        <RadioGroupItem value={item.method} id={item.method} />
+                      <div className="flex items-center gap-4">
+                        <span className="text-lg">${item.price.toFixed(2)}</span>
+                        <RadioGroupItem value={`${item.price}`} id={item.method} />
                       </div>
                     </Label>
                   ))}
@@ -205,9 +268,9 @@ const page = () => {
               <div className='bg-white p-6 flex flex-col gap-6'>
                 <h2 className='text-2xl'>Payment Methods</h2>
 
-                <RadioGroup>
-                  <Label key="creditCard" htmlFor="creditCard" className="flex items-center space-x-3">
-                    <RadioGroupItem value="creditCard" id="creditCard" />
+                <RadioGroup value={selectedPaymentMethod} onValueChange={handlePaymentMethodChange}>
+                  <Label key="Credit" htmlFor="Credit" className="flex items-center space-x-3">
+                    <RadioGroupItem value="Credit" id="Credit" />
                     <h3 className='text-lg'>Credit Card</h3>
                   </Label>
 
@@ -231,30 +294,47 @@ const page = () => {
 
             <div className='w-1/3 min-w-[350px]'>
               <div className='bg-white'>
-                <h2 className='text-center text-2xl p-6'>Order Total (4)</h2>
+                <h2 className='text-center text-2xl p-6'>Order Total ({cartCount})</h2>
 
-                <div className='flex flex-col gap-4 mt-4'>
-                  <CartItemCard />
+                <div className='flex flex-col gap-4'>
+                  {!cartData || cartData.length === 0 ? (
+                    <EmptyPlaceholder
+                      image={CartIcon}
+                      text="You haven't added anything to your shopping cart yet."
+                      actionText="Add To Cart Now"
+                      imageSize={130}
+                      clasName="max-h-[60vh] w-[300px] flex mx-auto"
+                      isAction={false}
+                    />
+                  ) : (
+                    <div className="w-full flex flex-wrap">
+                      {
+                        cartData.map((cart: AccountItemType, index: number) => (
+                          <CartItemCard key={index} cart={cart} />
+                        ))
+                      }
+                    </div>
+                  )}
 
                   <div className='p-6 flex flex-col gap-4'>
                     <div className='flex items-center justify-between'>
                       <span>Subtotal</span>
-                      <span>$89.00</span>
+                      <span>${(cartSubTotal).toFixed(2)}</span>
                     </div>
 
                     <div className='flex items-center justify-between'>
                       <span>Tax</span>
-                      <span>$6.00</span>
+                      <span>${(totalTax).toFixed(2)}</span>
                     </div>
 
                     <div className='flex items-center justify-between'>
                       <span>Shipping</span>
-                      <span>$20.00</span>
+                      <span>${totalShippingCost}</span>
                     </div>
 
                     <div className='flex items-center justify-between'>
                       <span className='font-semibold text-lg'>Total</span>
-                      <span className='font-semibold text-lg'>$120.00</span>
+                      <span className='font-semibold text-lg'>${(totalShippingCost + totalTax + cartSubTotal).toFixed(2)}</span>
                     </div>
                   </div>
 
