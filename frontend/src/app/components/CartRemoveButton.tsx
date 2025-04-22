@@ -1,9 +1,7 @@
 "use client"
 
 import * as React from "react"
-
-import { Button } from "./ui/button"
-import { X } from "lucide-react"
+import { CircleX, X } from "lucide-react"
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { setCartStatus } from "../../store/slices/cartStatusSlice";
@@ -26,10 +24,11 @@ export function CartRemoveButton({ id }: { id: string }) {
     };
 
     return (
-        <Button
-            onClick={handleRemoveCartItem}
-            variant="ghost"
-            className="hover:bg-white hover:text-destructive gap-[3px]"
-        ><X /> Remove</Button>
+        <span role='button' onClick={handleRemoveCartItem}>
+            <CircleX
+                strokeWidth={1}
+                size={34}
+                className='text-slate-400 hover:text-destructive' />
+        </span>
     )
 }

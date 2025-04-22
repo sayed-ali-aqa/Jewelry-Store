@@ -16,9 +16,9 @@ import { CheckoutSchema } from '@utils/validations/checkoutValidation';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { shippingOptions } from '../../../../datalist';
 import { Textarea } from '@/components/ui/textarea';
+import CartItemCard from '@/components/CartItemCard';
 
 const page = () => {
-
   const dispatch = useDispatch();
   const router = useRouter()
 
@@ -230,11 +230,41 @@ const page = () => {
             </div>
 
             <div className='w-1/3 min-w-[350px]'>
-                <div className='bg-white'>
-                  <h2 className='text-center text-2xl p-6'>Order Total (4)</h2>
+              <div className='bg-white'>
+                <h2 className='text-center text-2xl p-6'>Order Total (4)</h2>
 
-                  
+                <div className='flex flex-col gap-4 mt-4'>
+                  <CartItemCard />
+
+                  <div className='p-6 flex flex-col gap-4'>
+                    <div className='flex items-center justify-between'>
+                      <span>Subtotal</span>
+                      <span>$89.00</span>
+                    </div>
+
+                    <div className='flex items-center justify-between'>
+                      <span>Tax</span>
+                      <span>$6.00</span>
+                    </div>
+
+                    <div className='flex items-center justify-between'>
+                      <span>Shipping</span>
+                      <span>$20.00</span>
+                    </div>
+
+                    <div className='flex items-center justify-between'>
+                      <span className='font-semibold text-lg'>Total</span>
+                      <span className='font-semibold text-lg'>$120.00</span>
+                    </div>
+                  </div>
+
+                  <div className='border-t border-black p-6'>
+                    <p className='text-slate-500 mb-6 text-sm'>We use your personal information to complete your order, enhance your experience on our website, and for other purposes outlined in our privacy policy.</p>
+
+                    <Button variant="dark" className='w-full text-lg h-14 '>Place Order</Button>
+                  </div>
                 </div>
+              </div>
             </div>
           </div>
         </form>
