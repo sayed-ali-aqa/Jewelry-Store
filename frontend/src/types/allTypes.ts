@@ -238,14 +238,16 @@ export interface AccountPasswordType {
     currentPassword: string,
 }
 
-export interface CheckoutType {
-    firstName: string,
-    lastName: string,
-    phone?: string,
-    email: string,
-    country: string,
-    address: string,
-    city: string,
-    zipCode: string,
-    note?: string,
+export type CheckoutType {
+    firstName: string;
+    lastName: string;
+    email: string;
+    country: string;
+    address: string;
+    city: string;
+    zipCode: string;
+    shippingMethod: string;
+    paymentMethod: "Stripe" | "Paypal";
+    phone?: string;
+    note?: string;
 }

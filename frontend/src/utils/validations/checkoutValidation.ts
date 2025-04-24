@@ -1,4 +1,14 @@
 import { z } from "zod";
+import { shippingOptions } from "../../../datalist";
+
+const shippingMethodEnum = z.enum(
+    shippingOptions.map(option => option.method) as [string, ...string[]], 
+    {
+        errorMap: () => ({
+            message: `Shipping method must be one of: ${shippingOptions.map(opt => opt.method).join(', ')}`,
+        }),
+    }
+);
 
 export const CheckoutSchema = z.object({
     firstName: z.string().trim().max(50, "Maximum length is 50 characters").nonempty("First name is required"),
@@ -10,5 +20,9 @@ export const CheckoutSchema = z.object({
     city: z.string().trim().max(150, "Maximum length is 150 characters").nonempty("City is required"),
     zipCode: z.string().trim().max(6, "Maximum length is 6 characters").nonempty("Zip code is required"),
     note: z.string().trim().max(300, "Maximum length is 300 characters").optional(),
+    shippingMethod: shippingMethodEnum,
+    paymentMethod: z.enum(['Stripe', 'Paypal'], {
+        errorMap: () => ({ message: 'Payment method must be either Stripe or PayPal' }),
+    }),
 });
 
