@@ -46,6 +46,11 @@ export const priceRanges = [
 
 export const shippingOptions = [
     {
+        method: "Free",
+        description: "Same day",
+        price: 0,
+    },
+    {
         method: "Standard",
         description: "Delivery in 3 - 5 days",
         price: 20,
@@ -55,11 +60,6 @@ export const shippingOptions = [
         description: "Delivery in 2 - 3 days",
         price: 50,
     },
-    {
-        method: "Free",
-        description: "Same day",
-        price: 0,
-    }
 ]
 
 export const taxRate = 5;

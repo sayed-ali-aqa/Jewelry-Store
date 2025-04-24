@@ -83,20 +83,31 @@ const page = () => {
     }
   }, [cartData]);
 
-  const [selectedShippingMethod, setSelectedShippingMethod] = useState("0"); // Default value
+  const [selectedShippingMethod, setSelectedShippingMethod] = useState("Free"); // Default value
+  const [selectedShippingMethodValue, setSelectedShippingMethodValue] = useState(0); // Default value
 
-  useEffect(()=>{
-    setTotalShippingCost(Number(selectedShippingMethod) * cartCount)
-  }, [selectedShippingMethod, cartCount])
+  useEffect(() => {
+    setTotalShippingCost(selectedShippingMethodValue * cartCount)
+  }, [selectedShippingMethodValue, cartCount])
 
 
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(""); // Default value
 
-  const handlePaymentMethodChange = (value: any) => {
+  const handleShippingMethodChange = (value: string) => {
+    setSelectedShippingMethod(value);
+  
+    const selectedMethod = shippingOptions.find((option) => option.method === value);
+  
+    if (selectedMethod) {
+      setSelectedShippingMethodValue(selectedMethod.price);
+    }
+  };
+  
+  const handlePaymentMethodChange = (value: string) => {
     setSelectedPaymentMethod(value);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const totalTax = Number(((cartSubTotal + totalShippingCost) / 100) * taxRate)
     setTotalTax(totalTax)
   }, [totalShippingCost, cartSubTotal])
@@ -243,7 +254,7 @@ const page = () => {
               <div className='bg-white py-6 flex flex-col gap-6'>
                 <h2 className='text-2xl mx-6'>Shipping Methods</h2>
 
-                <RadioGroup value={selectedShippingMethod} onValueChange={(value)=> setSelectedShippingMethod(value)}>
+                <RadioGroup value={selectedShippingMethod} onValueChange={handleShippingMethodChange}>
                   {shippingOptions.map((item, index) => (
                     <Label
                       key={index}
@@ -257,7 +268,7 @@ const page = () => {
 
                       <div className="flex items-center gap-4">
                         <span className="text-lg">${item.price.toFixed(2)}</span>
-                        <RadioGroupItem value={`${item.price}`} id={item.method} />
+                        <RadioGroupItem value={`${item.method}`} id={item.method} />
                       </div>
                     </Label>
                   ))}
@@ -341,7 +352,7 @@ const page = () => {
                   <div className='border-t border-black p-6'>
                     <p className='text-slate-500 mb-6 text-sm'>We use your personal information to complete your order, enhance your experience on our website, and for other purposes outlined in our privacy policy.</p>
 
-                    <Button variant="dark" className='w-full text-lg h-14 '>Place Order</Button>
+                    <Button variant="dark" className='w-full text-lg h-14 select-none' disabled={cartData.length === 0}>Place Order</Button>
                   </div>
                 </div>
               </div>
