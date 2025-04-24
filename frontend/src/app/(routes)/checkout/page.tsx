@@ -3,7 +3,7 @@
 import BreadCrumb from '@/components/BreadCrumb'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AccountItemType, CheckoutType } from '@types/allTypes';
-import { signUpForm } from '@utils/actions/auth';
+import { checkoutForm } from '@utils/actions/checkout';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
@@ -48,15 +48,18 @@ const page = () => {
   });
 
   const onSubmit = async (data: CheckoutType) => {
-    const response = await signUpForm(data);  // Call the signup API with validated data
+    const response = await checkoutForm(data);  // Call the signup API with validated data
 
-    if (response.user && response.status === 200) {
-      dispatch(setUser(response.user));
+    console.log(response);
+    
 
-      setTimeout(() => {
-        router.push("/account/orders")
-      }, 1000)
-    }
+    // if (response.user && response.status === 200) {
+    //   dispatch(setUser(response.user));
+
+    //   setTimeout(() => {
+    //     router.push("/account/orders")
+    //   }, 1000)
+    // }
   };
 
   const fetchCart = async () => {

@@ -53,7 +53,7 @@ const ShippingMethod: React.FC<ShippingMethodProps> = ({
                     </RadioGroup>
                 )}
             />
-            {errors.shippingMethod && <p className="text-red-500 text-sm">{errors.shippingMethod.message}</p>}
+            {errors.shippingMethod && <p className="text-red-500 text-sm px-6">{errors.shippingMethod.message}</p>}
         </div>
     )
 }

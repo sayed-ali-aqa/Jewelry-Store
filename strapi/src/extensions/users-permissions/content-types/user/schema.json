@@ -82,6 +82,12 @@
       "relation": "oneToOne",
       "target": "api::user-info.user-info",
       "mappedBy": "users_permissions_user"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "users_permissions_user"
     }
   }
 }
