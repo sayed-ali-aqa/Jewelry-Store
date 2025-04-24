@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
 
 export interface SignInProps {
     email: string,
@@ -250,4 +251,23 @@ export type CheckoutType {
     paymentMethod: "Stripe" | "Paypal";
     phone?: string;
     note?: string;
+}
+
+export interface CheckoutDetailsProps {
+    cartData: AccountItemType[]
+    cartCount: number,
+    cartSubTotal: number,
+    totalTax: number,
+    totalShippingCost: number
+}
+
+export interface ShippingMethodProps {
+    errors: FieldErrors<CheckoutType>
+    control: Control<CheckoutType>
+    setSelectedShippingMethodValue: (value: number) => void
+}
+
+export interface DeliveryAddressProps {
+    register: UseFormRegister<CheckoutType>
+    errors: FieldErrors<CheckoutType>
 }

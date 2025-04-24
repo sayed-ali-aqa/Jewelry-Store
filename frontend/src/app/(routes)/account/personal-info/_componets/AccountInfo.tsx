@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,6 +13,8 @@ import { toast } from 'sonner';
 import { getUserInfoById } from '../../../../../lib/api';
 
 const AccountInfo = () => {
+    const [email, setEmail] = useState<string>("")
+
     const {
         register,
         handleSubmit,
@@ -52,6 +54,8 @@ const AccountInfo = () => {
                     phone: userInfo.phone || '',
                     id: userInfo.documentId || '',
                 });
+
+                setEmail(userInfo?.users_permissions_user?.email)
             }
         } catch (error) {
             toast.error("Failed to fetch account info");
@@ -123,7 +127,7 @@ const AccountInfo = () => {
                         <div className="w-full flex flex-col gap-1">
                             <Label htmlFor="email">Email <span className="text-destructive">*</span></Label>
                             <Input
-                                value="alipoya321@gmail.com"
+                                value={email}
                                 className="h-12"
                                 disabled
                             />
