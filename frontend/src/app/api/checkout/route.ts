@@ -5,13 +5,22 @@ export async function POST(req: Request) {
     const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user-infos`;
 
     try {
-        const { firstName, lastName, phone, userId, token } = await req.json();
+        const { firstName, lastName, phone, email, country, address, city, zipCode, note, shippingMethod, paymentMethod, userId, token } = await req.json();
 
         const data = {
             data: {
-                firstName: firstName,
-                lastName: lastName,
-                phone: phone,
+                firstName,
+                lastName,
+                email,
+                phone,
+                country,
+                address,
+                city,
+                zipCode,
+                note,
+                shippingMethod,
+                paymentMethod,
+                userId,
                 users_permissions_user: userId,
             },
         }
