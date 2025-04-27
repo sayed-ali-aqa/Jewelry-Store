@@ -30,7 +30,7 @@ export function calculateCartTotalAfterDiscount(cartData: any) {
 }
 
 export function calculateNumOfCartItems(cartData: any) {
-    let totalCartCount = 0;
+    let totalCartCount: number = 0;
 
     cartData.map((item: any) => {
         totalCartCount += item.quantity
@@ -40,8 +40,15 @@ export function calculateNumOfCartItems(cartData: any) {
 }
 
 export function calculateTotalTax(cartSubTotal: number, totalShippingCost: number) {
-    let totalTax = 0;
+    let totalTax: number = 0;
     totalTax = Number(((cartSubTotal + totalShippingCost) / 100) * taxRate)
 
     return totalTax;
+}
+
+export function calculateItemPriceAfterDiscount(price: number, discount: number) {
+    let salePrice: number = 0;
+    salePrice = price - ((price / 100) * discount)
+
+    return salePrice;
 }

@@ -73,6 +73,7 @@ export async function POST(req: Request) {
             const res = new NextResponse(
                 JSON.stringify({
                     message: "Order placed successfully",
+                    id: response.data.data.documentId
                 }),
                 {
                     status: 200,
