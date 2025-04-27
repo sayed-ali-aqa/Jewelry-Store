@@ -88,9 +88,6 @@ export async function POST(req: Request) {
             { status: response.status || 500 }
         );
     } catch (error: any) {
-        console.log(error);
-
-
         return new NextResponse(
             JSON.stringify({ message: "Failed to place order" }),
             { status: 400 }
