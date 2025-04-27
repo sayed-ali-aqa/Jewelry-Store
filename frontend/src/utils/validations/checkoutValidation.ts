@@ -21,8 +21,8 @@ export const CheckoutSchema = z.object({
     zipCode: z.string().trim().max(6, "Maximum length is 6 characters").nonempty("Zip code is required"),
     note: z.string().trim().max(300, "Maximum length is 300 characters").optional(),
     shippingMethod: shippingMethodEnum,
-    paymentMethod: z.enum(['Stripe', 'Paypal'], {
-        errorMap: () => ({ message: 'Payment method must be either Stripe or PayPal' }),
+    paymentMethod: z.enum(['Credit', 'Paypal'], {
+        errorMap: () => ({ message: 'Payment method must be either Credit or PayPal' }),
     }),
 });
 

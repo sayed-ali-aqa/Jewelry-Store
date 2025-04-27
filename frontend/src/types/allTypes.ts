@@ -248,7 +248,7 @@ export type CheckoutType {
     city: string;
     zipCode: string;
     shippingMethod: string;
-    paymentMethod: "Stripe" | "Paypal";
+    paymentMethod: "Credit" | "Paypal";
     phone?: string;
     note?: string;
 }
@@ -259,6 +259,7 @@ export interface CheckoutDetailsProps {
     cartSubTotal: number,
     totalTax: number,
     totalShippingCost: number
+    isSubmitting: boolean,
 }
 
 export interface ShippingMethodProps {

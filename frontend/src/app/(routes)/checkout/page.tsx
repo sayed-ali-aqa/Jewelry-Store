@@ -13,7 +13,7 @@ import { CheckoutSchema } from '@utils/validations/checkoutValidation';
 import { getCart, getUserInfoById } from '../../../lib/api';
 import { toast } from 'sonner';
 import { RootState } from '../../../store/store';
-import { calculateCartTotalAfterDiscount, calculateNumOfCartItems } from '@utils/calulations/calculate';
+import { calculateCartTotalAfterDiscount, calculateNumOfCartItems, calculateTotalTax } from '@utils/functions/calculate';
 import DeliveryAddress from './_components/DeliveryAddress';
 import ShippingMethod from './_components/ShippingMethod';
 import PaymentMethod from './_components/PaymentMethod';
@@ -30,6 +30,7 @@ const page = () => {
   const cartStatus = useSelector((state: RootState) => state.cartStatus.cartStatus);
   const [totalTax, setTotalTax] = useState<number>(0)
   const [totalShippingCost, setTotalShippingCost] = useState<number>(0)
+  const [selectedShippingMethodValue, setSelectedShippingMethodValue] = useState(0);
 
   const {
     control,
@@ -51,7 +52,7 @@ const page = () => {
     const response = await checkoutForm(data);  // Call the signup API with validated data
 
     console.log(response);
-    
+
 
     // if (response.user && response.status === 200) {
     //   dispatch(setUser(response.user));
@@ -90,14 +91,13 @@ const page = () => {
     }
   }, [cartData]);
 
-  const [selectedShippingMethodValue, setSelectedShippingMethodValue] = useState(0); // Default value
 
   useEffect(() => {
     setTotalShippingCost(selectedShippingMethodValue * cartCount)
   }, [selectedShippingMethodValue, cartCount])
 
   useEffect(() => {
-    const totalTax = Number(((cartSubTotal + totalShippingCost) / 100) * taxRate)
+    const totalTax = calculateTotalTax(cartSubTotal, totalShippingCost);
     setTotalTax(totalTax)
   }, [totalShippingCost, cartSubTotal])
 
@@ -159,7 +159,8 @@ const page = () => {
                 cartCount={cartCount}
                 cartSubTotal={cartSubTotal}
                 totalTax={totalTax}
-                totalShippingCost={totalShippingCost} />
+                totalShippingCost={totalShippingCost}
+                isSubmitting={isSubmitting} />
             </div>
           </div>
         </form>

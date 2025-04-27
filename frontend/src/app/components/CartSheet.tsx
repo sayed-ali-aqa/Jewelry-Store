@@ -20,7 +20,7 @@ import { RootState } from "../../store/store"
 import { AccountItemType } from "@types/allTypes"
 import EmptyPlaceholder from "@/(routes)/account/_components/EmptyPlaceholder"
 import CartItemCard from "./CartItemCard"
-import { calculateCartTotalAfterDiscount, calculateNumOfCartItems } from "@utils/calulations/calculate"
+import { calculateCartTotalAfterDiscount, calculateNumOfCartItems } from "@utils/functions/calculate"
 const CartIcon = '/images/icons/empty-cart.png'
 
 export function CartSheet() {

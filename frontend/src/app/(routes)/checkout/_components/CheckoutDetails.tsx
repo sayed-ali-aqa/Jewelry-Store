@@ -7,7 +7,7 @@ import EmptyPlaceholder from '@/(routes)/account/_components/EmptyPlaceholder'
 import CartItemCard from '@/components/CartItemCard'
 const CartIcon = '/images/icons/empty-cart.png'
 
-const CheckoutDetails: React.FC<CheckoutDetailsProps> = ({ cartData, cartCount, cartSubTotal, totalTax, totalShippingCost }) => {
+const CheckoutDetails: React.FC<CheckoutDetailsProps> = ({ cartData, cartCount, cartSubTotal, totalTax, totalShippingCost, isSubmitting }) => {
     return (
         <div className='bg-white'>
             <h2 className='text-center text-2xl p-6'>Order Total ({cartCount})</h2>
@@ -57,7 +57,9 @@ const CheckoutDetails: React.FC<CheckoutDetailsProps> = ({ cartData, cartCount, 
                 <div className='border-t border-black p-6'>
                     <p className='text-slate-500 mb-6 text-sm'>We use your personal information to complete your order, enhance your experience on our website, and for other purposes outlined in our privacy policy.</p>
 
-                    <Button variant="dark" className='w-full text-lg h-14 select-none' disabled={cartData.length === 0}>Place Order</Button>
+                    <Button type="submit" variant="dark" className="w-full text-lg h-14 select-none" disabled={cartData.length === 0 || isSubmitting}>
+                        {isSubmitting ? <div className="spinner">Placing Order...</div> : "Place Order"}
+                    </Button>
                 </div>
             </div>
         </div>

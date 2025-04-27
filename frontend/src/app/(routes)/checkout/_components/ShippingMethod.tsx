@@ -6,17 +6,17 @@ import { Label } from '@/components/ui/label'
 import { ShippingMethodProps } from '@types/allTypes'
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { shippingOptions } from '../../../../../datalist'
+import { getShippingMethodValue } from '@utils/functions/checkout'
 
 const ShippingMethod: React.FC<ShippingMethodProps> = ({
     errors,
     control,
     setSelectedShippingMethodValue,
 }) => {
+
     const handleShippingMethodChange = (value: string) => {
-        const selectedMethod = shippingOptions.find((option) => option.method === value)
-        if (selectedMethod) {
-            setSelectedShippingMethodValue(selectedMethod.price)
-        }
+        const selectedMethodValue = getShippingMethodValue(value)
+        setSelectedShippingMethodValue(selectedMethodValue)
     }
 
     return (

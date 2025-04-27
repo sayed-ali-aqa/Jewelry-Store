@@ -168,7 +168,6 @@ export async function getCart() {
       const query = new URLSearchParams({
         'populate[products][populate]': 'images',
         'sort[0]': 'createdAt:desc',
-        // 'pagination[limit]': '2',
         'filters[users_permissions_user][id][$eq]': data.userId,
       });
 

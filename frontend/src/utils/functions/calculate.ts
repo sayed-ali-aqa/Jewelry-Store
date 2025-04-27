@@ -1,3 +1,5 @@
+import { taxRate } from "../../../datalist";
+
 export function calculateCartSubtotal(cartData: any) {
     const subtotal = cartData.reduce((acc: number, item: any) => {
         const { price } = item.products;
@@ -35,4 +37,11 @@ export function calculateNumOfCartItems(cartData: any) {
     })
 
     return totalCartCount;
+}
+
+export function calculateTotalTax(cartSubTotal: number, totalShippingCost: number) {
+    let totalTax = 0;
+    totalTax = Number(((cartSubTotal + totalShippingCost) / 100) * taxRate)
+
+    return totalTax;
 }

@@ -547,7 +547,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'> &
       Schema.Attribute.Private;
-    note: Schema.Attribute.String & Schema.Attribute.Required;
+    note: Schema.Attribute.String;
     order_items: Schema.Attribute.Relation<
       'oneToMany',
       'api::order-item.order-item'
@@ -561,15 +561,15 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
         maxLength: 15;
       }>;
     publishedAt: Schema.Attribute.DateTime;
-    shippingCost: Schema.Attribute.Decimal &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<0>;
     shippingMethod: Schema.Attribute.String & Schema.Attribute.Required;
     stripePaymentIntentId: Schema.Attribute.String;
     tax: Schema.Attribute.Decimal &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<0>;
     total: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    totalShippingCost: Schema.Attribute.Decimal &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
