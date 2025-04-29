@@ -12,8 +12,10 @@ export const checkoutForm = async ({ firstName, lastName, phone, email, country,
         
         if (response.status === 200 || response.status === 201) {
             // 2. isnert order items
-            const OrderItemsResponse = await axios.post(`/api/checkout/order-items`, {  orderId: response.data.id, userId, token });
-            console.log("OrderItemsResponse: ", OrderItemsResponse);
+            await axios.post(`/api/checkout/order-items`, {  orderId: response.data.id, userId, token });
+        
+            
+        
         }
 
         return { status: 200 };
@@ -27,6 +29,4 @@ export const checkoutForm = async ({ firstName, lastName, phone, email, country,
         toast.error(errorMessage);
         return { error: errorMessage }; // Always return an object
     }
-
-    return { error: "Unexpected error occurred" }; // Fallback in case no return happens
 }
