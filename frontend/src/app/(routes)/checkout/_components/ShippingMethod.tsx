@@ -42,7 +42,7 @@ const ShippingMethod: React.FC<ShippingMethodProps> = ({
                             >
                                 <div>
                                     <h3 className="text-lg">{item.method}</h3>
-                                    <p className="text-slate-600 font-medium">{item.description}</p>
+                                    <p className="text-slate-600 font-medium">{item.method === "Free" ? "Same day" : `${item.minDuration} - ${item.maxDuration} business days`}</p>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <span className="text-lg">${item.price.toFixed(2)}</span>

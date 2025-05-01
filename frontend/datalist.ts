@@ -47,17 +47,20 @@ export const priceRanges = [
 export const shippingOptions = [
     {
         method: "Free",
-        description: "Same day",
+        minDuration: 0,
+        maxDuration: 0,
         price: 0,
     },
     {
         method: "Standard",
-        description: "Delivery in 3 - 5 days",
+        minDuration: 3,
+        maxDuration: 5,
         price: 20,
     },
     {
         method: "Express",
-        description: "Delivery in 2 - 3 days",
+        minDuration: 2,
+        maxDuration: 3,
         price: 50,
     },
 ]

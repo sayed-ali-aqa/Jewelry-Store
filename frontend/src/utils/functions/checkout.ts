@@ -5,3 +5,9 @@ export function getShippingMethodValue(value: string) {
 
     return selectedMethod ? selectedMethod.price : 0;
 }
+
+export function getShippingDurationValue(value: string) {
+    const selectedMethod = shippingOptions.find((option) => option.method === value)
+
+    return { minShippingDuration: selectedMethod?.minDuration, maxShippingDuration: selectedMethod?.maxDuration };
+}

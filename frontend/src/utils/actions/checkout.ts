@@ -9,13 +9,30 @@ export const checkoutForm = async ({ firstName, lastName, phone, email, country,
 
         // 1. create an order
         const response = await axios.post(`/api/checkout/orders`, { firstName, lastName, phone, email, country, address, city, zipCode, note, shippingMethod, paymentMethod, userId, token });
-        
+
         if (response.status === 200 || response.status === 201) {
             // 2. isnert order items
-            await axios.post(`/api/checkout/order-items`, {  orderId: response.data.id, userId, token });
-        
-            
-        
+            await axios.post(`/api/checkout/order-items`, { orderId: response.data.id, userId, token });
+
+            // 3. make stripe payment
+            const res = await fetch('/api/checkout/payment-intents/stripe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ shippingMethod, email, userId, token }),
+            })
+
+            if (res.redirected) {
+                // Doesn't work in fetch context
+                console.log("res: ", res);
+                
+                console.log("Response redirected"); // This won't trigger a browser redirect
+            }
+
+            const data = await res.json()
+
+            if (data.url) {
+                window.location.href = data.url // ✅ Force full-page redirect
+            }
         }
 
         return { status: 200 };
