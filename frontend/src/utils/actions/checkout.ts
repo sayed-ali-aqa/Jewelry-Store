@@ -18,20 +18,13 @@ export const checkoutForm = async ({ firstName, lastName, phone, email, country,
             const res = await fetch('/api/checkout/payment-intents/stripe', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ shippingMethod, email, userId, token }),
+                body: JSON.stringify({  orderId: response.data.id, shippingMethod, email, userId, token }),
             })
-
-            if (res.redirected) {
-                // Doesn't work in fetch context
-                console.log("res: ", res);
-                
-                console.log("Response redirected"); // This won't trigger a browser redirect
-            }
 
             const data = await res.json()
 
             if (data.url) {
-                window.location.href = data.url // ✅ Force full-page redirect
+                window.location.href = data.url // Force full-page redirect
             }
         }
 

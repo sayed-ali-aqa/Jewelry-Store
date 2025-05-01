@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     const origin = headersList.get('origin')
 
     // -------------------- Order items ---------------------------
-    const { shippingMethod, email, userId, token } = await req.json();
+    const { orderId, shippingMethod, email, userId, token } = await req.json();
 
     // getting cart items
     const query = new URLSearchParams({
@@ -58,9 +58,6 @@ export async function POST(req: Request) {
       };
     });
 
-    console.log("--------------------------", shippingMethod);
-    
-
     // calculating total shipping cost
     const unitShippingCost = getShippingMethodValue(shippingMethod)
     const totalCartCount = calculateNumOfCartItems(cartItems)
@@ -75,6 +72,9 @@ export async function POST(req: Request) {
       customer_email: email,
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/canceled`,
+      metadata: {
+        order_id: orderId, // order ID here
+      },
       automatic_tax: { enabled: true },
       shipping_options: [
         {
@@ -103,9 +103,6 @@ export async function POST(req: Request) {
       )
     }
   } catch (err) {
-    console.log("Stripe Error: ", err);
-
-
     const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
     const statusCode = err instanceof Error && 'statusCode' in err ? (err as any).statusCode : 500;
     return NextResponse.json(
