@@ -308,3 +308,25 @@ export async function getUserInfoById() {
     return { data: null } // Fallback value
   }
 }
+
+export async function removeCartItems() {
+  try {
+    const response = await fetch("/api/auth/auth-info", { credentials: "include" });
+    const { userId, token} = await response.json();
+
+    if (token && userId) {
+      const res = await axios.post("/api/cart/remove-all", { userId, token});
+
+    console.log(res);
+
+
+      return { status: 200, message: "Cart items removed" };
+    } else {
+      return { status: 401, message: "Please login to remove cart items" }
+    }
+  } catch (error) {
+    console.log(error);
+    
+    throw error;
+  }
+}

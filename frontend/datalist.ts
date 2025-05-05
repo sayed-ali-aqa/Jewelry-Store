@@ -5,6 +5,8 @@ export const protectedRoutes = [
     "/account/wishlist",
     "/account/personal-info",
     "/checkout",
+    "/success",
+    "/canceled",
 ];
 
 export const accountNavLinks = [
