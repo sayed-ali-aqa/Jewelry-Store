@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../../../store/slices/authSlice';
 import { CheckoutSchema } from '@utils/validations/checkoutValidation';
 import { getCart, getUserInfoById } from '../../../lib/api';
 import { toast } from 'sonner';
@@ -18,7 +17,6 @@ import DeliveryAddress from './_components/DeliveryAddress';
 import ShippingMethod from './_components/ShippingMethod';
 import PaymentMethod from './_components/PaymentMethod';
 import CheckoutDetails from './_components/CheckoutDetails';
-import { taxRate } from '../../../../datalist';
 
 const page = () => {
   const dispatch = useDispatch();
@@ -49,18 +47,7 @@ const page = () => {
   });
 
   const onSubmit = async (data: CheckoutType) => {
-    const response = await checkoutForm(data);  // Call the signup API with validated data
-
-    console.log(response);
-
-
-    // if (response.user && response.status === 200) {
-    //   dispatch(setUser(response.user));
-
-    //   setTimeout(() => {
-    //     router.push("/account/orders")
-    //   }, 1000)
-    // }
+    await checkoutForm(data);  // Call the checkout Form
   };
 
   const fetchCart = async () => {

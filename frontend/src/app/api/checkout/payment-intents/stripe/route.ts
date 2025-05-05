@@ -15,19 +15,8 @@ export async function POST(req: Request) {
     const { orderId, shippingMethod, email, userId, token } = await req.json();
 
     // getting cart items
-    const query = new URLSearchParams({
-      'populate[products][populate]': 'images',
-      'sort[0]': 'createdAt:desc',
-      'filters[users_permissions_user][id][$eq]': userId,
-    });
-
-    const cartItemsResponse = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/carts?${query.toString()}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
-    const cartItems = cartItemsResponse?.data?.data || [];
+    const cartItemsResponse = await axios.post(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/cart`, { userId, token });
+    const cartItems = cartItemsResponse.data?.data || [];
 
     // if there is error or cart is empty
     if (cartItemsResponse.status !== 200 || cartItems.length === 0) {
@@ -36,6 +25,7 @@ export async function POST(req: Request) {
         { status: 404 }
       );
     }
+    
     // -------------------- Order items ---------------------------
     const line_items = cartItems.map((item: any) => {
       const unitPrice = calculateItemPriceAfterDiscount(item.products.price, item.products.discount);

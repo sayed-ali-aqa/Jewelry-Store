@@ -6,22 +6,16 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {
   const { orderId, shippingMethod, email, userId, token } = await req.json();
 
-  const query = new URLSearchParams({
-    'populate[products][populate]': 'images',
-    'sort[0]': 'createdAt:desc',
-    'filters[users_permissions_user][id][$eq]': userId,
-  });
+  // getting cart items
+  const cartItemsResponse = await axios.post(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/cart`, { userId, token });
+  const cartItems = cartItemsResponse.data?.data || [];
 
-  const cartItemsResponse = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/carts?${query.toString()}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  const cartItems = cartItemsResponse?.data?.data || [];
-
+  // if there is error or cart is empty
   if (cartItemsResponse.status !== 200 || cartItems.length === 0) {
-    return new NextResponse(JSON.stringify({ message: 'Shopping cart is empty' }), { status: 404 });
+    return new NextResponse(
+      JSON.stringify({ message: "Shopping cart is empty" }),
+      { status: 404 }
+    );
   }
 
   const unitShippingCost = getShippingMethodValue(shippingMethod);
