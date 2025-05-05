@@ -7,9 +7,10 @@ import { useSearchParams } from 'next/navigation'
 
 export default function SuccessPage() {
     const searchParams = useSearchParams()
-    const sessionId = searchParams.get('session_id')
+    const StripeSessionId = searchParams.get('session_id');
+    const paypalTokenId = searchParams.get('token')
 
-    if (!sessionId) {
+    if (!StripeSessionId && !paypalTokenId) {
         notFound()
     }
 

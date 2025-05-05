@@ -15,16 +15,32 @@ export const checkoutForm = async ({ firstName, lastName, phone, email, country,
             await axios.post(`/api/checkout/order-items`, { orderId: response.data.id, userId, token });
 
             // 3. make stripe payment
-            const res = await fetch('/api/checkout/payment-intents/stripe', {
+            // const res = await fetch('/api/checkout/payment-intents/stripe', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({  orderId: response.data.id, shippingMethod, email, userId, token }),
+            // })
+
+            // const data = await res.json()
+
+            // if (data.url) {
+            //     window.location.href = data.url // Force full-page redirect
+            // }
+
+
+            const res = await fetch('/api/checkout/payment-intents/paypal', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({  orderId: response.data.id, shippingMethod, email, userId, token }),
+                body: JSON.stringify({ orderId: response.data.id, shippingMethod, email, userId, token }),
             })
 
-            const data = await res.json()
+            console.log("res: ", res);
 
-            if (data.url) {
-                window.location.href = data.url // Force full-page redirect
+            const data = await res.json();
+            const approvalUrl = data.links.find((link: any) => link.rel === 'approve')?.href;
+
+            if (approvalUrl) {
+                window.location.href = approvalUrl;
             }
         }
 

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '../../../../../lib/stripe'
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+//  to test webhook run this:
+// stripe listen --forward-to http://localhost:3000/api/checkout/webhooks/stripe
 
 export async function POST(req: NextRequest) {
     const sig = req.headers.get('stripe-signature')!;
