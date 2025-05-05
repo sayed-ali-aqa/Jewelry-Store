@@ -6,6 +6,7 @@ export const checkoutForm = async ({ firstName, lastName, phone, email, country,
     try {
         const authInfoResponse = await fetch("/api/auth/auth-info", { credentials: "include" });
         const { userId, token } = await authInfoResponse.json();
+        
         let statusCode: number = 200;
 
         // 1. create an order

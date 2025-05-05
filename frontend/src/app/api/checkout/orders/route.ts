@@ -43,8 +43,6 @@ export async function POST(req: Request) {
                 note,
                 shippingMethod,
                 paymentMethod,
-                stripePaymentIntentId: "Stripe001",
-                paypalOrderId: "Paypal001",
                 totalShippingCost: (totalShippingCost).toFixed(2),
                 tax: (totalTax).toFixed(2),
                 total: (subtotal + totalTax + totalShippingCost).toFixed(2),

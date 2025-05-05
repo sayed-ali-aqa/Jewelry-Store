@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '../../../../../lib/stripe'
+import axios from 'axios';
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 //  to test webhook run this:
@@ -22,9 +23,11 @@ export async function POST(req: NextRequest) {
     // Handle the event
     switch (event.type) {
         case 'charge.succeeded':
-            console.log('Payment was successful!');
+            const session = event.data.object;
+            const orderId = session.metadata?.order_id;
 
-            // Handle your business logic here
+            await axios.put(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/checkout/orders/${orderId}`);
+
             break;
 
         default:

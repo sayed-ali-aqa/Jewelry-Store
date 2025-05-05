@@ -555,14 +555,12 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     orderStatus: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Pending'>;
     paymentMethod: Schema.Attribute.String;
-    paypalOrderId: Schema.Attribute.String;
     phone: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 15;
       }>;
     publishedAt: Schema.Attribute.DateTime;
     shippingMethod: Schema.Attribute.String & Schema.Attribute.Required;
-    stripePaymentIntentId: Schema.Attribute.String;
     tax: Schema.Attribute.Decimal &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<0>;

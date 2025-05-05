@@ -62,6 +62,11 @@ export async function POST(req: Request) {
       customer_email: email,
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/canceled`,
+      payment_intent_data: {
+        metadata: {
+          order_id: orderId // to be able to get it in the webhook call on charge intent object
+        }
+      },
       metadata: {
         order_id: orderId, // order ID here
       },

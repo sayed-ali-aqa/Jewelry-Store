@@ -62,12 +62,6 @@
       "default": "Pending",
       "required": false
     },
-    "stripePaymentIntentId": {
-      "type": "string"
-    },
-    "paypalOrderId": {
-      "type": "string"
-    },
     "totalShippingCost": {
       "type": "decimal",
       "required": true,
