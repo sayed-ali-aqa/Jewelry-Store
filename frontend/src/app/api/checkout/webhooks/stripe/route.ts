@@ -27,7 +27,6 @@ export async function POST(req: NextRequest) {
             // Handle your business logic here
             break;
 
-        // Handle other event types as needed
         default:
             console.log(`Unhandled event type: ${event.type}`);
     }
