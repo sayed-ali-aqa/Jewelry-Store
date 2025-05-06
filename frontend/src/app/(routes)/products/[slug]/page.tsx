@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Button } from '@/components/ui/button';
-import { Heart, ShoppingBag, Star, StarHalf } from 'lucide-react';
+import { Star, StarHalf } from 'lucide-react';
 import ProductImages from '../_components/ProductImages';
 import BreadCrumb from '@/components/BreadCrumb';
 import ProductsSuggestions from '../_components/ProductsSuggestions';

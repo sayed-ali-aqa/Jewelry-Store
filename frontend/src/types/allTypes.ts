@@ -272,3 +272,20 @@ export interface DeliveryAddressProps {
     register: UseFormRegister<CheckoutType>
     errors: FieldErrors<CheckoutType>
 }
+
+export type OrderItem = {
+    product: {
+        name: string,
+        images: {
+            url: string
+        }[]
+    }
+}
+
+export interface orderProps {
+    documentId: string,
+    createdAt: string,
+    orderStatus: string,
+    total: number,
+    order_items: OrderItem[]
+}

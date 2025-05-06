@@ -312,12 +312,12 @@ export async function getUserInfoById() {
 export async function removeCartItems() {
   try {
     const response = await fetch("/api/auth/auth-info", { credentials: "include" });
-    const { userId, token} = await response.json();
+    const { userId, token } = await response.json();
 
     if (token && userId) {
-      const res = await axios.post("/api/cart/remove-all", { userId, token});
+      const res = await axios.post("/api/cart/remove-all", { userId, token });
 
-    console.log(res);
+      console.log(res);
 
 
       return { status: 200, message: "Cart items removed" };
@@ -326,7 +326,33 @@ export async function removeCartItems() {
     }
   } catch (error) {
     console.log(error);
-    
+
+    throw error;
+  }
+}
+
+export async function getOrders() {
+  try {
+    const response = await fetch("/api/auth/auth-info", { credentials: "include" });
+    const {token, userId} = await response.json();
+
+    if (token && userId) {
+      const query = `populate[order_items][populate][product][populate]=images&populate[users_permissions_user]=true&filters[users_permissions_user][id][$eq]=${userId}&sort=createdAt:desc`;
+
+      const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders?${query}`;
+
+      const res = await axios.get(baseUrl, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Auth token
+        },
+      });
+
+      return res.data;
+    } else {
+      return {}
+    }
+  } catch (error) {
+    console.error("Error fetching carts:", error);
     throw error;
   }
 }
