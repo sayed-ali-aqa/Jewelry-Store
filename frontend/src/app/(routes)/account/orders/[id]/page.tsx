@@ -1,11 +1,38 @@
-import React from 'react'
+"use client";
 
-const page = async ({ params }: { params: { id: string } }) => {
-    const { id } = await params; // Awaiting params here
+import { orderProps } from '@types/allTypes';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'sonner';
+import { getOrder } from '../../../../../lib/api';
+import { notFound, useParams } from 'next/navigation';
 
-    return (
-        <div>{id}</div>
-    )
-}
+const Page = () => {
+  const { id } = useParams() as { id: string };
+  const [order, setOrder] = useState<orderProps | null>(null);
 
-export default page
+  const fetchOrder = async () => {
+    try {
+      const data = await getOrder(id);
+      
+      if(data && data?.data.length > 0){
+          setOrder(data?.data[0] ?? null);
+      }else{
+        notFound()
+      }
+    } catch (error) {
+      toast.error("Failed to fetch order");
+    }
+  };
+
+  useEffect(() => {
+    if (id) fetchOrder();
+  }, [id]);
+
+  return (
+    <div className='bg-white min-h-full p-6'>
+     
+    </div>
+  );
+};
+
+export default Page;
