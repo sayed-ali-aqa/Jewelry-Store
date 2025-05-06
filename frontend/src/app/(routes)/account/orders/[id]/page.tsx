@@ -30,6 +30,9 @@ const Page = () => {
 
   return (
     <div className='bg-white min-h-full p-6'>
+      <div className='bg-slate-100 px-6 py-4'>
+        
+      </div>
     </div>
   );
 };
