@@ -42,7 +42,7 @@ const OrderItemCard = ({ order }: { order: orderProps }) => {
                 </div>
 
                 <div className='mt-4'>
-                    <Link href={`/orders/${order.documentId}`} className="block border border-black py-4 px-6 text-center transition-all duration-300 hover:text-white hover:bg-black/90">Order Details</Link>
+                    <Link href={`/account/orders/${order.documentId}`} className="block border border-black py-4 px-6 text-center transition-all duration-300 hover:text-white hover:bg-black/90">Order Details</Link>
                 </div>
             </div>
         </div>

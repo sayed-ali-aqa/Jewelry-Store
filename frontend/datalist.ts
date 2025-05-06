@@ -1,6 +1,7 @@
 // Define the protected routes
 export const protectedRoutes = [
     "/account/orders",
+    "/account/orders/:id",
     "/account/shopping-cart",
     "/account/wishlist",
     "/account/personal-info",
