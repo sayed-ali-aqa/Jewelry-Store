@@ -8,12 +8,16 @@ import { notFound, useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import OrderGeneralDetails from '../../_components/OrderGeneralDetails';
+import OrderSkeletonLoader from '@/_components/OrderSkeletonLoader';
 
 const Page = () => {
   const { id } = useParams() as { id: string };
   const [order, setOrder] = useState<orderProps | null>(null);
+  const [isLoding, setIsLoading] = useState<boolean>(true)
 
   const fetchOrder = async () => {
+    setIsLoading(true)
+
     try {
       const data = await getOrder(id);
 
@@ -23,9 +27,10 @@ const Page = () => {
         notFound()
       }
     } catch (error) {
-      console.log(error);
-
       toast.error("Failed to fetch order");
+    }
+    finally {
+      setIsLoading(false)
     }
   };
 
@@ -35,7 +40,9 @@ const Page = () => {
 
   return (
     <div className='bg-white min-h-full p-6 flex flex-col gap-6'>
-      {order ? (
+      {isLoding ? (
+        <OrderSkeletonLoader />
+      ) : (
         <div className='flex flex-col gap-6'>
           <div className='border p-6 flex flex-col gap-6'>
             <OrderGeneralDetails
@@ -135,8 +142,6 @@ const Page = () => {
             </div>
           </div>
         </div>
-      ) : (
-        <div>Loading...</div>
       )}
     </div>
   );

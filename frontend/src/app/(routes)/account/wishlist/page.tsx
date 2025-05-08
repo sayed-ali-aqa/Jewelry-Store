@@ -8,13 +8,17 @@ import WishlistCard from '../_components/WishlistCard'
 import { AccountItemType } from '@types/allTypes'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../store/store'
+import WishlistSkeletonLoader from '@/_components/WishlistSkeletonLoader'
 const WishlistIcon = '/images/icons/empty-wishlist.png'
 
 const page = () => {
   const [wishlists, setWishlists] = useState<[]>([])
   const wishlistStatus = useSelector((state: RootState) => state.wishlistStatus.wishlistStatus);
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const fetchWishlist = async () => {
+    setIsLoading(true)
+
     try {
       const data = await getWishlist()
 
@@ -22,6 +26,9 @@ const page = () => {
       setWishlists(Object.keys(data).length > 0 ? data.data : [])
     } catch (error) {
       toast.error("Failed to fetch wishlist")
+    }
+    finally {
+      setIsLoading(false)
     }
   }
 
@@ -31,25 +38,31 @@ const page = () => {
 
   return (
     <div className='bg-white min-h-full p-6'>
-      {wishlists.length === 0 ? (
-        <EmptyPlaceholder
-          image={WishlistIcon}
-          text="You haven't added anything to your wishlist yet."
-          actionText="Add To Wishlist Now"
-        />
-      ) : (
-        <div className="w-full flex gap-x-6 gap-y-8 flex-wrap">
-          {
-            wishlists.map((wishlist: AccountItemType) => (
-              <WishlistCard
-                key={wishlist.documentId}
-                wishlist={wishlist}
-                className="xs:max-w-[280px] h-fit"
-              />
-            ))
-          }
-        </div>
-      )}
+      {
+        isLoading ? (
+          <WishlistSkeletonLoader />
+        ) : (
+          wishlists.length === 0 ? (
+            <EmptyPlaceholder
+              image={WishlistIcon}
+              text="You haven't added anything to your wishlist yet."
+              actionText="Add To Wishlist Now"
+            />
+          ) : (
+            <div className="w-full flex gap-x-6 gap-y-8 flex-wrap">
+              {
+                wishlists.map((wishlist: AccountItemType) => (
+                  <WishlistCard
+                    key={wishlist.documentId}
+                    wishlist={wishlist}
+                    className="xs:max-w-[280px] h-fit"
+                  />
+                ))
+              }
+            </div>
+          )
+        )
+      }
     </div>
   )
 }
