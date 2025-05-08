@@ -21,6 +21,7 @@ import { AccountItemType } from "@types/allTypes"
 import EmptyPlaceholder from "@/(routes)/account/_components/EmptyPlaceholder"
 import CartItemCard from "./CartItemCard"
 import { calculateCartTotalAfterDiscount, calculateNumOfCartItems } from "@utils/functions/calculate"
+import ProductSkeletonLoader from "@/_components/ProductSkeletonLoader"
 const CartIcon = '/images/icons/empty-cart.png'
 
 export function CartSheet() {
@@ -29,8 +30,11 @@ export function CartSheet() {
     const [cartSubTotal, setCartSubTotal] = useState<number>(0)
     const cartStatus = useSelector((state: RootState) => state.cartStatus.cartStatus);
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
 
     const fetchCart = async () => {
+        setIsLoading(true)
+
         try {
             const data = await getCart()
 
@@ -38,6 +42,9 @@ export function CartSheet() {
             setCartData(Object.keys(data).length > 0 ? data.data : [])
         } catch (error) {
             toast.error("Failed to fetch cart")
+        }
+        finally {
+            setIsLoading(false)
         }
     }
 
@@ -74,24 +81,31 @@ export function CartSheet() {
                     </div>
                 </SheetHeader>
                 <ScrollArea className="flex flex-col h-[66vh] w-full">
-                    {!cartData || cartData.length === 0 ? (
-                        <EmptyPlaceholder
-                            image={CartIcon}
-                            text="You haven't added anything to your shopping cart yet."
-                            actionText="Add To Cart Now"
-                            imageSize={130}
-                            clasName="max-h-[60vh] w-[300px] flex mx-auto"
-                            isAction={false}
-                        />
-                    ) : (
-                        <div className="w-full flex gap-x-6 gap-y-8 flex-wrap">
-                            {
-                                cartData.map((cart: AccountItemType, index: number) => (
-                                    <CartItemCard key={index} cart={cart} />
-                                ))
-                            }
+                    {isLoading ? (
+                        <div className="p-4">
+                            <ProductSkeletonLoader />
                         </div>
+                    ) : (
+                        !cartData || cartData.length === 0 ? (
+                            <EmptyPlaceholder
+                                image={CartIcon}
+                                text="You haven't added anything to your shopping cart yet."
+                                actionText="Add To Cart Now"
+                                imageSize={130}
+                                clasName="max-h-[60vh] w-[300px] flex mx-auto"
+                                isAction={false}
+                            />
+                        ) : (
+                            <div className="w-full flex gap-x-6 gap-y-8 flex-wrap">
+                                {
+                                    cartData.map((cart: AccountItemType, index: number) => (
+                                        <CartItemCard key={index} cart={cart} />
+                                    ))
+                                }
+                            </div>
+                        )
                     )}
+
 
                 </ScrollArea>
                 <SheetFooter className="h-[150px] pt-4 px-6 border-t-2">
