@@ -287,5 +287,13 @@ export interface orderProps {
     createdAt: string,
     orderStatus: string,
     total: number,
-    order_items: OrderItem[]
+    totalShippingCost?: number,
+    tax?: number,
+    order_items: OrderItem[],
+    country?: string,
+    city?: string,
+    zipCode?: string,
+    address?:string,
+    paymentMethod?: string,
+    shippingMethod?:string,
 }

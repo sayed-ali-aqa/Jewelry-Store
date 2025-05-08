@@ -38,7 +38,6 @@ const OrderItemCard = ({ order }: { order: orderProps }) => {
                             />
                         </div>
                     ))}
-
                 </div>
 
                 <div className='mt-4'>

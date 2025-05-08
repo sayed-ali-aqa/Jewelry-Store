@@ -363,9 +363,9 @@ export async function getOrder(id: string) {
     const {token, userId} = await response.json();
 
     if (token && userId) {
-      const query = `${id}?populate[order_items][populate][product][populate]=images&populate[users_permissions_user]=true`;
+      const query = `/${id}?populate[order_items][populate][product][populate]=images&populate[users_permissions_user]=true`;
 
-      const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders?${query}`;
+      const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders${query}`;
 
       const res = await axios.get(baseUrl, {
         headers: {
@@ -378,6 +378,8 @@ export async function getOrder(id: string) {
       return {}
     }
   } catch (error) {
+    console.log(error);
+    
     console.error("Error fetching carts:", error);
     throw error;
   }
