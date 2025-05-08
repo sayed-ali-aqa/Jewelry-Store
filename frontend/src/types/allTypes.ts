@@ -260,6 +260,7 @@ export interface CheckoutDetailsProps {
     totalTax: number,
     totalShippingCost: number
     isSubmitting: boolean,
+    isLoading: boolean,
 }
 
 export interface ShippingMethodProps {

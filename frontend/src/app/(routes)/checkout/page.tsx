@@ -4,10 +4,9 @@ import BreadCrumb from '@/components/BreadCrumb'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AccountItemType, CheckoutType } from '@types/allTypes';
 import { checkoutForm } from '@utils/actions/checkout';
-import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { CheckoutSchema } from '@utils/validations/checkoutValidation';
 import { getCart, getUserInfoById } from '../../../lib/api';
 import { toast } from 'sonner';
@@ -19,9 +18,6 @@ import PaymentMethod from './_components/PaymentMethod';
 import CheckoutDetails from './_components/CheckoutDetails';
 
 const page = () => {
-  const dispatch = useDispatch();
-  const router = useRouter()
-
   const [cartData, setCartData] = useState<AccountItemType[]>([])
   const [cartCount, setCartCount] = useState<number>(0)
   const [cartSubTotal, setCartSubTotal] = useState<number>(0)
@@ -29,6 +25,7 @@ const page = () => {
   const [totalTax, setTotalTax] = useState<number>(0)
   const [totalShippingCost, setTotalShippingCost] = useState<number>(0)
   const [selectedShippingMethodValue, setSelectedShippingMethodValue] = useState(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const {
     control,
@@ -51,6 +48,8 @@ const page = () => {
   };
 
   const fetchCart = async () => {
+    setIsLoading(true)
+
     try {
       const data = await getCart()
 
@@ -58,6 +57,9 @@ const page = () => {
       setCartData(Object.keys(data).length > 0 ? data.data : [])
     } catch (error) {
       toast.error("Failed to fetch cart")
+    }
+    finally {
+      setIsLoading(false)
     }
   }
 
@@ -147,7 +149,8 @@ const page = () => {
                 cartSubTotal={cartSubTotal}
                 totalTax={totalTax}
                 totalShippingCost={totalShippingCost}
-                isSubmitting={isSubmitting} />
+                isSubmitting={isSubmitting}
+                isLoading={isLoading} />
             </div>
           </div>
         </form>

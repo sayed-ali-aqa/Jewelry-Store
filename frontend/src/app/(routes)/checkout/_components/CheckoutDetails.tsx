@@ -5,32 +5,42 @@ import { AccountItemType, CheckoutDetailsProps } from '@types/allTypes'
 import { Button } from '@/components/ui/button'
 import EmptyPlaceholder from '@/(routes)/account/_components/EmptyPlaceholder'
 import CartItemCard from '@/components/CartItemCard'
+import ProductSkeletonLoader from '@/_components/ProductSkeletonLoader'
 const CartIcon = '/images/icons/empty-cart.png'
 
-const CheckoutDetails: React.FC<CheckoutDetailsProps> = ({ cartData, cartCount, cartSubTotal, totalTax, totalShippingCost, isSubmitting }) => {
+const CheckoutDetails: React.FC<CheckoutDetailsProps> = ({ cartData, cartCount, cartSubTotal, totalTax, totalShippingCost, isSubmitting, isLoading }) => {
     return (
         <div className='bg-white'>
             <h2 className='text-center text-2xl p-6'>Order Total ({cartCount})</h2>
 
             <div className='flex flex-col gap-4'>
-                {!cartData || cartData.length === 0 ? (
-                    <EmptyPlaceholder
-                        image={CartIcon}
-                        text="You haven't added anything to your shopping cart yet."
-                        actionText="Add To Cart Now"
-                        imageSize={130}
-                        clasName="max-h-[60vh] w-[300px] flex mx-auto"
-                        isAction={false}
-                    />
-                ) : (
-                    <div className="w-full flex flex-wrap">
-                        {
-                            cartData.map((cart: AccountItemType, index: number) => (
-                                <CartItemCard key={index} cart={cart} />
-                            ))
-                        }
-                    </div>
-                )}
+                {
+                    isLoading ? (
+                        <div className='p-4'>
+                            <ProductSkeletonLoader />
+                        </div>
+                    ) : (
+                        !cartData || cartData.length === 0 ? (
+                            <EmptyPlaceholder
+                                image={CartIcon}
+                                text="You haven't added anything to your shopping cart yet."
+                                actionText="Add To Cart Now"
+                                imageSize={130}
+                                clasName="max-h-[60vh] w-[300px] flex mx-auto"
+                                isAction={false}
+                            />
+                        ) : (
+                            <div className="w-full flex flex-wrap">
+                                {
+                                    cartData.map((cart: AccountItemType, index: number) => (
+                                        <CartItemCard key={index} cart={cart} />
+                                    ))
+                                }
+                            </div>
+                        )
+                    )
+                }
+
 
                 <div className='p-6 flex flex-col gap-4'>
                     <div className='flex items-center justify-between'>
