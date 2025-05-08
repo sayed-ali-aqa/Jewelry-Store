@@ -5,9 +5,9 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { getOrder } from '../../../../../lib/api';
 import { notFound, useParams } from 'next/navigation';
-import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
+import OrderGeneralDetails from '../../_components/OrderGeneralDetails';
 
 const Page = () => {
   const { id } = useParams() as { id: string };
@@ -38,24 +38,12 @@ const Page = () => {
       {order ? (
         <div className='flex flex-col gap-6'>
           <div className='border p-6 flex flex-col gap-6'>
-            <div className='flex justify-between gap-6 flex-wrap bg-slate-100 py-4 px-6'>
-              <div className='flex flex-col gap-3'>
-                <span className='text-slate-600'>Order #</span>
-                <span className='font-bold'>{order?.documentId}</span>
-              </div>
-              <div className='flex flex-col gap-3'>
-                <span className='text-slate-600'>Order Date</span>
-                <span className='font-bold'>{format(new Date(order?.createdAt), 'dd MMM, yyyy')}</span>
-              </div>
-              <div className='flex flex-col gap-3'>
-                <span className='text-slate-600'>Status</span>
-                <span className='font-bold'>{order?.orderStatus}</span>
-              </div>
-              <div className='flex flex-col gap-3'>
-                <span className='text-slate-600'>Amout</span>
-                <span className='font-bold'>${(order?.total).toFixed(2)}</span>
-              </div>
-            </div>
+            <OrderGeneralDetails
+              orderNo={order?.documentId}
+              orderDate={order?.createdAt}
+              orderStatus={order?.orderStatus}
+              total={order?.total}
+            />
 
             <div className='flex flex-col gap-4 flex-wrap'>
               {order.order_items.map((item: any, index: number) => (

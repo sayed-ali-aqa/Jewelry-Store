@@ -293,7 +293,14 @@ export interface orderProps {
     country?: string,
     city?: string,
     zipCode?: string,
-    address?:string,
+    address?: string,
     paymentMethod?: string,
-    shippingMethod?:string,
+    shippingMethod?: string,
+}
+
+export interface OrderGeneralDetailsProps {
+    orderNo: string,
+    orderDate: string,
+    orderStatus: string,
+    total: number
 }

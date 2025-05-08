@@ -3,37 +3,26 @@ import Link from 'next/link'
 import React from 'react'
 import { format } from 'date-fns'
 import Image from 'next/image'
+import OrderGeneralDetails from './OrderGeneralDetails'
 
 const OrderItemCard = ({ order }: { order: orderProps }) => {
     return (
         <div className='bg-white min-h-full p-6'>
             <div className='border p-6 flex flex-col gap-6'>
-                <div className='flex justify-between gap-6 flex-wrap bg-slate-100 py-4 px-6'>
-                    <div className='flex flex-col gap-3'>
-                        <span className='text-slate-600'>Order #</span>
-                        <span className='font-bold'>{order.documentId}</span>
-                    </div>
-                    <div className='flex flex-col gap-3'>
-                        <span className='text-slate-600'>Order Date</span>
-                        <span className='font-bold'>{format(new Date(order.createdAt), 'dd MMM, yyyy')}</span>
-                    </div>
-                    <div className='flex flex-col gap-3'>
-                        <span className='text-slate-600'>Status</span>
-                        <span className='font-bold'>{order.orderStatus}</span>
-                    </div>
-                    <div className='flex flex-col gap-3'>
-                        <span className='text-slate-600'>Amout</span>
-                        <span className='font-bold'>${(order.total).toFixed(2)}</span>
-                    </div>
-                </div>
+                <OrderGeneralDetails
+                    orderNo={order?.documentId}
+                    orderDate={order?.createdAt}
+                    orderStatus={order?.orderStatus}
+                    total={order?.total}
+                />
 
                 <div className='flex gap-4 flex-wrap'>
                     {order.order_items.map((item: any, index: number) => (
                         <div key={index}>
                             <Image
-                                src={`${process.env.NEXT_PUBLIC_SERVER_URL}${item.product.images?.[0]?.url}`} 
+                                src={`${process.env.NEXT_PUBLIC_SERVER_URL}${item.product.images?.[0]?.url}`}
                                 alt={item.product.name}
-                                width={112} 
+                                width={112}
                                 height={140}
                             />
                         </div>
