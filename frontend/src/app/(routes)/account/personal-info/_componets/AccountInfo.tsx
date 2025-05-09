@@ -11,6 +11,7 @@ import { PersonalInfoUpdateSchema } from '@utils/validations/PersonalInfoValidat
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { getUserInfoById } from '../../../../../lib/api';
+import { Loader } from 'lucide-react';
 
 const AccountInfo = () => {
     const [email, setEmail] = useState<string>("")
@@ -137,8 +138,12 @@ const AccountInfo = () => {
                         <input type="hidden" {...register("id")} />
                     </div>
 
-                    <Button type="submit" variant="dark" className="w-fit h-12 font-semibold" size="lg" disabled={isSubmitting}>
-                        {isSubmitting ? <div className="spinner">Updating...</div> : "Update"}
+                    <Button type="submit" variant="dark" className="w-[140px] h-12 font-semibold" size="lg" disabled={isSubmitting}>
+                        {isSubmitting ? (
+                            <Loader size={18} className="animate-spin" />
+                        ) : (
+                            "Update"
+                        )}
                     </Button>
                 </div>
             </form>

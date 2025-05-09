@@ -10,6 +10,7 @@ import { ChangeAccountPassword } from '@utils/actions/personalInfo';
 import { AccountPasswordSchema, PersonalInfoUpdateSchema } from '@utils/validations/PersonalInfoValidation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { Loader } from 'lucide-react';
 
 const AccountPassword = () => {
     const {
@@ -89,8 +90,12 @@ const AccountPassword = () => {
                         </div>
                     </div>
 
-                    <Button type="submit" variant="dark" className="w-fit h-12 font-semibold" size="lg" disabled={isSubmitting}>
-                        {isSubmitting ? <div className="spinner">Changing...</div> : "Change"}
+                    <Button type="submit" variant="dark" className="w-[140px] h-12 font-semibold" size="lg" disabled={isSubmitting}>
+                        {isSubmitting ? (
+                            <Loader size={18} className="animate-spin" />
+                        ) : (
+                            "Change"
+                        )}
                     </Button>
                 </div>
             </form>
