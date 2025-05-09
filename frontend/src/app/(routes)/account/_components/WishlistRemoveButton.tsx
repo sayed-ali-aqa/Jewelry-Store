@@ -35,6 +35,7 @@ const WishlistRemoveButton: React.FC<WishlistIconButtonProps> = ({ id }) => {
 
     return (
         <Button
+            disabled={isLoading}
             variant="ghost"
             onClick={handleRemoveWishlistItem}
             className='w-[34px] h-[34px] bg-white text-destructive mr-4 rounded-full transition-all duration-300 hover:bg-destructive hover:text-white'

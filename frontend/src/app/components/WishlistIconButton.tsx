@@ -36,6 +36,7 @@ const WishlistIconButton: React.FC<WishlistIconButtonProps> = ({ id }) => {
     return (
         <Button
             variant="ghost"
+            disabled={isLoading}
             onClick={handleAddToWishlist}
             className={`${isAddedToWishlist ? 'bg-primary text-white' : 'bg-white text-primary'} w-[34px] h-[34px] mr-4 rounded-full transition-all duration-300 hover:bg-primary hover:text-white`}
         >
