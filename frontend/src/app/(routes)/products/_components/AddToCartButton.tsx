@@ -45,7 +45,6 @@ const AddToCartButton = ({ id }: { id: string }) => {
                     <Check />
                 ) : (
                     isLoading ? <Loader size={18} className="animate-spin" /> : <ShoppingBag /> 
-                    
                 )
             }
             Add to Cart</Button>

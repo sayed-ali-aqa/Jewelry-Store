@@ -90,7 +90,7 @@ const AccountPassword = () => {
                         </div>
                     </div>
 
-                    <Button type="submit" variant="dark" className="w-[140px] h-12 font-semibold" size="lg" disabled={isSubmitting}>
+                    <Button type="submit" variant="dark" className="w-[140px] h-12 font-semibold hover:bg-black/90 hover:text-white" size="lg" disabled={isSubmitting}>
                         {isSubmitting ? (
                             <Loader size={18} className="animate-spin" />
                         ) : (
