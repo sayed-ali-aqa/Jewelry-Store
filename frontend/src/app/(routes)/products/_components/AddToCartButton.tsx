@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from '@/components/ui/button'
-import { Check, ShoppingBag } from 'lucide-react'
+import { Check, Loader, ShoppingBag } from 'lucide-react'
 import React, { useState } from 'react'
 import { toast } from 'sonner'
 import { addToCart } from '../../../../lib/api'
@@ -13,8 +13,11 @@ const AddToCartButton = ({ id }: { id: string }) => {
     const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false)
     const cartStatus = useSelector((state: RootState) => state.cartStatus.cartStatus);
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const handleAddToCart = async (e: React.MouseEvent) => {
+        setIsLoading(true)
+
         e.stopPropagation();
         e.preventDefault();
 
@@ -26,10 +29,13 @@ const AddToCartButton = ({ id }: { id: string }) => {
             toast.success("Added to cart successfully");
             setIsAddedToCart(true)
         }
+
+        setIsLoading(false)
     };
 
     return (
         <Button
+            disabled={isLoading || isAddedToCart}
             onClick={handleAddToCart}
             size="lg"
             className='text-lg px-5 py-6'
@@ -38,7 +44,8 @@ const AddToCartButton = ({ id }: { id: string }) => {
                 isAddedToCart ? (
                     <Check />
                 ) : (
-                    <ShoppingBag />
+                    isLoading ? <Loader size={18} className="animate-spin" /> : <ShoppingBag /> 
+                    
                 )
             }
             Add to Cart</Button>
