@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Heart } from "lucide-react";
+import { Heart, Loader } from "lucide-react";
 import { addToWishlist } from "../../lib/api";
 import { toast } from "sonner";
 import { WishlistIconButtonProps } from "@types/allTypes";
@@ -13,8 +13,11 @@ const WishlistIconButton: React.FC<WishlistIconButtonProps> = ({ id }) => {
     const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false)
     const wishlistStatus = useSelector((state: RootState) => state.wishlistStatus.wishlistStatus);
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const handleAddToWishlist = async (e: React.MouseEvent) => {
+        setIsLoading(true)
+
         e.stopPropagation();
         e.preventDefault();
 
@@ -25,6 +28,8 @@ const WishlistIconButton: React.FC<WishlistIconButtonProps> = ({ id }) => {
             toast.success("Added to wishlist successfully");
             setIsAddedToWishlist(true)
         }
+
+        setIsLoading(false)
     };
 
     return (
@@ -33,7 +38,13 @@ const WishlistIconButton: React.FC<WishlistIconButtonProps> = ({ id }) => {
             onClick={handleAddToWishlist}
             className={`${isAddedToWishlist ? 'bg-primary text-white' : 'bg-white'} p-2 text-primary mr-4 rounded-full transition-all duration-300 hover:bg-primary hover:text-white`}
         >
-            <Heart size={18} />
+            {
+                isLoading ? (
+                    <Loader size={18} className="animate-spin" />
+                ) : (
+                    <Heart size={18} />
+                )
+            }
         </span>
     );
 };

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { CircleX, X } from "lucide-react"
+import { CircleX, Loader, X } from "lucide-react"
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { setCartStatus } from "../../store/slices/cartStatusSlice";
@@ -11,8 +11,11 @@ import { removeCartItem } from "../../lib/api";
 export function CartRemoveButton({ id }: { id: string }) {
     const cartStatus = useSelector((state: RootState) => state.cartStatus.cartStatus);
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
     const handleRemoveCartItem = async () => {
+        setIsLoading(true)
+
         const response = await removeCartItem(id);
 
         if (response && response?.status === 200) {
@@ -21,14 +24,25 @@ export function CartRemoveButton({ id }: { id: string }) {
         } else {
             toast.error("Failed to remove cart item");
         }
+
+        setIsLoading(false)
     };
 
     return (
-        <span role='button' onClick={handleRemoveCartItem}>
-            <CircleX
-                strokeWidth={1}
-                size={34}
-                className='text-slate-400 hover:text-destructive' />
-        </span>
+        <>
+            {
+                isLoading ? (
+                    <Loader size={34} className="animate-spin text-destructive" />
+                )
+                    : (
+                        <span role='button' onClick={handleRemoveCartItem}>
+                            <CircleX
+                                strokeWidth={1}
+                                size={34}
+                                className='text-slate-400 hover:text-destructive' />
+                        </span>
+                    )
+            }
+        </>
     )
 }
