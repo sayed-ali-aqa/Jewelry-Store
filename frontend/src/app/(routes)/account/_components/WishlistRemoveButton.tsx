@@ -1,19 +1,23 @@
 "use client";
 
-import React from "react";
-import { X } from "lucide-react";
+import React, { useState } from "react";
+import { Loader, X } from "lucide-react";
 import { removeWishlist } from "../../../../lib/api";
 import { toast } from "sonner";
 import { WishlistIconButtonProps } from "@types/allTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
 import { setWishlistStatus } from "../../../../store/slices/wishlistStatusSlice";
+import { Button } from "@/components/ui/button";
 
 const WishlistRemoveButton: React.FC<WishlistIconButtonProps> = ({ id }) => {
     const wishlistStatus = useSelector((state: RootState) => state.wishlistStatus.wishlistStatus);
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const handleRemoveWishlistItem = async (e: React.MouseEvent) => {
+        setIsLoading(true)
+
         e.stopPropagation();
         e.preventDefault();
 
@@ -25,16 +29,24 @@ const WishlistRemoveButton: React.FC<WishlistIconButtonProps> = ({ id }) => {
         } else {
             toast.error("Failed to remove wishlist");
         }
+
+        setIsLoading(false)
     };
 
     return (
-        <span
-            role="button"
+        <Button
+            variant="ghost"
             onClick={handleRemoveWishlistItem}
-            className='bg-white p-2 text-destructive mr-4 rounded-full transition-all duration-300 hover:bg-destructive hover:text-white'
+            className='w-[34px] h-[34px] bg-white text-destructive mr-4 rounded-full transition-all duration-300 hover:bg-destructive hover:text-white'
         >
-            <X size={18} />
-        </span>
+            {
+                isLoading ? (
+                    <Loader size={18} className="animate-spin" />
+                ) : (
+                    <X size={18} />
+                )
+            }
+        </Button>
     );
 };
 

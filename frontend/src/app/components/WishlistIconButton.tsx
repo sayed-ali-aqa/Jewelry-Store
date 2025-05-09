@@ -8,6 +8,7 @@ import { WishlistIconButtonProps } from "@types/allTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { setWishlistStatus } from "../../store/slices/wishlistStatusSlice";
+import { Button } from "./ui/button";
 
 const WishlistIconButton: React.FC<WishlistIconButtonProps> = ({ id }) => {
     const [isAddedToWishlist, setIsAddedToWishlist] = useState<boolean>(false)
@@ -33,10 +34,10 @@ const WishlistIconButton: React.FC<WishlistIconButtonProps> = ({ id }) => {
     };
 
     return (
-        <span
-            role="button"
+        <Button
+            variant="ghost"
             onClick={handleAddToWishlist}
-            className={`${isAddedToWishlist ? 'bg-primary text-white' : 'bg-white'} p-2 text-primary mr-4 rounded-full transition-all duration-300 hover:bg-primary hover:text-white`}
+            className={`${isAddedToWishlist ? 'bg-primary text-white' : 'bg-white text-primary'} w-[34px] h-[34px] mr-4 rounded-full transition-all duration-300 hover:bg-primary hover:text-white`}
         >
             {
                 isLoading ? (
@@ -45,7 +46,7 @@ const WishlistIconButton: React.FC<WishlistIconButtonProps> = ({ id }) => {
                     <Heart size={18} />
                 )
             }
-        </span>
+        </Button>
     );
 };
 

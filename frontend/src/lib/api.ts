@@ -189,7 +189,7 @@ export async function getCart() {
   }
 }
 
-export async function removeWishlist(id: number) {
+export async function removeWishlist(id: string) {
   try {
     const response = await fetch("/api/auth/auth-info", { credentials: "include" });
     const authInfo = await response.json();
@@ -212,7 +212,7 @@ export async function removeWishlist(id: number) {
   }
 }
 
-export async function removeCart(id: number) {
+export async function removeCart(id: string) {
   try {
     const response = await fetch("/api/auth/auth-info", { credentials: "include" });
     const authInfo = await response.json();
