@@ -34,11 +34,10 @@ const page = () => {
     router.push(`?${params.toString()}`);
   };
 
-
   const fetchCart = async (page = 1) => {
     setIsLoading(true);
     try {
-      const data = await getCart(page, 1); // 1 = pageSize
+      const data = await getCart(page, 6); // 6 = pageSize
 
       //If no data then set it to empty array
       setCarts(Object.keys(data).length > 0 ? data.data : [])

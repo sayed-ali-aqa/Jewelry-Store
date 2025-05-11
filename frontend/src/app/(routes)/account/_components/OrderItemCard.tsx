@@ -6,7 +6,7 @@ import OrderGeneralDetails from './OrderGeneralDetails'
 
 const OrderItemCard = ({ order }: { order: orderProps }) => {
     return (
-        <div className='bg-white min-h-full p-6'>
+        <div className='bg-white min-h-full'>
             <div className='border p-6 flex flex-col gap-6'>
                 <OrderGeneralDetails
                     orderNo={order?.documentId}
