@@ -10,14 +10,26 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../../../store/store'
 import WishlistSkeletonLoader from '@/_components/WishlistSkeletonLoader'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useSearchParams, useRouter } from 'next/navigation'
+
 const WishlistIcon = '/images/icons/empty-wishlist.png'
 
 const page = () => {
   const wishlistStatus = useSelector((state: RootState) => state.wishlistStatus.wishlistStatus);
   const [wishlists, setWishlists] = useState<[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const currentPage = Number(searchParams.get('page') || '1');
+
+  const setCurrentPage = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('page', page.toString());
+    router.push(`?${params.toString()}`);
+  };
 
   const fetchWishlist = async (page = 1) => {
     setIsLoading(true);
@@ -65,7 +77,7 @@ const page = () => {
                 <div className="w-full mt-10 flex justify-center">
                   <div className="flex space-x-2">
                     <button
-                      onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                      onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
                       disabled={currentPage === 1}
                       className="flex items-center px-4 py-2 text-sm font-medium bg-muted hover:bg-gray-200 disabled:opacity-50"
                     >
@@ -94,7 +106,6 @@ const page = () => {
                         );
                       }
 
-                      // Show dots between distant pages
                       if (
                         (page === 2 && currentPage > 3) ||
                         (page === totalPages - 1 && currentPage < totalPages - 2)
@@ -112,7 +123,7 @@ const page = () => {
                     })}
 
                     <button
-                      onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                      onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
                       disabled={currentPage === totalPages}
                       className="flex items-center px-4 py-2 text-sm font-medium bg-muted hover:bg-gray-200 disabled:opacity-50"
                     >
