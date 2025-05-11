@@ -161,7 +161,7 @@ export async function getWishlist(page = 1, pageSize = 8) {
   }
 }
 
-export async function getCart() {
+export async function getCart(page = 1, pageSize = 8) {
   try {
     const response = await fetch("/api/auth/auth-info", { credentials: "include" });
     const data = await response.json();
@@ -171,6 +171,8 @@ export async function getCart() {
         'populate[products][populate]': 'images',
         'sort[0]': 'createdAt:desc',
         'filters[users_permissions_user][id][$eq]': data.userId,
+        'pagination[page]': page.toString(),
+        'pagination[pageSize]': pageSize.toString()
       });
 
       const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/carts?${query.toString()}`;

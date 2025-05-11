@@ -18,13 +18,16 @@ const page = () => {
   const wishlistStatus = useSelector((state: RootState) => state.wishlistStatus.wishlistStatus);
   const [wishlists, setWishlists] = useState<[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // Pagination state
   const [totalPages, setTotalPages] = useState(1);
 
+  // Pagination logic
   const searchParams = useSearchParams();
   const router = useRouter();
 
+  // Pagination logic
   const currentPage = Number(searchParams.get('page') || '1');
-
   const setCurrentPage = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', page.toString());
