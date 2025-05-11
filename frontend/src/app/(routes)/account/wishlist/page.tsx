@@ -21,6 +21,8 @@ const page = () => {
 
     try {
       const data = await getWishlist()
+      console.log(data);
+      
 
       //If no data then set it to empty array
       setWishlists(Object.keys(data).length > 0 ? data.data : [])
