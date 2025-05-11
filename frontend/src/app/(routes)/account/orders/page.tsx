@@ -19,6 +19,9 @@ const page = () => {
     try {
       const data = await getOrders()
 
+      console.log(data.data[0].order_items[0].product.images[0].url);
+      
+
       //If no data then set it to empty array
       setOrders(Object.keys(data.data).length > 0 ? data.data : [])
     } catch (error) {

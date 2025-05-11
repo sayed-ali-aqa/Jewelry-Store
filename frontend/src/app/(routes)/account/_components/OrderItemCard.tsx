@@ -1,7 +1,6 @@
-import { orderProps } from '@types/allTypes'
+import { OrderItem, orderProps } from '@types/allTypes'
 import Link from 'next/link'
 import React from 'react'
-import { format } from 'date-fns'
 import Image from 'next/image'
 import OrderGeneralDetails from './OrderGeneralDetails'
 
@@ -17,16 +16,20 @@ const OrderItemCard = ({ order }: { order: orderProps }) => {
                 />
 
                 <div className='flex gap-4 flex-wrap'>
-                    {order.order_items.map((item: any, index: number) => (
-                        <div key={index}>
-                            <Image
-                                src={`${process.env.NEXT_PUBLIC_SERVER_URL}${item.product.images?.[0]?.url}`}
-                                alt={item.product.name}
-                                width={112}
-                                height={140}
-                            />
-                        </div>
-                    ))}
+                    {order.order_items.map((item: OrderItem, index: number) => {
+                        if (!item.product) return null;
+
+                        return (
+                            <div key={index}>
+                                <Image
+                                    src={`${process.env.NEXT_PUBLIC_SERVER_URL}${item.product.images?.[0]?.url}`}
+                                    alt={item.product.name}
+                                    width={112}
+                                    height={140}
+                                />
+                            </div>
+                        );
+                    })}
                 </div>
 
                 <div className='mt-4'>

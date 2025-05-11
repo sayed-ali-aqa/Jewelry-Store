@@ -21,6 +21,7 @@ const Page = () => {
     try {
       const data = await getOrder(id);
 
+
       if (data) {
         setOrder(data?.data ?? null);
       } else {
@@ -38,6 +39,13 @@ const Page = () => {
     if (id) fetchOrder();
   }, [id]);
 
+  useEffect(() => {
+    if (!isLoding) {
+      console.log(order);
+    }
+
+  }, [isLoding])
+
   return (
     <div className='bg-white min-h-full p-6 flex flex-col gap-6'>
       {isLoding ? (
@@ -46,35 +54,50 @@ const Page = () => {
         <div className='flex flex-col gap-6'>
           <div className='border p-6 flex flex-col gap-6'>
             <OrderGeneralDetails
-              orderNo={order?.documentId}
-              orderDate={order?.createdAt}
-              orderStatus={order?.orderStatus}
-              total={order?.total}
+              orderNo={order.documentId}
+              orderDate={order.createdAt}
+              orderStatus={order.orderStatus}
+              total={order.total}
             />
 
             <div className='flex flex-col gap-4 flex-wrap'>
-              {order.order_items.map((item: any, index: number) => (
-                <div key={index} className='flex gap-6 border-t pt-6'>
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_SERVER_URL}${item.product.images?.[0]?.url}`}
-                    alt={item.product.name}
-                    width={112}
-                    height={140}
-                  />
+              {order.order_items.map((item: any, index: number) => {
+                if (!item.product) return null;
 
-                  <div className='flex flex-col gap-4 justify-between py-1'>
-                    <div className='flex flex-col gap-1'>
-                      <Link href={`/products/${item.product.slug}`} className='font-bold text-lg transition-all duration-300 hover:text-primary'>{item.product.name}</Link>
-                      <span className='text-slate-500 font-semibold'>${(item.unitPrice).toFixed(2)}</span>
-                    </div>
+                return (
+                  <div key={index} className='flex gap-6 border-t pt-6'>
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_SERVER_URL}${item.product.images?.[0]?.url}`}
+                      alt={item.product.name}
+                      width={112}
+                      height={140}
+                    />
 
-                    <div className='flex flex-col gap-1'>
-                      <span><span className='text-slate-500'>Quantity:</span> {item.quantity}</span>
-                      <span><span className='text-slate-500'>Weight:</span> {item.product.weight} gs</span>
+                    <div className='flex flex-col gap-4 justify-between py-1'>
+                      <div className='flex flex-col gap-1'>
+                        <Link
+                          href={`/products/${item.product.slug}`}
+                          className='font-bold text-lg transition-all duration-300 hover:text-primary'
+                        >
+                          {item.product.name}
+                        </Link>
+                        <span className='text-slate-500 font-semibold'>
+                          ${item.unitPrice.toFixed(2)}
+                        </span>
+                      </div>
+
+                      <div className='flex flex-col gap-1'>
+                        <span>
+                          <span className='text-slate-500'>Quantity:</span> {item.quantity}
+                        </span>
+                        <span>
+                          <span className='text-slate-500'>Weight:</span> {item.product.weight} gs
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
