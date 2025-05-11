@@ -305,3 +305,9 @@ export interface OrderGeneralDetailsProps {
     orderStatus: string,
     total: number
 }
+
+export interface CustomPaginationProps{
+    totalPages: number,
+    setCurrentPage: (value: number) => void,
+    currentPage: number
+}

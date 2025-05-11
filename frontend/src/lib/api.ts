@@ -129,7 +129,7 @@ export async function getTestimonials() {
   }
 }
 
-export async function getWishlist(page = 1, pageSize = 2) {
+export async function getWishlist(page = 1, pageSize = 8) {
   try {
     const response = await fetch("/api/auth/auth-info", { credentials: "include" });
     const data = await response.json();

@@ -9,8 +9,8 @@ import { AccountItemType } from '@types/allTypes'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../store/store'
 import WishlistSkeletonLoader from '@/_components/WishlistSkeletonLoader'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useSearchParams, useRouter } from 'next/navigation'
+import CustomPagination from '@/_components/CustomPagination'
 
 const WishlistIcon = '/images/icons/empty-wishlist.png'
 
@@ -34,7 +34,7 @@ const page = () => {
   const fetchWishlist = async (page = 1) => {
     setIsLoading(true);
     try {
-      const data = await getWishlist(page, 2); // 2 = pageSize
+      const data = await getWishlist(page, 8); // 8 = pageSize
 
       setWishlists(data?.data || []);
       setTotalPages(data?.meta?.pagination?.pageCount || 1);
@@ -73,66 +73,11 @@ const page = () => {
                 ))
               }
 
-              {totalPages > 1 && (
-                <div className="w-full mt-10 flex justify-center">
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
-                      disabled={currentPage === 1}
-                      className="flex items-center px-4 py-2 text-sm font-medium bg-muted hover:bg-gray-200 disabled:opacity-50"
-                    >
-                      <ChevronLeft size={18} />
-                      Prev
-                    </button>
-
-                    {Array.from({ length: totalPages }).map((_, index) => {
-                      const page = index + 1;
-                      const isFirst = page === 1;
-                      const isLast = page === totalPages;
-                      const isNear = Math.abs(currentPage - page) <= 1;
-
-                      if (isFirst || isLast || isNear) {
-                        return (
-                          <button
-                            key={page}
-                            onClick={() => setCurrentPage(page)}
-                            className={`px-4 py-2 text-sm font-medium ${currentPage === page
-                              ? 'bg-primary text-white'
-                              : 'bg-muted hover:bg-gray-200'
-                              }`}
-                          >
-                            {page}
-                          </button>
-                        );
-                      }
-
-                      if (
-                        (page === 2 && currentPage > 3) ||
-                        (page === totalPages - 1 && currentPage < totalPages - 2)
-                      ) {
-                        return (
-                          <div key={page} className="px-2 text-muted-foreground flex gap-1">
-                            <span className='font-semibold'>.</span>
-                            <span className='font-semibold'>.</span>
-                            <span className='font-semibold'>.</span>
-                          </div>
-                        );
-                      }
-
-                      return null;
-                    })}
-
-                    <button
-                      onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
-                      disabled={currentPage === totalPages}
-                      className="flex items-center px-4 py-2 text-sm font-medium bg-muted hover:bg-gray-200 disabled:opacity-50"
-                    >
-                      Next
-                      <ChevronRight size={18} />
-                    </button>
-                  </div>
-                </div>
-              )}
+              <CustomPagination 
+                totalPages={totalPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
             </div>
           )
         )
