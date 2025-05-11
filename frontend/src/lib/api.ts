@@ -335,28 +335,35 @@ export async function removeCartItems() {
   }
 }
 
-export async function getOrders() {
+export async function getOrders(page = 1, pageSize = 4) {
   try {
     const response = await fetch("/api/auth/auth-info", { credentials: "include" });
     const { token, userId } = await response.json();
 
     if (token && userId) {
-      const query = `populate[order_items][populate][product][populate]=images&populate[users_permissions_user]=true&filters[users_permissions_user][id][$eq]=${userId}&sort=createdAt:desc`;
+      const query = new URLSearchParams({
+        'populate[order_items][populate][product][populate]': 'images',
+        'populate[users_permissions_user]': 'true',
+        'filters[users_permissions_user][id][$eq]': userId.toString(),
+        'sort': 'createdAt:desc',
+        'pagination[page]': page.toString(),
+        'pagination[pageSize]': pageSize.toString(),
+      }).toString();
 
       const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders?${query}`;
 
       const res = await axios.get(baseUrl, {
         headers: {
-          Authorization: `Bearer ${token}`, // Auth token
+          Authorization: `Bearer ${token}`,
         },
       });
 
       return res.data;
     } else {
-      return {}
+      return {};
     }
   } catch (error) {
-    console.error("Error fetching carts:", error);
+    console.error("Error fetching orders:", error);
     throw error;
   }
 }
