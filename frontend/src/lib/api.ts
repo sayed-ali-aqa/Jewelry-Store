@@ -129,29 +129,31 @@ export async function getTestimonials() {
   }
 }
 
-export async function getWishlist() {
+export async function getWishlist(page = 1, pageSize = 2) {
   try {
     const response = await fetch("/api/auth/auth-info", { credentials: "include" });
     const data = await response.json();
 
-    if (data && data.token && data.userId) {
+    if (data?.token && data?.userId) {
       const query = new URLSearchParams({
         'populate[products][populate]': 'images',
         'sort[createdAt]': 'desc',
         [`filters[users_permissions_user][id][$eq]`]: data.userId,
+        'pagination[page]': page.toString(),
+        'pagination[pageSize]': pageSize.toString()
       });
 
       const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/wishlists?${query.toString()}`;
 
       const res = await axios.get(baseUrl, {
         headers: {
-          Authorization: `Bearer ${data.token}`, // Auth token
+          Authorization: `Bearer ${data.token}`,
         },
       });
 
       return res.data;
     } else {
-      return {}
+      return {};
     }
   } catch (error) {
     console.error("Error fetching wishlists:", error);
@@ -334,7 +336,7 @@ export async function removeCartItems() {
 export async function getOrders() {
   try {
     const response = await fetch("/api/auth/auth-info", { credentials: "include" });
-    const {token, userId} = await response.json();
+    const { token, userId } = await response.json();
 
     if (token && userId) {
       const query = `populate[order_items][populate][product][populate]=images&populate[users_permissions_user]=true&filters[users_permissions_user][id][$eq]=${userId}&sort=createdAt:desc`;
@@ -360,7 +362,7 @@ export async function getOrders() {
 export async function getOrder(id: string) {
   try {
     const response = await fetch("/api/auth/auth-info", { credentials: "include" });
-    const {token, userId} = await response.json();
+    const { token, userId } = await response.json();
 
     if (token && userId) {
       const query = `/${id}?populate[order_items][populate][product][populate]=images&populate[users_permissions_user]=true`;
@@ -379,7 +381,7 @@ export async function getOrder(id: string) {
     }
   } catch (error) {
     console.log(error);
-    
+
     console.error("Error fetching carts:", error);
     throw error;
   }

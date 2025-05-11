@@ -9,34 +9,33 @@ import { AccountItemType } from '@types/allTypes'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../store/store'
 import WishlistSkeletonLoader from '@/_components/WishlistSkeletonLoader'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 const WishlistIcon = '/images/icons/empty-wishlist.png'
 
 const page = () => {
-  const [wishlists, setWishlists] = useState<[]>([])
   const wishlistStatus = useSelector((state: RootState) => state.wishlistStatus.wishlistStatus);
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [wishlists, setWishlists] = useState<[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const fetchWishlist = async () => {
-    setIsLoading(true)
-
+  const fetchWishlist = async (page = 1) => {
+    setIsLoading(true);
     try {
-      const data = await getWishlist()
-      console.log(data);
-      
+      const data = await getWishlist(page, 2); // 2 = pageSize
 
-      //If no data then set it to empty array
-      setWishlists(Object.keys(data).length > 0 ? data.data : [])
+      setWishlists(data?.data || []);
+      setTotalPages(data?.meta?.pagination?.pageCount || 1);
     } catch (error) {
-      toast.error("Failed to fetch wishlist")
+      toast.error("Failed to fetch wishlist");
+    } finally {
+      setIsLoading(false);
     }
-    finally {
-      setIsLoading(false)
-    }
-  }
+  };
 
   useEffect(() => {
-    fetchWishlist()
-  }, [wishlistStatus])
+    fetchWishlist(currentPage);
+  }, [wishlistStatus, currentPage]);
 
   return (
     <div className='bg-white min-h-full p-6'>
@@ -61,6 +60,68 @@ const page = () => {
                   />
                 ))
               }
+
+              {totalPages > 1 && (
+                <div className="w-full mt-10 flex justify-center">
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                      disabled={currentPage === 1}
+                      className="flex items-center px-4 py-2 text-sm font-medium bg-muted hover:bg-gray-200 disabled:opacity-50"
+                    >
+                      <ChevronLeft size={18} />
+                      Prev
+                    </button>
+
+                    {Array.from({ length: totalPages }).map((_, index) => {
+                      const page = index + 1;
+                      const isFirst = page === 1;
+                      const isLast = page === totalPages;
+                      const isNear = Math.abs(currentPage - page) <= 1;
+
+                      if (isFirst || isLast || isNear) {
+                        return (
+                          <button
+                            key={page}
+                            onClick={() => setCurrentPage(page)}
+                            className={`px-4 py-2 text-sm font-medium ${currentPage === page
+                              ? 'bg-primary text-white'
+                              : 'bg-muted hover:bg-gray-200'
+                              }`}
+                          >
+                            {page}
+                          </button>
+                        );
+                      }
+
+                      // Show dots between distant pages
+                      if (
+                        (page === 2 && currentPage > 3) ||
+                        (page === totalPages - 1 && currentPage < totalPages - 2)
+                      ) {
+                        return (
+                          <div key={page} className="px-2 text-muted-foreground flex gap-1">
+                            <span className='font-semibold'>.</span>
+                            <span className='font-semibold'>.</span>
+                            <span className='font-semibold'>.</span>
+                          </div>
+                        );
+                      }
+
+                      return null;
+                    })}
+
+                    <button
+                      onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                      disabled={currentPage === totalPages}
+                      className="flex items-center px-4 py-2 text-sm font-medium bg-muted hover:bg-gray-200 disabled:opacity-50"
+                    >
+                      Next
+                      <ChevronRight size={18} />
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           )
         )
