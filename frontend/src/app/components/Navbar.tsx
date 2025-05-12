@@ -47,8 +47,8 @@ export function Navbar() {
 
         <div className='hidden md:flex items-center gap-12 justify-between'>
           <div className='flex items-center gap-4'>
-            <Link href="/faqs" className='text-white transition-all duration-300 hover:text-primary text-sm font-semibold'>Faqs</Link>
-            <Link href="/shipping" className='text-white transition-all duration-300 hover:text-primary text-sm font-semibold'>Shipping</Link>
+            <Link href="#" className='text-white transition-all duration-300 hover:text-primary text-sm font-semibold'>Faqs</Link>
+            <Link href="#" className='text-white transition-all duration-300 hover:text-primary text-sm font-semibold'>Shipping</Link>
           </div>
 
           <div className='flex items-center gap-3'>
@@ -73,7 +73,7 @@ export function Navbar() {
           <Link href="/products" className='py-3 transition-all duration-300 hover:text-primary'>Products</Link>
           <Link href="/contact-us" className='py-3 transition-all duration-300 hover:text-primary'>Contact Us</Link>
           <Link href="/about-us" className='py-3 transition-all duration-300 hover:text-primary'>About Us</Link>
-          <Link href="/comming-soon" className='py-3 transition-all duration-300 hover:text-primary'>Comming Soon</Link>
+          <Link href="#" className='py-3 transition-all duration-300 hover:text-primary'>Comming Soon</Link>
         </div>
 
         <div className='flex items-center gap-6'>
@@ -106,7 +106,7 @@ export function Navbar() {
         <Link href="/products" className='py-3 transition-all duration-300 hover:text-primary'>Products</Link>
         <Link href="/contact-us" className='py-3 transition-all duration-300 hover:text-primary'>Contact Us</Link>
         <Link href="/about-us" className='py-3 transition-all duration-300 hover:text-primary'>About Us</Link>
-        <Link href="/comming-soon" className='py-3 transition-all duration-300 hover:text-primary'>Comming Soon</Link>
+        <Link href="#" className='py-3 transition-all duration-300 hover:text-primary'>Comming Soon</Link>
       </div>
     </div>
   )

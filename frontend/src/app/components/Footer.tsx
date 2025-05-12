@@ -45,19 +45,19 @@ const Footer = () => {
             <Link href="/" className='text-white transition-all duration-300 hover:text-primary'>Home</Link>
             <Link href="/contact-us" className='text-white transition-all duration-300 hover:text-primary'>Contact Us</Link>
             <Link href="/about-us" className='text-white transition-all duration-300 hover:text-primary'>About Us</Link>
-            <Link href="/comming-soon" className='text-white transition-all duration-300 hover:text-primary'>Comming Soon</Link>
-            <Link href="/faqs" className='text-white transition-all duration-300 hover:text-primary'>Faqs</Link>
-            <Link href="/shipping" className='text-white transition-all duration-300 hover:text-primary'>Shipping</Link>
+            <Link href="#" className='text-white transition-all duration-300 hover:text-primary'>Comming Soon</Link>
+            <Link href="#" className='text-white transition-all duration-300 hover:text-primary'>Faqs</Link>
+            <Link href="#" className='text-white transition-all duration-300 hover:text-primary'>Shipping</Link>
           </div>
         </div>
 
         <div className='col-span-6 md:col-span-4 lg:col-span-2 w-full flex flex-col gap-5'>
           <h3 className='text-white font-semibold text-xl uppercase'>Shop</h3>
           <div className="flex flex-col gap-3">
-            <Link href="/shop/rings" className='text-white transition-all duration-300 hover:text-primary'>Rings</Link>
-            <Link href="/shop/necklaces" className='text-white transition-all duration-300 hover:text-primary'>Necklaces</Link>
-            <Link href="/shop/bracelets" className='text-white transition-all duration-300 hover:text-primary'>Bracelets</Link>
-            <Link href="/shop/earings" className='text-white transition-all duration-300 hover:text-primary'>Earrings</Link>
+            <Link href="/products?category=Rings" className='text-white transition-all duration-300 hover:text-primary'>Rings</Link>
+            <Link href="/products?category=Necklaces" className='text-white transition-all duration-300 hover:text-primary'>Necklaces</Link>
+            <Link href="/products?category=Bracelets" className='text-white transition-all duration-300 hover:text-primary'>Bracelets</Link>
+            <Link href="/products?category=Earrings" className='text-white transition-all duration-300 hover:text-primary'>Earrings</Link>
           </div>
         </div>
 
