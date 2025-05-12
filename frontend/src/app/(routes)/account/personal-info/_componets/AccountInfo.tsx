@@ -68,12 +68,12 @@ const AccountInfo = () => {
     }, []);
 
     return (
-        <div className='bg-white p-6'>
+        <div className='bg-white p-4 md:p-6'>
             <h2 className='text-3xl mb-8'>Account Info</h2>
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex flex-col gap-6">
-                    <div className='flex gap-6'>
+                    <div className='flex gap-6 flex-col md:flex-row'>
                         {/* First name Input */}
                         <div className="w-full flex flex-col gap-1">
                             <Label htmlFor="firstName">First Name <span className="text-destructive">*</span></Label>
@@ -107,7 +107,7 @@ const AccountInfo = () => {
                         </div>
                     </div>
 
-                    <div className='flex gap-6'>
+                    <div className='flex gap-6 flex-col md:flex-row'>
                         {/* Phone Input */}
                         <div className="w-full flex flex-col gap-1">
                             <Label htmlFor="phone">Phone</Label>

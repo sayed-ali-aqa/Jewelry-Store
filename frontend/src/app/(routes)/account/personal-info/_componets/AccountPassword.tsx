@@ -35,7 +35,7 @@ const AccountPassword = () => {
     };
 
     return (
-        <div className='bg-white p-6'>
+        <div className='bg-white p-4 md:p-6'>
             <h2 className='text-3xl mb-8'>Password</h2>
 
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -56,7 +56,7 @@ const AccountPassword = () => {
                         )}
                     </div>
 
-                    <div className='flex gap-6'>
+                    <div className='flex gap-6 flex-col md:flex-row'>
                         {/* New Password Input */}
                         <div className="w-full flex flex-col gap-1">
                             <Label htmlFor="newPassword">New Password <span className="text-destructive">*</span></Label>
