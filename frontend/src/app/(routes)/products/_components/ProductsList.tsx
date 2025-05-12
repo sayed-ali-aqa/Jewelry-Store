@@ -6,23 +6,35 @@ import { Product, ProductsListProps } from "@types/allTypes";
 import { useSearchParams, useRouter } from "next/navigation";
 import ProductsFilter from "./ProductsFilter";
 import ProductCard from "@/components/ProductCard";
-import ProductsPagination from "./ProductsPagination";
+import CustomPagination from "@/_components/CustomPagination";
 
 const ProductsList: React.FC<ProductsListProps> = ({ initialProducts }) => {
     const [products, setProducts] = useState(initialProducts.data);
-    const [pagination, setPagination] = useState(initialProducts.meta.pagination);
-    const [currentPage, setCurrentPage] = useState(0);
 
+    // Pagination state
+    const [totalPages, setTotalPages] = useState(1);
+
+    // Pagination logic
     const searchParams = useSearchParams();
+    const router = useRouter();
+
+    // Pagination logic
+    const currentPage = Number(searchParams.get('page') || '1');
+    const setCurrentPage = (page: number) => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set('page', page.toString());
+        router.push(`?${params.toString()}`);
+    };
 
     useEffect(() => {
-        setCurrentPage(parseInt(searchParams.get("start") || "0", 10))
-    }, [])
+        const page = parseInt(searchParams.get("page") || "1", 10);
+        setCurrentPage(page);
+    }, [currentPage, searchParams]);
 
     const fetchProducts = useMemo(
         () =>
             debounce(async () => {
-                const start = parseInt(searchParams.get("start") || "0", 10);
+                const page = parseInt(searchParams.get("page") || "1", 10);
                 const search = searchParams.get("search") || "";
                 const categories = searchParams.getAll("category");
                 const styles = searchParams.getAll("style");
@@ -52,13 +64,15 @@ const ProductsList: React.FC<ProductsListProps> = ({ initialProducts }) => {
                 });
 
                 const filterQuery = filters.length > 0 ? `&${filters.join("&")}` : "";
-                const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?sort=createdAt:desc&pagination[start]=${start}&pagination[limit]=8&populate=images&populate=category${filterQuery}`;
+                const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?sort=createdAt:desc&pagination[page]=${page}&pagination[pageSize]=1&populate=images&populate=category${filterQuery}`;
 
                 const res = await fetch(url);
                 const data = await res.json();
 
+                // console.log(data);
+
                 setProducts(data.data);
-                setPagination(data.meta.pagination);
+                setTotalPages(data?.meta?.pagination?.pageCount || 1);
             }, 500),
         [searchParams]
     );
@@ -68,7 +82,7 @@ const ProductsList: React.FC<ProductsListProps> = ({ initialProducts }) => {
         return () => {
             fetchProducts.cancel();
         };
-    }, [searchParams]);
+    }, [currentPage, searchParams]);
 
     return (
         <section className="flex gap-10 flex-col md:flex-row min-h-[80vh]">
@@ -78,15 +92,15 @@ const ProductsList: React.FC<ProductsListProps> = ({ initialProducts }) => {
                 <div className="w-full flex gap-6 flex-wrap">
                     {products.length > 0 ? (
                         products.map((product: Product) => (
-                            <ProductCard key={product.id} product={product} className="xs:max-w-[280px] h-fit" />
+                            <ProductCard key={product.documentId} product={product} className="xs:max-w-[280px] h-fit" />
                         ))
                     ) : (
                         <p className="text-gray-500 text-center">No products available</p>
                     )}
                 </div>
 
-                <ProductsPagination
-                    pagination={pagination}
+                <CustomPagination
+                    totalPages={totalPages}
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
                 />
