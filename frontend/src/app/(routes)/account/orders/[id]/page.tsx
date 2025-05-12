@@ -47,7 +47,7 @@ const Page = () => {
   }, [isLoding])
 
   return (
-    <div className='bg-white min-h-full p-6 flex flex-col gap-6'>
+    <div className='bg-white min-h-full p-4 md:p-6 flex flex-col gap-6'>
       {isLoding ? (
         <OrderSkeletonLoader />
       ) : (
@@ -123,7 +123,7 @@ const Page = () => {
             </div>
           </div>
 
-          <div className='border p-6 flex gap-6 justify-between'>
+          <div className='border p-6 flex gap-6 justify-between flex-wrap'>
             <div className='flex flex-col gap-3'>
               <h2 className='text-2xl font-semibold mb-3'>Delivery Address</h2>
 
