@@ -19,7 +19,8 @@ const AuthLayout: React.FC<LayoutProps> = ({ children }) => {
     };
 
     return (
-        <div className="bg-slate-50 w-full min-h-[85vh] flex gap-6 px-[5%] py-10">
+        <div className="bg-slate-50 w-full min-h-[85vh] flex flex-col lg:flex-row gap-6 px-4 md:px-[5%] py-10">
+            
             <div className="bg-white min-w-[350px] p-6 max-h-fit">
                 <h2 className="uppercase text-slate-500 text-xl">User Account</h2>
 
@@ -39,6 +40,7 @@ const AuthLayout: React.FC<LayoutProps> = ({ children }) => {
             </div>
 
             <div className="w-full">{children}</div>
+
         </div>
     );
 };

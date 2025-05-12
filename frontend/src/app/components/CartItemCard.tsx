@@ -8,7 +8,7 @@ import { CartItemCardProps } from '@types/allTypes'
 
 const CartItemCard: React.FC<CartItemCardProps> = ({ cart }) => {
     return (
-        <div className="flex gap-4 p-6 w-full border-b">
+        <div className="flex gap-4 pb-8 md:p-6 w-full border-b">
             <div>
                 <Image
                     src={`${process.env.NEXT_PUBLIC_SERVER_URL}${cart?.products?.images[0].url}`}

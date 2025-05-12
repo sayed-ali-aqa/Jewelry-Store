@@ -55,11 +55,9 @@ const page = () => {
   }, [cartStatus, currentPage]);
 
   return (
-    <div className='bg-white min-h-full p-6'>
+    <div className='bg-white min-h-full p-4 md:p-6'>
       {isLoading ? (
-        <div>
-          <ProductSkeletonLoader />
-        </div>
+        <ProductSkeletonLoader />
       ) : (
         carts.length === 0 ? (
           <EmptyPlaceholder
