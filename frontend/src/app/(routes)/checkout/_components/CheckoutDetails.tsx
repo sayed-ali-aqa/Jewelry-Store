@@ -34,14 +34,13 @@ const CheckoutDetails: React.FC<CheckoutDetailsProps> = ({ cartData, cartCount, 
                             <div className="w-full flex flex-wrap">
                                 {
                                     cartData.map((cart: AccountItemType, index: number) => (
-                                        <CartItemCard key={index} cart={cart} />
+                                        <CartItemCard key={index} cart={cart} className="pt-8 px-4" />
                                     ))
                                 }
                             </div>
                         )
                     )
                 }
-
 
                 <div className='p-6 flex flex-col gap-4'>
                     <div className='flex items-center justify-between'>

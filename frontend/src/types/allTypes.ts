@@ -86,7 +86,8 @@ export interface CartQuantitySelectProps {
 }
 
 export interface CartItemCardProps {
-    cart: AccountItemType
+    cart: AccountItemType,
+    className?:string,
 }
 
 export interface ProductCardProps {

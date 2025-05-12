@@ -7,9 +7,9 @@ import { CartRemoveButton } from './CartRemoveButton'
 import { CartItemCardProps } from '@types/allTypes'
 import Link from 'next/link'
 
-const CartItemCard: React.FC<CartItemCardProps> = ({ cart }) => {
+const CartItemCard: React.FC<CartItemCardProps> = ({ cart, className="" }) => {
     return (
-        <div className="flex gap-4 pb-8 md:px-6 w-full border-b">
+        <div className={`flex gap-4 pb-8 md:px-6 w-full border-b ${className}`}>
             <div>
                 <Image
                     src={`${process.env.NEXT_PUBLIC_SERVER_URL}${cart?.products?.images[0].url}`}

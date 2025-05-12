@@ -124,8 +124,8 @@ const page = () => {
         <h1 className='text-5xl font-semibold mt-10 text-center mb-10'>Checkout</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className='flex gap-10'>
-            <div className='w-2/3 flex flex-col gap-6'>
+          <div className='flex gap-10 flex-col md:flex-row'>
+            <div className='w-full md:w-2/3 flex flex-col gap-6'>
               {/* Delivery details */}
               <DeliveryAddress register={register} errors={errors} />
 
@@ -142,7 +142,7 @@ const page = () => {
                 control={control} />
             </div>
 
-            <div className='w-1/3 min-w-[350px]'>
+            <div className= 'w-full md:w-1/3 min-w-[350px]'>
               <CheckoutDetails
                 cartData={cartData}
                 cartCount={cartCount}

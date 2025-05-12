@@ -11,7 +11,7 @@ const DeliveryAddress: React.FC<DeliveryAddressProps> = ({ register, errors }) =
         <div className='bg-white p-6 flex flex-col gap-6'>
             <h2 className='text-2xl'>Delivery Address</h2>
 
-            <div className='flex gap-6'>
+            <div className='flex gap-6 flex-col lg:flex-row'>
                 <div className="w-full flex flex-col gap-1">
                     <Label htmlFor="firstName">First Name <span className="text-destructive">*</span></Label>
                     <Input
@@ -35,7 +35,7 @@ const DeliveryAddress: React.FC<DeliveryAddressProps> = ({ register, errors }) =
                 </div>
             </div>
 
-            <div className='flex gap-6'>
+            <div className='flex gap-6 flex-col lg:flex-row'>
                 <div className="w-full flex flex-col gap-1">
                     <Label htmlFor="phone">Phone</Label>
                     <Input
@@ -81,7 +81,7 @@ const DeliveryAddress: React.FC<DeliveryAddressProps> = ({ register, errors }) =
                 {errors.address && <span className="text-destructive text-sm">{errors.address.message}</span>}
             </div>
 
-            <div className='flex gap-6'>
+            <div className='flex gap-6 flex-col lg:flex-row'>
                 <div className="w-full flex flex-col gap-1">
                     <Label htmlFor="city">City <span className="text-destructive">*</span></Label>
                     <Input
