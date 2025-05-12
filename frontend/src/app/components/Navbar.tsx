@@ -103,16 +103,7 @@ export function Navbar() {
       {/* Mobile Navs */}
       <div className={`${toggleMenu ? 'max-h-screen' : 'max-h-0'} bg-white overflow-hidden transition-all duration-500 flex flex-col items-center gap-6`}>
         <Link href="/" className='py-3 transition-all duration-300 hover:text-primary'>Home</Link>
-        <div className="relative group">
-          <button className="py-3 transition-all duration-300 hover:text-primary">Shop</button>
-
-          <div className="absolute left-0 mt-0 w-[250px] bg-white shadow-md hidden flex-col gap-2 px-3 py-4 opacity-0 group-hover:opacity-100 group-hover:flex transition-opacity duration-300">
-            <Link href="/shop/rings" className='px-2 transition-all duration-300 hover:text-primary'>Rings</Link>
-            <Link href="/shop/necklaces" className='px-2 transition-all duration-300 hover:text-primary'>Necklaces</Link>
-            <Link href="/shop/bracelets" className='px-2 transition-all duration-300 hover:text-primary'>Bracelets</Link>
-            <Link href="/shop/earings" className='px-2 transition-all duration-300 hover:text-primary'>Earrings</Link>
-          </div>
-        </div>
+        <Link href="/products" className='py-3 transition-all duration-300 hover:text-primary'>Products</Link>
         <Link href="/contact-us" className='py-3 transition-all duration-300 hover:text-primary'>Contact Us</Link>
         <Link href="/about-us" className='py-3 transition-all duration-300 hover:text-primary'>About Us</Link>
         <Link href="/comming-soon" className='py-3 transition-all duration-300 hover:text-primary'>Comming Soon</Link>
