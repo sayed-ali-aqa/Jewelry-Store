@@ -53,7 +53,7 @@ const page = () => {
   }, [wishlistStatus, currentPage]);
 
   return (
-    <div className='bg-white min-h-full p-6'>
+    <div className='bg-white min-h-full p-4 md:p-6'>
       {
         isLoading ? (
           <WishlistSkeletonLoader />
